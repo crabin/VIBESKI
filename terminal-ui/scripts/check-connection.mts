@@ -2,7 +2,7 @@
  * 无 TUI 的连通性测试：检查后端 + POST /api/chat 收到首条 SSE。
  * 用法: cd terminal-ui && node --import tsx scripts/check-connection.mts
  */
-const BASE = process.env.SECBOT_API_URL ?? process.env.BASE_URL ?? 'http://localhost:8000';
+const BASE = process.env.VIBESKI_API_URL ?? process.env.BASE_URL ?? 'http://localhost:8000';
 
 async function check() {
   console.log('检查后端:', BASE);
