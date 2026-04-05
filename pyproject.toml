@@ -90,10 +90,6 @@ exploit-tools = [
 [project.scripts]
 vibeski = "vibeski_cli.cli:app"
 vibeski-server = "router.main:run_server"
-vibeski = "vibeski_cli.cli:app"
-vibeski-server = "router.main:run_server"
-vibeski = "vibeski_cli.cli:app"
-vibeski-server = "router.main:run_server"
 
 # 工具扩展 entry point：第三方包在其 pyproject.toml 中声明即可注册
 # 文档见 tools/registry.py 或 docs/TOOL_EXTENSION.md
@@ -127,37 +123,12 @@ prerelease_token = "beta"
 packages = [
     "vibeski_cli",
     "core",
-    "core.agents",
-    "core.patterns",
-    "core.attack_chain",
-    "core.attack_chain.graph",
     "core.memory",
-    "core.vuln_db",
-    "core.vuln_db.adapters",
     "skills",
     "vibeski_config",
-    "controller",
-    "crawler",
     "database",
-    "defense",
-    "payloads",
     "prompts",
-    "system",
     "tools",
-    "tools.cloud",
-    "tools.defense",
-    "tools.osint",
-    "tools.protocol",
-    "tools.reporting",
-    "tools.pentest",
-    "tools.pentest.security",
-    "tools.pentest.network",
-    "tools.offense",
-    "tools.offense.exploit",
-    "tools.offense.payload",
-    "tools.offense.control",
-    "tools.utility",
-    "tools.web",
     "tools.web_research",
     "utils",
     "router",

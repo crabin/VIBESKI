@@ -38,45 +38,6 @@ class UserConfig(BaseModel):
     updated_at: Optional[datetime] = None
 
 
-class CrawlerTask(BaseModel):
-    """爬虫任务模型"""
-    id: Optional[int] = None
-    url: str
-    task_type: str  # crawl, monitor
-    status: str  # pending, running, completed, failed
-    result: Optional[Any] = None  # JSON格式的结果
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
-    metadata: Optional[Dict[str, Any]] = None
-
-
-class AttackTask(BaseModel):
-    """攻击任务模型"""
-    id: Optional[int] = None
-    task_id: str
-    target: str
-    attack_type: str  # brute_force, dos, sql_injection, xss, etc.
-    status: str  # pending, running, completed, failed
-    result: Optional[Any] = None  # JSON格式的结果
-    schedule: Optional[str] = None  # JSON格式的调度配置
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
-    last_run: Optional[datetime] = None
-    run_count: int = 0
-    metadata: Optional[Dict[str, Any]] = None
-
-
-class ScanResult(BaseModel):
-    """扫描结果模型"""
-    id: Optional[int] = None
-    target: str
-    scan_type: str  # port_scan, vulnerability_scan, service_detection
-    result: Optional[Any] = None  # JSON格式的结果
-    vulnerabilities: Optional[Any] = None  # JSON格式的漏洞列表
-    created_at: Optional[datetime] = None
-    metadata: Optional[Dict[str, Any]] = None
-
-
 class AuditRecord(BaseModel):
     """操作审计留痕记录"""
     id: Optional[int] = None

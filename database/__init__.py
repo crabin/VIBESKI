@@ -2,12 +2,10 @@
 
 from database.manager import DatabaseManager
 from database.models import (
-    Conversation, 
-    PromptChainModel, 
-    UserConfig, 
-    CrawlerTask,
-    AttackTask,
-    ScanResult
+    Conversation,
+    PromptChainModel,
+    UserConfig,
+    AuditRecord,
 )
 
 __all__ = [
@@ -15,8 +13,5 @@ __all__ = [
     "Conversation",
     "PromptChainModel",
     "UserConfig",
-    "CrawlerTask",
-    "AttackTask",
-    "ScanResult"
+    "AuditRecord",
 ]
-

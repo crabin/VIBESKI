@@ -14,9 +14,6 @@ from database.models import (
     Conversation,
     PromptChainModel,
     UserConfig,
-    CrawlerTask,
-    AttackTask,
-    ScanResult,
     AuditRecord,
 )
 from vibeski_config import settings
@@ -115,51 +112,6 @@ class DatabaseManager:
                 )
             """)
 
-            # 爬虫任务表
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS crawler_tasks (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    url TEXT NOT NULL,
-                    task_type TEXT NOT NULL,
-                    status TEXT NOT NULL DEFAULT 'pending',
-                    result TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    metadata TEXT
-                )
-            """)
-
-            # 攻击任务表
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS attack_tasks (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    task_id TEXT UNIQUE NOT NULL,
-                    target TEXT NOT NULL,
-                    attack_type TEXT NOT NULL,
-                    status TEXT NOT NULL DEFAULT 'pending',
-                    result TEXT,
-                    schedule TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    last_run DATETIME,
-                    run_count INTEGER DEFAULT 0,
-                    metadata TEXT
-                )
-            """)
-
-            # 扫描结果表
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS scan_results (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    target TEXT NOT NULL,
-                    scan_type TEXT NOT NULL,
-                    result TEXT,
-                    vulnerabilities TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    metadata TEXT
-                )
-            """)
-
             # 操作审计留痕表
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS audit_trail (
@@ -181,16 +133,7 @@ class DatabaseManager:
                 "CREATE INDEX IF NOT EXISTS idx_conversations_timestamp ON conversations(timestamp)"
             )
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_crawler_tasks_status ON crawler_tasks(status)"
-            )
-            cursor.execute(
                 "CREATE INDEX IF NOT EXISTS idx_user_configs_key ON user_configs(key)"
-            )
-            cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_attack_tasks_status ON attack_tasks(status)"
-            )
-            cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_scan_results_target ON scan_results(target)"
             )
             cursor.execute(
                 "CREATE INDEX IF NOT EXISTS idx_audit_trail_session ON audit_trail(session_id)"
@@ -512,109 +455,6 @@ class DatabaseManager:
             cursor.execute("DELETE FROM user_configs WHERE key = ?", (key,))
             return cursor.rowcount > 0
 
-    # ========== 爬虫任务操作 ==========
-
-    def save_crawler_task(self, task: CrawlerTask) -> int:
-        """保存爬虫任务"""
-        with self._get_connection() as conn:
-            cursor = conn.cursor()
-
-            cursor.execute(
-                """
-                INSERT INTO crawler_tasks 
-                (url, task_type, status, result, created_at, updated_at, metadata)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-            """,
-                (
-                    task.url,
-                    task.task_type,
-                    task.status,
-                    json.dumps(task.result) if task.result else None,
-                    datetime.now(),
-                    datetime.now(),
-                    json.dumps(task.metadata or {}) if task.metadata else None,
-                ),
-            )
-            return cursor.lastrowid
-
-    def update_crawler_task(
-        self, task_id: int, status: Optional[str] = None, result: Optional[Any] = None
-    ):
-        """更新爬虫任务"""
-        with self._get_connection() as conn:
-            cursor = conn.cursor()
-
-            updates = []
-            params = []
-
-            if status:
-                updates.append("status = ?")
-                params.append(status)
-
-            if result is not None:
-                updates.append("result = ?")
-                params.append(json.dumps(result))
-
-            if updates:
-                updates.append("updated_at = ?")
-                params.append(datetime.now())
-                params.append(task_id)
-
-                query = f"UPDATE crawler_tasks SET {', '.join(updates)} WHERE id = ?"
-                cursor.execute(query, params)
-
-    def get_crawler_tasks(
-        self,
-        status: Optional[str] = None,
-        task_type: Optional[str] = None,
-        limit: Optional[int] = None,
-    ) -> List[CrawlerTask]:
-        """获取爬虫任务"""
-        with self._get_connection() as conn:
-            cursor = conn.cursor()
-
-            query = "SELECT * FROM crawler_tasks WHERE 1=1"
-            params = []
-
-            if status:
-                query += " AND status = ?"
-                params.append(status)
-
-            if task_type:
-                query += " AND task_type = ?"
-                params.append(task_type)
-
-            query += " ORDER BY created_at DESC"
-
-            if limit:
-                query += " LIMIT ?"
-                params.append(limit)
-
-            cursor.execute(query, params)
-            rows = cursor.fetchall()
-
-            tasks = []
-            for row in rows:
-                result = json.loads(row["result"]) if row["result"] else None
-                metadata = json.loads(row["metadata"]) if row["metadata"] else {}
-                tasks.append(
-                    CrawlerTask(
-                        id=row["id"],
-                        url=row["url"],
-                        task_type=row["task_type"],
-                        status=row["status"],
-                        result=result,
-                        created_at=datetime.fromisoformat(row["created_at"])
-                        if row["created_at"]
-                        else None,
-                        updated_at=datetime.fromisoformat(row["updated_at"])
-                        if row["updated_at"]
-                        else None,
-                        metadata=metadata,
-                    )
-                )
-            return tasks
-
     # ========== 操作审计留痕 ==========
 
     def save_audit_record(self, record: AuditRecord) -> int:
@@ -702,17 +542,5 @@ class DatabaseManager:
             # 用户配置数
             cursor.execute("SELECT COUNT(*) as count FROM user_configs")
             stats["user_configs"] = cursor.fetchone()["count"]
-
-            # 爬虫任务数
-            cursor.execute("SELECT COUNT(*) as count FROM crawler_tasks")
-            stats["crawler_tasks"] = cursor.fetchone()["count"]
-
-            # 按状态统计爬虫任务
-            cursor.execute(
-                "SELECT status, COUNT(*) as count FROM crawler_tasks GROUP BY status"
-            )
-            stats["crawler_tasks_by_status"] = {
-                row["status"]: row["count"] for row in cursor.fetchall()
-            }
 
             return stats
