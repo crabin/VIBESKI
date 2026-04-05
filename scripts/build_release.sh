@@ -1,17 +1,29 @@
-#!/usr/bin/env bash
-# Secbot 可执行文件构建脚本（PyInstaller，当前平台）
-# 使用前请安装依赖: pip install -r requirements.txt pyinstaller
-# 或: uv pip install -r requirements.txt pyinstaller
+#!/bin/bash
+# Vibeski 可执行文件构建脚本（PyInstaller，当前平台）
 
 set -e
-cd "$(dirname "$0")/.."
-ROOT="$PWD"
 
-echo "构建目录: $ROOT"
-pip install pyinstaller -q
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
 
-# 清理旧产物
+echo "📦 开始构建 Vibeski 可执行文件..."
+
+# 检查 Python
+if ! command -v python3 &>/dev/null && ! command -v python &>/dev/null; then
+    echo "错误: 未找到 Python，请先安装 Python 3.10+"
+    exit 1
+fi
+
+# 清理旧构建
 rm -rf build dist
+
+# 安装依赖
+if command -v uv &>/dev/null; then
+    uv sync
+    uv pip install pyinstaller
+else
+    python -m pip install --upgrade pip pyinstaller
+fi
 
 # 单文件可执行程序（vibeski.spec）
 pyinstaller vibeski.spec

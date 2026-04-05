@@ -21,7 +21,7 @@ def _tail_stream(paths: list[Path], interval: float = 0.2) -> None:
         handles[p] = f
         positions[p] = f.tell()
 
-    print("=== Secbot 日志观察窗口 ===")
+    print("=== Vibeski 日志观察窗口 ===")
     print("按 Ctrl+C 退出日志窗口，不影响主程序。")
     for p in paths:
         print(f"- {p}")
@@ -53,7 +53,7 @@ def _tail_stream(paths: list[Path], interval: float = 0.2) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Secbot 日志实时查看")
+    parser = argparse.ArgumentParser(description="Vibeski 日志实时查看")
     parser.add_argument("--file", action="append", required=True, help="要跟随的日志文件")
     args = parser.parse_args()
     files = [Path(p).resolve() for p in args.file if p]

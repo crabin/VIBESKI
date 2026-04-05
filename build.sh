@@ -1,10 +1,10 @@
 #!/bin/bash
-# Secbot 构建脚本（源码分发包 sdist/wheel）
+# Vibeski 构建脚本（源码分发包 sdist/wheel）
 # 推荐使用: uv run python -m build
 
 set -e
 
-echo "🚀 开始构建 Secbot..."
+echo "🚀 开始构建 Vibeski..."
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -28,18 +28,14 @@ rm -rf build/ dist/ *.egg-info
 
 # 优先使用 uv，否则用 pip
 if command -v uv &>/dev/null; then
-  echo -e "${YELLOW}使用 uv 构建...${NC}"
+  echo "使用 uv 构建..."
   uv run python -m build
 else
-  echo -e "${YELLOW}安装构建工具并构建...${NC}"
-  pip install --upgrade pip build wheel
+  echo "安装构建工具..."
+  python -m pip install --upgrade pip build wheel
   python -m build
 fi
 
-echo -e "${GREEN}✅ 构建完成！${NC}"
-echo -e "${YELLOW}构建产物：${NC}"
-ls -lh dist/
-
-echo -e "${GREEN}安装示例：${NC}"
-echo "  pip install dist/vibeski-*.whl"
-echo "  或: uv pip install dist/vibeski-*.whl"
+echo "✅ 构建完成!"
+echo "构建产物:"
+ls -la dist/

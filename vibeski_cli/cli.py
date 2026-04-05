@@ -37,7 +37,7 @@ def app() -> None:
 
         # 基本帮助信息：说明 Vibeski 是什么、能做什么以及主要入口
         if "-h" in args or "--help" in args:
-            help_text = """Vibeski / Secbot — 开源自动化安全测试助手（带终端 TUI）
+            help_text = """Vibeski — 全栈 AI Agent 基础架构
 
 用法:
   vibeski              启动后端 + 终端 TUI（推荐）
@@ -45,28 +45,30 @@ def app() -> None:
   vibeski --backend    仅启动后端 FastAPI 服务（默认端口 8000）
   vibeski --tui        仅启动终端 TUI（需后端已在运行）
 
-核心智能体:
-  vibeski        自动模式：基于 ReAct 的自动化安全巡检与基础渗透测试，使用基础安全工具，全流程自动执行，无需每步确认。
-  supervibeski   专家模式：同样基于 ReAct，但可使用全部安全工具，对敏感/高风险操作会请求你确认后再执行。
-
-你可以让 Vibeski 做什么:
-  - 作为「自动化渗透测试 / 安全巡检助手」：例如端口扫描、服务指纹识别、目录爆破、基础漏洞扫描、简单 OSINT 查询等。
-  - 作为「通用 AI 助手」：回答与安全无关的问题（编程、Linux 使用、架构设计等），不必每次都走完整的渗透测试流程。
-  - 当你在对话中输入: help / 帮助 / 你能做什么 时，Vibeski 会用分点的方式向你介绍：
-      * 自己的角色与能力范围
-      * 当前可用的主要安全工具类别
-      * 典型可协助完成的任务示例
-      * 自己的大致工作架构（前端/TUI → FastAPI 后端 → 会话编排器 → 核心 Agent + 工具链）
+架构概述:
+  Vibeski 是一个通用的全栈 AI Agent 基础架构，包含：
+  - FastAPI 后端（会话管理、事件总线、工具注册、多 LLM 支持）
+  - TypeScript/Ink 终端 TUI
+  - React Native/Expo 移动端
+  - Tauri 桌面端
+  - SQLite 持久化
+  - 可扩展的工具系统（Python entry_points）
 
 后端 API 概览（默认 http://127.0.0.1:8000）:
-  GET  /api/agents      列出可用智能体及说明
-  GET  /api/tools       列出已集成的安全测试工具
-  POST /api/chat        流式聊天接口（SSE），用于与 vibeski/supervibeski 交互
+  GET  /api/tools       列出已注册的工具
+  POST /api/chat        流式聊天接口（SSE）
   POST /api/chat/sync   同步聊天接口
+  GET  /api/sessions    会话管理
+  GET  /api/system      系统信息
+
+扩展开发:
+  1. 在 tools/ 目录添加新工具（继承 tools.base.BaseTool）
+  2. 在 pyproject.toml 的 [project.entry-points."vibeski.tools.basic"] 注册
+  3. 运行 uv sync 后工具自动发现
 
 提示:
   - 若只想排查后端问题或集成到其他前端，可以先运行: vibeski --backend
-  - 在任何前端里，你都可以询问「vibeski 的架构/设计是什么样的」，它会用高层次描述回答自己的设计与架构。
+  - 复制 .env.example 为 .env 并配置 LLM_PROVIDER 和 API 密钥
 """
             print(help_text)
             raise SystemExit(0)

@@ -75,9 +75,9 @@ jobs:
         shell: bash
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
-            .venv/Scripts/python.exe -m PyInstaller hackbot.spec
+            .venv/Scripts/python.exe -m PyInstaller vibeski.spec
           else
-            .venv/bin/python -m PyInstaller hackbot.spec
+            .venv/bin/python -m PyInstaller vibeski.spec
           fi
 
       - name: Create release README (in package)
@@ -90,24 +90,24 @@ jobs:
             --changelog CHANGELOG.md \
             --version "${RELEASE_VERSION}" \
             --platform "${PLATFORM_NAME}" \
-            --output dist/hackbot/README_RELEASE.md \
-            --project-name "Secbot"
-          cp README.md dist/hackbot/README.md
+            --output dist/vibeski/README_RELEASE.md \
+            --project-name "Vibeski"
+          cp README.md dist/vibeski/README.md
 
       - name: Package artifact (zip)
         shell: bash
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
-            python -c "import shutil,os; os.chdir('dist'); shutil.make_archive('secbot-${{ matrix.name }}', 'zip', '.', 'hackbot')"
+            python -c "import shutil,os; os.chdir('dist'); shutil.make_archive('vibeski-${{ matrix.name }}', 'zip', '.', 'vibeski')"
           else
-            .venv/bin/python -c "import shutil,os; os.chdir('dist'); shutil.make_archive('secbot-${{ matrix.name }}', 'zip', '.', 'hackbot')"
+            .venv/bin/python -c "import shutil,os; os.chdir('dist'); shutil.make_archive('vibeski-${{ matrix.name }}', 'zip', '.', 'vibeski')"
           fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: secbot-${{ matrix.name }}
-          path: dist/secbot-${{ matrix.name }}.zip
+          name: vibeski-${{ matrix.name }}
+          path: dist/vibeski-${{ matrix.name }}.zip
 
   upload-assets:
     needs: [release, build]

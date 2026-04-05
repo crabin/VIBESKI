@@ -949,7 +949,7 @@ export default function App() {
         <div className="brand">
           <div className="brand-mark">SB</div>
           <div>
-            <div className="brand-title">Secbot Workbench</div>
+            <div className="brand-title">Vibeski Workbench</div>
             <div className="brand-subtitle">desktop terminal console</div>
           </div>
         </div>

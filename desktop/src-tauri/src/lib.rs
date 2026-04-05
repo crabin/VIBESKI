@@ -20,9 +20,9 @@ fn backend_healthy() -> bool {
 }
 
 fn resolve_project_root() -> Option<PathBuf> {
-    if let Ok(p) = std::env::var("SECBOT_PROJECT_ROOT") {
+    if let Ok(p) = std::env::var("VIBESKI_PROJECT_ROOT") {
         let path = PathBuf::from(p.trim());
-        if is_secbot_root(&path) {
+        if is_vibeski_root(&path) {
             return Some(path);
         }
     }
@@ -40,19 +40,19 @@ fn resolve_project_root() -> Option<PathBuf> {
     }
     let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     let from_cargo = manifest_dir.parent()?.parent()?;
-    if is_secbot_root(from_cargo) {
+    if is_vibeski_root(from_cargo) {
         return Some(from_cargo.to_path_buf());
     }
     None
 }
 
-fn is_secbot_root(p: &Path) -> bool {
+fn is_vibeski_root(p: &Path) -> bool {
     p.join("pyproject.toml").is_file() && p.join("router").join("main.py").is_file()
 }
 
 fn walk_up_for_root(mut dir: PathBuf) -> Option<PathBuf> {
     for _ in 0..12 {
-        if is_secbot_root(&dir) {
+        if is_vibeski_root(&dir) {
             return Some(dir);
         }
         dir = dir.parent()?.to_path_buf();
@@ -61,13 +61,13 @@ fn walk_up_for_root(mut dir: PathBuf) -> Option<PathBuf> {
 }
 
 fn spawn_python_backend(root: &Path) -> std::io::Result<Child> {
-    if let Ok(custom) = std::env::var("SECBOT_PYTHON") {
+    if let Ok(custom) = std::env::var("VIBESKI_PYTHON") {
         let exe = custom.trim();
         if !exe.is_empty() {
             let mut cmd = Command::new(exe);
             cmd.args(["-m", "router.main"]);
             cmd.current_dir(root);
-            cmd.env("SECBOT_DESKTOP", "1");
+            cmd.env("VIBESKI_DESKTOP", "1");
             cmd.stdin(Stdio::null());
             cmd.stdout(Stdio::null());
             cmd.stderr(Stdio::null());
@@ -98,7 +98,7 @@ fn spawn_python_backend(root: &Path) -> std::io::Result<Child> {
         let mut cmd = Command::new(exe);
         cmd.args(*args);
         cmd.current_dir(root);
-        cmd.env("SECBOT_DESKTOP", "1");
+        cmd.env("VIBESKI_DESKTOP", "1");
         cmd.stdin(Stdio::null());
         cmd.stdout(Stdio::null());
         cmd.stderr(Stdio::null());
@@ -128,7 +128,7 @@ fn ensure_backend_background(child_slot: Arc<Mutex<Option<Child>>>) {
         }
         let Some(root) = resolve_project_root() else {
             log::error!(
-                "无法定位 Secbot 项目根（需包含 pyproject.toml 与 router/main.py）。可设置环境变量 SECBOT_PROJECT_ROOT。"
+                "无法定位 Vibeski 项目根（需包含 pyproject.toml 与 router/main.py）。可设置环境变量 VIBESKI_PROJECT_ROOT。"
             );
             return;
         };
