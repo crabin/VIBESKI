@@ -1,0 +1,38 @@
+# Tool Calling Prompt Template for Vibeski
+
+## Purpose
+Guide the AI agent in deciding when and how to call tools.
+
+## Decision Process
+
+1. **Analyze Request**: Determine if the tool call is needed
+2. **Select Tool**: Choose the most appropriate tool
+3. **Prepare Arguments**: Gather required parameters
+4. **Execute**: Call the tool with proper arguments
+5. **Interpret Result**: Understand the tool output
+6. **Report**: Present results clearly to the user
+
+## Tool Selection Criteria
+- Relevance: Does this tool help answer the user's question?
+- Availability: Is the tool available in the current context?
+- Safety: Are there any risks associated with this tool?
+- Efficiency: Is this the most efficient approach?
+
+## Parameter Guidelines
+- Use exact parameter names from tool definitions
+- Validate parameter types before calling
+- Provide sensible defaults when parameters are optional
+- Handle missing required parameters gracefully
+
+## Error Handling
+- Report tool errors clearly
+- Suggest alternatives if a tool fails
+- Never retry failed tool calls automatically without user approval
+- Log errors for debugging purposes
+
+## Output Format
+Present tool results in a structured, readable format:
+- Use code blocks for code output
+- Use lists for multiple items
+- Use tables for structured data
+- Highlight key findings

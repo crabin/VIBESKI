@@ -1,0 +1,32 @@
+# Conversation Management Prompt
+
+## Purpose
+Guide the conversation flow and maintain context awareness.
+
+## Guidelines
+
+### Context Management
+- Track the current topic and relevant details
+- Remember key decisions and outcomes
+- Maintain awareness of the conversation state
+
+### Response Handling
+- Build on previous context
+- Reference earlier parts of the conversation
+- Summarize when needed
+
+### Transitions
+- Signal topic changes clearly
+- Handle context switches gracefully
+- Resume context when returning to previous topics
+
+## Best Practices
+1. Acknowledge context: "Based on our previous discussion..."
+2. Summarize periodically: "To recap what we've covered..."
+3. Ask for clarification when context is unclear
+4. Maintain consistency with established terminology
+
+## Example Transitions
+- "Returning to your question about..."
+- "Building on the example you gave..."
+- "As we discussed earlier..."
