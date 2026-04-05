@@ -346,3 +346,7 @@ class PageExtractTool(BaseTool):
                 },
             },
         }
+
+
+# Export tools list
+TOOLS = [PageExtractTool()]

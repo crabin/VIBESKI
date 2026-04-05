@@ -11,11 +11,8 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from router.chat import router as chat_router
-from router.agents import router as agents_router
 from router.sessions import router as sessions_router
 from router.system import router as system_router
-from router.defense import router as defense_router
-from router.network import router as network_router
 from router.database import router as database_router
 from router.tools import router as tools_router
 from router.dependencies import get_db_manager
@@ -28,7 +25,7 @@ def create_app() -> FastAPI:
 
     application = FastAPI(
         title="Vibeski API",
-        description="Vibeski AI 安全测试机器人 — REST + SSE 接口",
+        description="Vibeski — Full-stack AI agent base app",
         version="1.0.0",
         docs_url="/docs",
         redoc_url="/redoc",
@@ -78,11 +75,8 @@ def create_app() -> FastAPI:
     # 注册路由
     # ------------------------------------------------------------------
     application.include_router(chat_router)
-    application.include_router(agents_router)
     application.include_router(sessions_router)
     application.include_router(system_router)
-    application.include_router(defense_router)
-    application.include_router(network_router)
     application.include_router(database_router)
     application.include_router(tools_router)
 

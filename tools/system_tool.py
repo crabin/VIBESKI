@@ -1,74 +1,70 @@
 """
-系统操作工具：供智能体使用
+System tool: basic system info for agent use.
 """
+import platform
+from datetime import datetime
+from typing import Any, Dict, Optional
+
 from tools.base import BaseTool, ToolResult
-from system.controller import OSController
 from utils.logger import logger
 
 
 class SystemTool(BaseTool):
-    """系统操作工具"""
+    """System information tool."""
 
     def __init__(self):
         super().__init__(
-            name="system_control",
-            description="操作系统控制工具，可以执行文件操作、进程管理、系统信息查询等"
+            name="system_info",
+            description="Get system information (platform, python version, etc.)"
         )
-        self.controller = OSController()
 
-    async def execute(self, action: str, **kwargs) -> ToolResult:
+    async def execute(self, action: str = "info", **kwargs) -> ToolResult:
         """
-        执行系统操作
+        Execute system info query.
 
         Args:
-            action: 操作类型
-            **kwargs: 操作参数
+            action: Action type (only "info" supported)
+            **kwargs: Additional parameters (ignored)
         """
         try:
-            logger.info(f"执行系统操作: {action}, 参数: {kwargs}")
+            logger.info(f"System tool called: {action}")
 
-            # 如果 kwargs 中包含一个 'kwargs' 键（嵌套的 kwargs），展开它
-            # 这是因为工具调用格式可能是 {"action": "list_files", "kwargs": {"path": "."}}
-            if "kwargs" in kwargs and isinstance(kwargs["kwargs"], dict):
-                # 展开嵌套的 kwargs
-                actual_kwargs = {k: v for k, v in kwargs["kwargs"].items()}
-                # 移除 'kwargs' 键，使用展开后的参数
-                kwargs = {k: v for k, v in kwargs.items() if k != "kwargs"}
-                kwargs.update(actual_kwargs)
+            if action == "info":
+                result = {
+                    "platform": platform.system(),
+                    "platform_release": platform.release(),
+                    "platform_version": platform.version(),
+                    "architecture": platform.machine(),
+                    "hostname": platform.node(),
+                    "python_version": platform.python_version(),
+                    "timestamp": datetime.now().isoformat(),
+                }
+                return ToolResult(success=True, result=result)
 
-            # 执行操作
-            result = self.controller.execute(action, **kwargs)
-
-            if result["success"]:
-                return ToolResult(
-                    success=True,
-                    result=result["result"]
-                )
-            else:
-                return ToolResult(
-                    success=False,
-                    result=None,
-                    error=result.get("error", "操作失败")
-                )
+            return ToolResult(
+                success=False,
+                result=None,
+                error=f"Unknown action: {action}"
+            )
 
         except Exception as e:
-            logger.error(f"系统工具错误: {e}")
+            logger.error(f"System tool error: {e}")
             return ToolResult(success=False, result=None, error=str(e))
 
     def get_schema(self) -> dict:
-        """获取工具模式"""
+        """Get tool schema."""
         return {
             "name": self.name,
             "description": self.description,
             "parameters": {
                 "action": {
                     "type": "string",
-                    "description": "操作类型",
-                    "enum": self.controller.get_available_actions()
-                },
-                "kwargs": {
-                    "type": "object",
-                    "description": "操作参数（根据action不同而不同）"
+                    "description": "Action to perform",
+                    "enum": ["info"]
                 }
             }
         }
+
+
+# Export tools list
+TOOLS = [SystemTool()]

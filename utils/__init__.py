@@ -1,6 +1,5 @@
-"""工具模块"""
+"""Utility modules."""
 
 from .embeddings import OllamaEmbeddings
-from .speech import SpeechToText, TextToSpeech
 
-__all__ = ["OllamaEmbeddings", "SpeechToText", "TextToSpeech"]
+__all__ = ["OllamaEmbeddings"]
