@@ -91,6 +91,13 @@ exploit-tools = [
 vibeski = "vibeski_cli.cli:app"
 vibeski-server = "router.main:run_server"
 
+[project.entry-points."vibeski.tools.basic"]
+vibeski_system = "tools.system_tool:TOOLS"
+vibeski_web_search = "tools.web_search_tool:TOOLS"
+
+[project.entry-points."vibeski.tools.advanced"]
+vibeski_page_extract = "tools.web_research.page_extract_tool:TOOLS"
+
 # 工具扩展 entry point：第三方包在其 pyproject.toml 中声明即可注册
 # 文档见 tools/registry.py 或 docs/TOOL_EXTENSION.md
 
