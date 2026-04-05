@@ -10,33 +10,29 @@ import type {
   RootAction,
   SystemInfoResponse,
   SystemStatusResponse,
-  DefenseScanResponse,
-  DefenseStatusResponse,
-  BlockedIpsResponse,
-  DiscoverResponse,
-  TargetListResponse,
-  AuthorizationListResponse,
   DbStatsResponse,
-  DbHistoryResponse,
-  DbClearResponse,
-} from '../types';
+} from './types';
 
 // -- Chat --
-export const chatSync = (req: ChatRequest) =>
-  api.post<ChatResponse>('/api/chat/sync', req);
+export const sendMessage = (data: ChatRequest) =>
+  api.post<ChatResponse>('/api/chat', data);
 
-export const submitRootResponse = (data: {
-  request_id: string;
-  action: RootAction;
-  password?: string;
-}) => api.post('/api/chat/root-response', data);
+export const sendMessageStream = (data: ChatRequest) =>
+  // Use fetch with streaming enabled
+  return fetch(`${api.defaults.baseURL}/api/chat/stream`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
 
 // -- Agents --
-export const listAgents = () =>
+export const getAgents = () =>
   api.get<AgentListResponse>('/api/agents');
 
-export const clearMemory = (agent?: string) =>
-  api.post('/api/agents/clear', { agent });
+export const setRootAction = (action: RootAction) =>
+  api.post('/api/root-action', { action });
 
 // -- System --
 export const getSystemInfo = () =>
@@ -44,49 +40,6 @@ export const getSystemInfo = () =>
 
 export const getSystemStatus = () =>
   api.get<SystemStatusResponse>('/api/system/status');
-
-// -- Defense --
-export const defenseScan = () =>
-  api.post<DefenseScanResponse>('/api/defense/scan');
-
-export const getDefenseStatus = () =>
-  api.get<DefenseStatusResponse>('/api/defense/status');
-
-export const getBlockedIps = () =>
-  api.get<BlockedIpsResponse>('/api/defense/blocked');
-
-export const unblockIp = (ip: string) =>
-  api.post('/api/defense/unblock', { ip });
-
-export const getDefenseReport = (type = 'vulnerability') =>
-  api.get(`/api/defense/report?type=${type}`);
-
-// -- Network --
-export const discoverNetwork = (network?: string) =>
-  api.post<DiscoverResponse>(
-    '/api/network/discover',
-    network !== undefined ? { network } : {},
-  );
-
-export const getTargets = (authorizedOnly = false) =>
-  api.get<TargetListResponse>(
-    `/api/network/targets?authorized_only=${authorizedOnly}`,
-  );
-
-export const getAuthorizations = () =>
-  api.get<AuthorizationListResponse>('/api/network/authorizations');
-
-export const authorizeTarget = (data: {
-  target_ip: string;
-  username: string;
-  password?: string;
-  key_file?: string;
-  auth_type?: string;
-  description?: string;
-}) => api.post('/api/network/authorize', data);
-
-export const revokeAuthorization = (targetIp: string) =>
-  api.delete(`/api/network/authorize/${encodeURIComponent(targetIp)}`);
 
 // -- Database --
 export const getDbStats = () =>

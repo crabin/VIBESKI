@@ -11,8 +11,6 @@ import { Platform, useWindowDimensions } from 'react-native';
 
 import ChatScreen from './src/screens/ChatScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
-import DefenseScreen from './src/screens/DefenseScreen';
-import NetworkScreen from './src/screens/NetworkScreen';
 import HistoryScreen from './src/screens/HistoryScreen';
 import { Colors, FontSize } from './src/theme';
 
@@ -21,8 +19,6 @@ const Tab = createBottomTabNavigator();
 const TAB_ICONS: Record<string, { focused: keyof typeof Ionicons.glyphMap; default: keyof typeof Ionicons.glyphMap }> = {
   Chat: { focused: 'chatbubble-ellipses', default: 'chatbubble-ellipses-outline' },
   Dashboard: { focused: 'speedometer', default: 'speedometer-outline' },
-  Defense: { focused: 'shield-checkmark', default: 'shield-checkmark-outline' },
-  Network: { focused: 'git-network', default: 'git-network-outline' },
   History: { focused: 'time', default: 'time-outline' },
 };
 
@@ -99,16 +95,6 @@ export default function App() {
           name="Dashboard"
           component={DashboardScreen}
           options={{ title: '仪表盘' }}
-        />
-        <Tab.Screen
-          name="Defense"
-          component={DefenseScreen}
-          options={{ title: '防御' }}
-        />
-        <Tab.Screen
-          name="Network"
-          component={NetworkScreen}
-          options={{ title: '网络' }}
         />
         <Tab.Screen
           name="History"

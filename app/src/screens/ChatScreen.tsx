@@ -66,24 +66,24 @@ const BLOCK_FILTERS = [
 
 const QUICK_TASKS = [
   {
-    id: 'network-discover',
-    label: '内网发现',
-    prompt: '扫描当前局域网并列出在线主机与开放端口。',
+    id: 'help',
+    label: '帮助',
+    prompt: '你好，请介绍一下你的功能和使用方法。',
   },
   {
-    id: 'defense-scan',
-    label: '防御扫描',
-    prompt: '执行一次完整安全扫描，并总结关键风险。',
+    id: 'weather',
+    label: '天气查询',
+    prompt: '帮我查询今天的天气信息。',
   },
   {
-    id: 'system-check',
-    label: '系统体检',
-    prompt: '检查当前系统状态，并指出值得关注的异常指标。',
+    id: 'calc',
+    label: '计算',
+    prompt: '帮我计算 123 * 456 等于多少？',
   },
   {
-    id: 'tool-overview',
-    label: '工具盘点',
-    prompt: '列出当前可用的安全工具分类，并给出适用场景。',
+    id: 'translate',
+    label: '翻译',
+    prompt: '请将"Hello, how are you?" 翻译成中文。',
   },
 ] as const;
 

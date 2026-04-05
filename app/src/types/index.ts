@@ -22,7 +22,7 @@ export interface SSEEvent {
 export type RootAction = 'run_once' | 'always_allow' | 'deny';
 
 // -- ReAct 渲染块 --
-// 每个块对应 CLI TUI 中的一个可视面板
+// 每个块对应 CLI TUI 中的一个视觉面板
 
 export type BlockType =
   | 'user'           // 用户消息
@@ -42,7 +42,7 @@ export interface RenderBlock {
   timestamp: Date;
   // 各类型的数据载荷
   content?: string;
-  // 事件来源的智能体（vibeski / supervibeski / network_recon / web_pentest / osint 等）
+  // 事件来源的智能体
   agent?: string;
   // thinking
   iteration?: number;
@@ -72,92 +72,16 @@ export interface AgentListResponse {
 
 // -- System --
 export interface SystemInfoResponse {
-  os_type: string;
-  os_name: string;
-  os_version: string;
-  os_release: string;
-  architecture: string;
-  processor: string;
+  platform: string;
   python_version: string;
-  hostname: string;
-  username: string;
-}
-
-export interface CpuInfo {
-  count: number | null;
-  percent: number | null;
-  freq_current: number | null;
-}
-
-export interface MemoryInfo {
-  total_gb: number;
-  used_gb: number;
-  available_gb: number;
-  percent: number;
-}
-
-export interface DiskInfo {
-  device: string;
-  mountpoint: string;
-  total_gb: number;
-  used_gb: number;
-  percent: number;
+  database_url: string;
+  config_source: string;
 }
 
 export interface SystemStatusResponse {
-  cpu: CpuInfo | null;
-  memory: MemoryInfo | null;
-  disks: DiskInfo[];
-}
-
-// -- Defense --
-export interface DefenseScanResponse {
-  success: boolean;
-  report: Record<string, any>;
-}
-
-export interface DefenseStatusResponse {
-  monitoring: boolean;
-  auto_response: boolean;
-  blocked_ips: number;
-  vulnerabilities: number;
-  detected_attacks: number;
-  malicious_ips: number;
-  statistics: Record<string, any>;
-}
-
-export interface BlockedIpsResponse {
-  blocked_ips: string[];
-}
-
-// -- Network --
-export interface HostInfo {
-  ip: string;
-  hostname: string;
-  mac_address: string;
-  open_ports: number[];
-  authorized: boolean;
-}
-
-export interface DiscoverResponse {
-  success: boolean;
-  hosts: HostInfo[];
-}
-
-export interface TargetListResponse {
-  targets: HostInfo[];
-}
-
-export interface AuthorizationInfo {
-  target_ip: string;
-  auth_type: string;
-  username: string;
-  created_at: string;
-  description: string;
-}
-
-export interface AuthorizationListResponse {
-  authorizations: AuthorizationInfo[];
+  status: 'ok' | 'error';
+  version: string;
+  message?: string;
 }
 
 // -- Database --
@@ -165,8 +89,6 @@ export interface DbStatsResponse {
   conversations: number;
   prompt_chains: number;
   user_configs: number;
-  crawler_tasks: number;
-  crawler_tasks_by_status: Record<string, number>;
 }
 
 export interface ConversationRecord {
