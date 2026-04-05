@@ -5,7 +5,7 @@
 </h1>
 
 <p style="font-size: 1.2em; color: #666; margin-bottom: 20px;">
-  <strong>全栈 AI Agent 基础应用框架</strong>
+  <strong>フルスタック AI Agent ベースアプリケーションフレームワーク</strong>
 </p>
 
 <p>
@@ -45,7 +45,7 @@
 </p>
 
 <p>
-  <a href="README_EN.md">English</a> | <a href="README_JA.md">日本語</a> | 中文
+  <a href="README.md">中文</a> | <a href="README_EN.md">English</a> | 日本語
 </p>
 
 </div>
@@ -54,22 +54,22 @@
 
 # Vibeski
 
-一个可复用的全栈 AI Agent 基础应用框架，用于快速"vibe coding"新应用。
+新しいアプリケーションを素早く「バイブコーディング」するための再利用可能なフルスタック AI Agent ベースアプリケーションフレームワーク。
 
-## 特性
+## 特徴
 
-- **统一后端**: FastAPI 提供 REST + SSE 接口，CLI/TUI、移动端和桌面客户端共用
-- **多 LLM 支持**: 内置支持 Ollama、DeepSeek、OpenAI、Anthropic、Google 等
-- **会话管理**: SQLite 持久化存储对话历史
-- **事件驱动架构**: 通过 EventBus 和 SSE 实现实时流式输出
-- **可扩展工具系统**: 通过 Python entry_points 注册自定义工具
-- **多前端支持**:
-  - 终端 TUI (TypeScript/Ink)
-  - 移动应用 (React Native/Expo)
-  - 桌面应用 (Tauri + Vite)
-- **配置持久化**: SQLite 支持用户偏好设置，三级优先级 (DB > .env > 默认值)
+- **統一バックエンド**: FastAPI による REST + SSE インターフェース、CLI/TUI、モバイル、デスクトップクライアントで共有
+- **マルチLLM対応**: Ollama、DeepSeek、OpenAI、Anthropic、Google などに標準対応
+- **セッション管理**: SQLite ストレージによる永続的な会話
+- **イベント駆動アーキテクチャ**: EventBus と SSE によるリアルタイムストリーミング
+- **拡張可能なツールシステム**: Python entry_points 経由でカスタムツールを登録
+- **複数フロントエンド対応**:
+  - ターミナル TUI (TypeScript/Ink)
+  - モバイルアプリ (React Native/Expo)
+  - デスクトップアプリ (Tauri + Vite)
+- **設定の永続化**: SQLite ベースのユーザー設定、3 段階優先順位 (DB > .env > デフォルト)
 
-## 架构
+## アーキテクチャ
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -107,119 +107,119 @@
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## 快速开始
+## クイックスタート
 
-### 1. 克隆并配置
+### 1. クローンと設定
 
 ```bash
 git clone https://github.com/crabin/VIBESKI.git
 cd vibeski
 cp .env.example .env
-# 编辑 .env: 设置 LLM_PROVIDER 并添加你的 API key
+# .env を編集: LLM_PROVIDER を設定し、API キーを追加
 ```
 
-### 2. 安装依赖
+### 2. 依存関係のインストール
 
 ```bash
-# Python 依赖
+# Python 依存関係
 uv sync
 
-# 终端 UI 依赖
+# ターミナル UI 依存関係
 cd terminal-ui && npm install && cd ..
 ```
 
-### 3. 运行
+### 3. 実行
 
 ```bash
-python main.py            # 后端 (端口 8000) + Ink TUI
+python main.py            # バックエンド (ポート 8000) + Ink TUI
 ```
 
-或分开运行:
+または個別に実行:
 
 ```bash
-python main.py --backend  # 仅后端
-python main.py --tui      # 仅 TUI (后端必须已运行)
+python main.py --backend  # バックエンドのみ
+python main.py --tui      # TUI のみ (バックエンドが実行中である必要があります)
 ```
 
-API 文档: http://localhost:8000/docs
+API ドキュメント: http://localhost:8000/docs
 
-### 4. 移动端 (Expo)
+### 4. モバイル (Expo)
 
 ```bash
 cd app && npm install && npx expo start
 ```
 
-### 5. 桌面端 (Tauri - 需要 Rust)
+### 5. デスクトップ (Tauri - Rust が必要)
 
 ```bash
-# 安装 Rust: https://rustup.rs
+# Rust のインストール: https://rustup.rs
 cd desktop && npm install && npm run tauri dev
 ```
 
-## 添加自定义工具
+## カスタムツールの追加
 
-1. 创建继承 `tools.base.BaseTool` 的类
-2. 在 `pyproject.toml` 中注册:
+1. `tools.base.BaseTool` を継承したクラスを作成
+2. `pyproject.toml` に登録:
    ```toml
    [project.entry-points."vibeski.tools.basic"]
    my_tools = "mypackage.tools:MY_TOOLS"
    ```
-3. 运行 `uv sync` — 工具会在下次启动时自动发现
+3. `uv sync` を実行 — ツールは次回起動時に自動検出されます
 
-## 环境变量
+## 環境変数
 
-| 变量 | 描述 | 默认值 |
-|------|------|--------|
-| `LLM_PROVIDER` | LLM 提供商: ollama/deepseek/openai/anthropic/google/... | `ollama` |
-| `DATABASE_URL` | SQLite 数据库路径 | `sqlite:///./data/vibeski.db` |
-| `LOG_LEVEL` | 日志级别 | `INFO` |
-| `VIBESKI_SERVER_HOST` | 后端主机 | `0.0.0.0` |
-| `VIBESKI_SERVER_PORT` | 后端端口 | `8000` |
-| `OLLAMA_BASE_URL` | Ollama 服务 URL | `http://localhost:11434` |
-| `OLLAMA_MODEL` | 默认 Ollama 模型 | `gemma3:1b` |
+| 変数 | 説明 | デフォルト |
+|------|-------------|--------|
+| `LLM_PROVIDER` | LLM プロバイダー: ollama/deepseek/openai/anthropic/google/... | `ollama` |
+| `DATABASE_URL` | SQLite データベースパス | `sqlite:///./data/vibeski.db` |
+| `LOG_LEVEL` | ログレベル | `INFO` |
+| `VIBESKI_SERVER_HOST` | バックエンドホスト | `0.0.0.0` |
+| `VIBESKI_SERVER_PORT` | バックエンドポート | `8000` |
+| `OLLAMA_BASE_URL` | Ollama サービス URL | `http://localhost:11434` |
+| `OLLAMA_MODEL` | デフォルト Ollama モデル | `gemma3:1b` |
 
-## 项目结构
+## プロジェクト構成
 
 ```
 vibeski/
-├── main.py                 # 入口点
-├── vibeski_config/         # 配置 (pydantic-settings + SQLite)
-├── router/                 # FastAPI 路由 (chat, sessions, tools, system)
-├── core/                  # 会话管理器、执行器、模型
-├── database/              # SQLite 模型和管理器
-├── tools/                 # 工具注册和示例工具
-├── prompts/               # 提示词模板
-├── skills/                # 技能加载器和注入器
-├── utils/                 # 共享工具 (logger, event_bus, model_selector)
-├── vibeski_cli/            # CLI 命令和 TUI 启动器
-├── terminal-ui/           # TypeScript/Ink 终端 UI
-├── app/                   # React Native/Expo 移动应用
-├── desktop/              # Tauri 桌面应用
-└── docs/                  # 文档
+├── main.py                 # エントリーポイント
+├── vibeski_config/         # 設定 (pydantic-settings + SQLite)
+├── router/                 # FastAPI ルート (chat, sessions, tools, system)
+├── core/                  # セッションマネージャー、エグゼキューター、モデル
+├── database/              # SQLite モデルとマネージャー
+├── tools/                 # ツールレジストリとサンプルツール
+├── prompts/               # プロンプトテンプレート
+├── skills/                # スキルローダーとインジェクター
+├── utils/                 # 共有ユーティリティ (logger, event_bus, model_selector)
+├── vibeski_cli/            # CLI コマンドと TUI ランチャー
+├── terminal-ui/           # TypeScript/Ink ターミナル UI
+├── app/                   # React Native/Expo モバイルアプリ
+├── desktop/              # Tauri デスクトップアプリ
+└── docs/                  # ドキュメント
 ```
 
-## CLI 命令
+## CLI コマンド
 
 ```bash
-vibeski              # 后端 + TUI (全栈)
-vibeski --backend    # 仅后端 (端口 8000, API 在 http://localhost:8000/docs)
-vibeski --tui        # 仅 TUI (后端必须已运行)
-vibeski-server       # 直接运行 uvicorn (生产环境 / Docker 使用)
+vibeski              # バックエンド + TUI (フルスタック)
+vibeski --backend    # バックエンドのみ (ポート 8000, API は http://localhost:8000/docs)
+vibeski --tui        # TUI のみ (バックエンドが実行中である必要があります)
+vibeski-server       # uvicorn を直接実行 (本番環境 / Docker 用)
 ```
 
-## 文档
+## ドキュメント
 
-| 文档 | 描述 |
-|------|------|
-| [docs/QUICKSTART.md](docs/QUICKSTART.md) | 快速开始指南 |
-| [docs/API.md](docs/API.md) | API 文档 |
-| [docs/LLM_PROVIDERS.md](docs/LLM_PROVIDERS.md) | LLM 提供商配置 |
-| [docs/OLLAMA_SETUP.md](docs/OLLAMA_SETUP.md) | 本地 Ollama 设置 |
-| [docs/TOOL_EXTENSION.md](docs/TOOL_EXTENSION.md) | 工具扩展指南 |
+| ドキュメント | 説明 |
+|----------|-------------|
+| [docs/QUICKSTART.md](docs/QUICKSTART.md) | クイックスタートガイド |
+| [docs/API.md](docs/API.md) | API ドキュメント |
+| [docs/LLM_PROVIDERS.md](docs/LLM_PROVIDERS.md) | LLM プロバイダー設定 |
+| [docs/OLLAMA_SETUP.md](docs/OLLAMA_SETUP.md) | ローカル Ollama 設定 |
+| [docs/TOOL_EXTENSION.md](docs/TOOL_EXTENSION.md) | ツール拡張ガイド |
 
-## 开源协议
+## ライセンス
 
-MIT License - 详见 [LICENSE](LICENSE)。
+MIT License - 詳細は [LICENSE](LICENSE) を参照してください。
 
 ## 作者
 

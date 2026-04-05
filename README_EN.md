@@ -45,7 +45,7 @@
 </p>
 
 <p>
-  <a href="README_CN.md">中文</a> | English
+  <a href="README.md">中文</a> | <a href="README_JA.md">日本語</a> | English
 </p>
 
 </div>
