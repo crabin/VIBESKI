@@ -2,19 +2,19 @@
 
 **Date:** 2026-04-05
 **Status:** Approved
-**Source project:** secbot (Copy + Strip approach)
+**Source project:** vibeski (Copy + Strip approach)
 
 ---
 
 ## Overview
 
-Extract the generic full-stack AI agent architecture from secbot into a standalone repository named **vibeski** — a reusable base for rapid "vibe coding" of new AI agent applications. All security/pentest-specific code is removed; the skeleton, patterns, and wiring are preserved exactly.
+Extract the generic full-stack AI agent architecture from vibeski into a standalone repository named **vibeski** — a reusable base for rapid "vibe coding" of new AI agent applications. All security/pentest-specific code is removed; the skeleton, patterns, and wiring are preserved exactly.
 
 ---
 
 ## Deliverable
 
-A new standalone Git repository `vibeski/` (sibling directory to secbot, or published to GitHub), ready to clone, rename, and build on.
+A new standalone Git repository `vibeski/` (sibling directory to vibeski, or published to GitHub), ready to clone, rename, and build on.
 
 ---
 
@@ -27,7 +27,7 @@ vibeski/
 ├── .env.example                # Created from scratch (see Bootstrap section)
 ├── uv.toml
 │
-├── vibeski_config/             # Config module (renamed from hackbot_config)
+├── vibeski_config/             # Config module (renamed from vibeski_config)
 │   └── __init__.py             # pydantic-settings + SQLite-backed persistence + multi-provider LLM
 │
 ├── router/
@@ -80,7 +80,7 @@ vibeski/
 │   ├── loader.py               # Skill loader
 │   └── injector.py             # Skill injector for agent memory
 │
-├── vibeski_cli/                # CLI package (renamed from secbot_cli)
+├── vibeski_cli/                # CLI package (renamed from vibeski_cli)
 │   ├── __init__.py
 │   ├── cli.py                  # Typer CLI: vibeski / vibeski-server commands
 │   ├── launch_tui.py           # Orchestrator: start backend subprocess + TUI subprocess
@@ -184,11 +184,11 @@ Desktop (Tauri) and mobile (Expo) apps connect to the same backend independently
 
 ## Rewritten Files
 
-These files exist in secbot but **must be rewritten** (not just renamed) for vibeski because they contain domain-specific imports.
+These files exist in vibeski but **must be rewritten** (not just renamed) for vibeski because they contain domain-specific imports.
 
 ### `router/dependencies.py` (rewrite)
 
-The secbot version imports 10+ security-domain agents and managers. The vibeski version contains only:
+The vibeski version imports 10+ security-domain agents and managers. The vibeski version contains only:
 
 ```python
 # Singletons: DatabaseManager, PromptManager, a single generic LangChain/LangGraph agent
@@ -198,7 +198,7 @@ The secbot version imports 10+ security-domain agents and managers. The vibeski 
 
 ### `core/session.py` (rewrite)
 
-The secbot version imports `PlannerAgent`, `QAAgent`, `SummaryAgent`, and a domain-specific router. The vibeski version contains:
+The vibeski version imports `PlannerAgent`, `QAAgent`, `SummaryAgent`, and a domain-specific router. The vibeski version contains:
 
 ```python
 # Generic SessionManager that:
@@ -220,27 +220,27 @@ Also update `database/manager.py` to remove the corresponding table creation DDL
 
 ## Renamed Identifiers
 
-| secbot (source) | vibeski (target) |
+| vibeski (source) | vibeski (target) |
 |-----------------|------------------|
-| `hackbot_config` | `vibeski_config` |
-| `secbot_cli` | `vibeski_cli` |
-| `secbot.db` | `vibeski.db` |
-| `SECBOT_*` env vars | `VIBESKI_*` env vars |
-| `SECBOT_TOOL_MODULES` | `VIBESKI_TOOL_MODULES` |
-| `SECBOT_TOOL_MODULES_ADVANCED` | `VIBESKI_TOOL_MODULES_ADVANCED` |
-| `secbot.tools.basic` entry-point group | `vibeski.tools.basic` |
-| `secbot.tools.advanced` entry-point group | `vibeski.tools.advanced` |
-| `hackbot` / `secbot` CLI | `vibeski` CLI |
-| `hackbot-server` / `secbot-server` | `vibeski-server` |
-| `secbot-terminal-ui` (package.json name) | `vibeski-terminal-ui` |
-| `SECBOT_API_URL` (terminal-ui env) | `VIBESKI_API_URL` |
-| `SECBOT_DESKTOP` | `VIBESKI_DESKTOP` |
-| `SECBOT_SERVER_HOST/PORT/RELOAD` | `VIBESKI_SERVER_HOST/PORT/RELOAD` |
-| `secbot-cli` agent_type in DB | `vibeski` |
+| `vibeski_config` | `vibeski_config` |
+| `vibeski_cli` | `vibeski_cli` |
+| `vibeski.db` | `vibeski.db` |
+| `VIBESKI_*` env vars | `VIBESKI_*` env vars |
+| `VIBESKI_TOOL_MODULES` | `VIBESKI_TOOL_MODULES` |
+| `VIBESKI_TOOL_MODULES_ADVANCED` | `VIBESKI_TOOL_MODULES_ADVANCED` |
+| `vibeski.tools.basic` entry-point group | `vibeski.tools.basic` |
+| `vibeski.tools.advanced` entry-point group | `vibeski.tools.advanced` |
+| `vibeski` / `vibeski` CLI | `vibeski` CLI |
+| `vibeski-server` / `vibeski-server` | `vibeski-server` |
+| `vibeski-terminal-ui` (package.json name) | `vibeski-terminal-ui` |
+| `VIBESKI_API_URL` (terminal-ui env) | `VIBESKI_API_URL` |
+| `VIBESKI_DESKTOP` | `VIBESKI_DESKTOP` |
+| `VIBESKI_SERVER_HOST/PORT/RELOAD` | `VIBESKI_SERVER_HOST/PORT/RELOAD` |
+| `vibeski` agent_type in DB | `vibeski` |
 
 ---
 
-## What Is Removed (vs secbot)
+## What Is Removed (vs vibeski)
 
 ### Entire directories
 
@@ -261,7 +261,7 @@ Also update `database/manager.py` to remove the corresponding table creation DDL
 | `crawler/` | Security-domain |
 | `controller/` | Security-domain |
 | `system/` | Security-domain (OSController, OSDetector, system commands) |
-| `core/agents/` | Security-domain agents (HackbotAgent, CoordinatorAgent, etc.) |
+| `core/agents/` | Security-domain agents (VibeskiAgent, CoordinatorAgent, etc.) |
 | `core/memory/` | KEEP — generic (DatabaseMemory wraps DatabaseManager; VectorStore is generic SQLite vec search) |
 | `core/attack_chain/` | REMOVE — security-domain |
 | `core/patterns/` | REMOVE — `react.py` depends on removed `core/agents/base`; `security_react.py` is security-domain |
@@ -274,20 +274,20 @@ Also update `database/manager.py` to remove the corresponding table creation DDL
 | `router/defense.py` | Security-domain |
 | `router/network.py` | Security-domain |
 | `router/agents.py` | Security-domain agent routes |
-| `skills/workflow.py` | secbot-specific workflow |
+| `skills/workflow.py` | vibeski-specific workflow |
 | `tools/web_search.py` | Merged into `tools/web_search_tool.py` |
 | `tools/web_search_ddgs.py` | Merged into `tools/web_search_tool.py` |
 | `utils/audit.py` | AuditTrail is security-domain specific |
-| `utils/confirmation.py` | secbot-specific user confirmation flows |
+| `utils/confirmation.py` | vibeski-specific user confirmation flows |
 | `utils/generate_report.py` | Security report generation |
-| `utils/manual_test_runner.py` | secbot-specific test utilities |
-| `utils/opencode_layout.py` | secbot-specific UI layout |
-| `utils/release_docs.py` | secbot-specific release tooling |
+| `utils/manual_test_runner.py` | vibeski-specific test utilities |
+| `utils/opencode_layout.py` | vibeski-specific UI layout |
+| `utils/release_docs.py` | vibeski-specific release tooling |
 | `utils/root_policy.py` | Root privilege escalation — security-domain |
-| `utils/run_tests.py` | secbot-specific test runner |
+| `utils/run_tests.py` | vibeski-specific test runner |
 | `utils/speech.py` | Optional STT/TTS — remove for minimal base |
-| `hackbot.spec` | PyInstaller spec — remove for now |
-| `assets/secbot_*.png` | Replace with vibeski branding (or leave empty) |
+| `vibeski.spec` | PyInstaller spec — remove for now |
+| `assets/vibeski_*.png` | Replace with vibeski branding (or leave empty) |
 
 ### `database/models.py` models to strip
 
@@ -330,8 +330,8 @@ Also strip the following from `database/manager.py`:
 | `tools/base.py`, `tools/registry.py` | Kept, entry-point group names renamed |
 | `tools/system_tool.py` | Kept as example tool |
 | `tools/web_research/page_extract_tool.py` | Kept as example tool |
-| `vibeski_cli/` | Kept, all `secbot` references renamed |
-| `terminal-ui/` | Full copy, `SECBOT_API_URL` → `VIBESKI_API_URL` |
+| `vibeski_cli/` | Kept, all `vibeski` references renamed |
+| `terminal-ui/` | Full copy, `VIBESKI_API_URL` → `VIBESKI_API_URL` |
 | `app/` | Full copy as-is |
 | `desktop/` | Full copy as-is (Vite/Tauri with `src-tauri/`) |
 | `tests/` | Skeleton kept |
@@ -430,4 +430,4 @@ vibeski-server       # run uvicorn directly (production / Docker use)
 - No authentication/authorization layer (stub only)
 - No SQLite migration system (schema created fresh on first run)
 - No STT/TTS (speech.py removed)
-- No PyInstaller packaging (hackbot.spec removed)
+- No PyInstaller packaging (vibeski.spec removed)

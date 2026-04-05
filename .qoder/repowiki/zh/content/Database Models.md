@@ -7,7 +7,7 @@
 - [core/models.py](file://core/models.py)
 - [router/schemas.py](file://router/schemas.py)
 - [docs/DATABASE_GUIDE.md](file://docs/DATABASE_GUIDE.md)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py)
 - [core/memory/database_memory.py](file://core/memory/database_memory.py)
 - [router/database.py](file://router/database.py)
 - [tests/database/test_manager.py](file://tests/database/test_manager.py)
@@ -16,7 +16,7 @@
 
 ## 更新摘要
 **变更内容**
-- 更新数据库路径从 `hackbot.db` 到 `secbot-cli.db` 的说明
+- 更新数据库路径从 `vibeski.db` 到 `vibeski.db` 的说明
 - 增强 SecurityReActAgent 自动持久化对话数据的功能描述
 - 添加会话跟踪能力的详细说明
 - 更新数据库配置和初始化流程
@@ -37,7 +37,7 @@
 
 Secbot项目采用SQLite作为轻量级数据库，用于持久化存储安全测试过程中的关键数据。该项目实现了完整的数据库模型体系，包括对话历史、提示词链、用户配置、爬虫任务等核心数据结构，并提供了完整的CRUD操作接口。
 
-**更新** 数据库路径已从 `hackbot.db` 更新为 `secbot-cli.db`，增强了会话跟踪能力和自动持久化功能。
+**更新** 数据库路径已从 `vibeski.db` 更新为 `vibeski.db`，增强了会话跟踪能力和自动持久化功能。
 
 数据库设计遵循以下原则：
 - 使用Pydantic模型确保数据验证和序列化
@@ -177,7 +177,7 @@ DatabaseManager是数据库操作的核心类，负责：
 - 统计信息查询
 - **新增** 支持动态数据库路径解析
 
-**更新** 数据库路径解析逻辑已更新，支持从环境变量 `DATABASE_URL` 读取配置，优先使用 `sqlite:///data/secbot-cli.db` 路径。
+**更新** 数据库路径解析逻辑已更新，支持从环境变量 `DATABASE_URL` 读取配置，优先使用 `sqlite:///data/vibeski.db` 路径。
 
 **章节来源**
 - [database/manager.py:26-74](file://database/manager.py#L26-L74)
@@ -228,7 +228,7 @@ SQLite --> Indexes
 **图表来源**
 - [router/database.py:1-91](file://router/database.py#L1-L91)
 - [core/memory/database_memory.py:1-38](file://core/memory/database_memory.py#L1-L38)
-- [hackbot_config/__init__.py:35-120](file://hackbot_config/__init__.py#L35-L120)
+- [vibeski_config/__init__.py:35-120](file://vibeski_config/__init__.py#L35-L120)
 - [core/patterns/security_react.py:707-709](file://core/patterns/security_react.py#L707-L709)
 
 ## 详细组件分析
@@ -442,7 +442,7 @@ Models[database/models.py]
 Manager[database/manager.py]
 Memory[core/memory/database_memory.py]
 Schemas[router/schemas.py]
-Config[hackbot_config/__init__.py]
+Config[vibeski_config/__init__.py]
 Routes[router/database.py]
 SecurityReact[core/patterns/security_react.py]
 EndMemory[core/memory/manager.py]
@@ -471,7 +471,7 @@ Manager --> Config
 
 1. **数据验证依赖**：所有模型依赖Pydantic进行数据验证
 2. **数据库连接依赖**：DatabaseManager依赖SQLite3进行数据库操作
-3. **配置管理依赖**：配置系统依赖hackbot_config模块
+3. **配置管理依赖**：配置系统依赖vibeski_config模块
 4. **API接口依赖**：路由层依赖Pydantic模型进行请求/响应验证
 5. **智能体持久化依赖**：SecurityReActAgent依赖DatabaseMemory进行对话持久化
 
@@ -527,7 +527,7 @@ Manager --> Config
 - 检查DATABASE_URL环境变量配置
 - 验证数据库文件权限
 - 确认SQLite3库版本兼容性
-- **更新** 检查 `data/secbot-cli.db` 路径是否存在
+- **更新** 检查 `data/vibeski.db` 路径是否存在
 
 #### 数据验证错误
 - 检查Pydantic模型字段类型

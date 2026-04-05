@@ -1,5 +1,5 @@
 """
-Hackbot CLI 入口（包安装后通过 secbot-cli / secbot 命令调用）
+Vibeski CLI 入口（包安装后通过 vibeski / vibeski 命令调用）
 无参数即启动后端 + TS 全屏 TUI。支持 --backend / --tui 单独启动，model 子命令切换推理后端。
 """
 import sys
@@ -8,14 +8,14 @@ from pathlib import Path
 
 from rich.console import Console
 
-from secbot_cli.launch_tui import launch_tui, run_backend_only, run_tui_only
+from vibeski_cli.launch_tui import launch_tui, run_backend_only, run_tui_only
 
 
 def _log_error_and_exit(exc: BaseException) -> None:
     """将异常写入日志并退出；打包运行时错误时暂停以便查看。"""
     lines = traceback.format_exception(type(exc), exc, exc.__traceback__)
     msg = "".join(lines)
-    log_name = "hackbot_error.log"
+    log_name = "vibeski_error.log"
     try:
         log_path = Path.cwd() / log_name
         log_path.write_text(msg, encoding="utf-8")
@@ -35,24 +35,24 @@ def app() -> None:
     try:
         args = sys.argv[1:] if len(sys.argv) > 1 else []
 
-        # 基本帮助信息：说明 Hackbot 是什么、能做什么以及主要入口
+        # 基本帮助信息：说明 Vibeski 是什么、能做什么以及主要入口
         if "-h" in args or "--help" in args:
-            help_text = """Hackbot / Secbot — 开源自动化安全测试助手（带终端 TUI）
+            help_text = """Vibeski / Secbot — 开源自动化安全测试助手（带终端 TUI）
 
 用法:
-  secbot-cli              启动后端 + 终端 TUI（推荐）
-  secbot-cli model        交互式选择推理后端与模型（与 TUI 内 /model 一致，写入 SQLite）
-  secbot-cli --backend    仅启动后端 FastAPI 服务（默认端口 8000）
-  secbot-cli --tui        仅启动终端 TUI（需后端已在运行）
+  vibeski              启动后端 + 终端 TUI（推荐）
+  vibeski model        交互式选择推理后端与模型（与 TUI 内 /model 一致，写入 SQLite）
+  vibeski --backend    仅启动后端 FastAPI 服务（默认端口 8000）
+  vibeski --tui        仅启动终端 TUI（需后端已在运行）
 
 核心智能体:
-  secbot-cli        自动模式：基于 ReAct 的自动化安全巡检与基础渗透测试，使用基础安全工具，全流程自动执行，无需每步确认。
-  superhackbot   专家模式：同样基于 ReAct，但可使用全部安全工具，对敏感/高风险操作会请求你确认后再执行。
+  vibeski        自动模式：基于 ReAct 的自动化安全巡检与基础渗透测试，使用基础安全工具，全流程自动执行，无需每步确认。
+  supervibeski   专家模式：同样基于 ReAct，但可使用全部安全工具，对敏感/高风险操作会请求你确认后再执行。
 
-你可以让 Hackbot 做什么:
+你可以让 Vibeski 做什么:
   - 作为「自动化渗透测试 / 安全巡检助手」：例如端口扫描、服务指纹识别、目录爆破、基础漏洞扫描、简单 OSINT 查询等。
   - 作为「通用 AI 助手」：回答与安全无关的问题（编程、Linux 使用、架构设计等），不必每次都走完整的渗透测试流程。
-  - 当你在对话中输入: help / 帮助 / 你能做什么 时，Hackbot 会用分点的方式向你介绍：
+  - 当你在对话中输入: help / 帮助 / 你能做什么 时，Vibeski 会用分点的方式向你介绍：
       * 自己的角色与能力范围
       * 当前可用的主要安全工具类别
       * 典型可协助完成的任务示例
@@ -61,12 +61,12 @@ def app() -> None:
 后端 API 概览（默认 http://127.0.0.1:8000）:
   GET  /api/agents      列出可用智能体及说明
   GET  /api/tools       列出已集成的安全测试工具
-  POST /api/chat        流式聊天接口（SSE），用于与 secbot-cli/superhackbot 交互
+  POST /api/chat        流式聊天接口（SSE），用于与 vibeski/supervibeski 交互
   POST /api/chat/sync   同步聊天接口
 
 提示:
-  - 若只想排查后端问题或集成到其他前端，可以先运行: secbot-cli --backend
-  - 在任何前端里，你都可以询问「secbot-cli 的架构/设计是什么样的」，它会用高层次描述回答自己的设计与架构。
+  - 若只想排查后端问题或集成到其他前端，可以先运行: vibeski --backend
+  - 在任何前端里，你都可以询问「vibeski 的架构/设计是什么样的」，它会用高层次描述回答自己的设计与架构。
 """
             print(help_text)
             raise SystemExit(0)
@@ -78,7 +78,7 @@ def app() -> None:
 
         # 模型/推理后端选择（对接 utils.model_selector，与 TUI /model 共用 PROVIDER_REGISTRY）
         if args and args[0] in ("model", "--model"):
-            from hackbot_config import get_llm_provider, save_llm_provider
+            from vibeski_config import get_llm_provider, save_llm_provider
             from utils.model_selector import run_model_selector, get_provider_model
 
             console = Console()
@@ -89,7 +89,7 @@ def app() -> None:
                 save_llm_provider(provider)
                 model_info = model or "(默认模型)"
                 console.print(f"[green]已切换推理后端: {provider}，模型: {model_info}[/green]")
-                console.print("[dim]下次启动 secbot-cli 或后端将使用该配置。[/dim]")
+                console.print("[dim]下次启动 vibeski 或后端将使用该配置。[/dim]")
             raise SystemExit(0)
 
         raise SystemExit(launch_tui())

@@ -83,7 +83,7 @@ export default function BlockRenderer({ block }: Props) {
       return (
         <ResponseBlock
           content={block.content || ''}
-          agent={block.agent || block.detail || 'secbot-cli'}
+          agent={block.agent || block.detail || 'vibeski'}
         />
       );
 

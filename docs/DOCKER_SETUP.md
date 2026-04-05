@@ -14,7 +14,7 @@
 
 如果你的目标是稳定运行后端，请优先使用：
 
-- `uv run secbot --backend`
+- `uv run vibeski --backend`
 - `python -m router.main`
 - systemd / supervisor / pm2 等宿主机进程管理方案
 

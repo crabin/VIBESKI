@@ -57,7 +57,7 @@ async def system_info():
 async def system_config():
     """返回当前 LLM 后端与模型配置，供 TUI /model 等使用（含 SQLite 持久化后的生效值）。"""
     try:
-        from hackbot_config import settings, get_provider_model, get_provider_base_url
+        from vibeski_config import settings, get_provider_model, get_provider_base_url
         # 优先返回 SQLite/环境变量中该厂商的生效值，便于 TUI 展示与编辑后回显
         ollama_model = get_provider_model("ollama") or settings.ollama_model
         ollama_base_url = (get_provider_base_url("ollama") or settings.ollama_base_url).rstrip("/")
@@ -87,7 +87,7 @@ async def get_provider_settings(provider_id: str):
     """供「已配置的推理后端」进入详情时拉取该厂商的 model、base_url。"""
     try:
         from utils.model_selector import get_provider_config
-        from hackbot_config import get_provider_model, get_provider_base_url
+        from vibeski_config import get_provider_model, get_provider_base_url
 
         pid = (provider_id or "").strip().lower()
         if not pid:
@@ -113,7 +113,7 @@ async def list_ollama_models(base_url: Optional[str] = None):
     先通过 check_ollama_running(url) 检查本地 Ollama 是否可达，不可达则返回 error 不拉取列表。
     """
     try:
-        from hackbot_config import settings
+        from vibeski_config import settings
         from utils.model_selector import get_ollama_models_detail, check_ollama_running
 
         url = (base_url or getattr(settings, "ollama_base_url", "") or "").strip().rstrip("/") or "http://localhost:11434"
@@ -156,7 +156,7 @@ async def list_ollama_models(base_url: Optional[str] = None):
             pulling_model=pulling_model,
         )
     except Exception as e:
-        from hackbot_config import settings
+        from vibeski_config import settings
         return OllamaModelsResponse(
             models=[],
             base_url=getattr(settings, "ollama_base_url", "http://localhost:11434"),
@@ -169,7 +169,7 @@ async def list_providers_api_key_status():
     """供 TUI 弹窗展示：哪些厂商需要 Key、是否已配置。"""
     try:
         from utils.model_selector import PROVIDER_REGISTRY, has_provider_api_key
-        from hackbot_config import get_provider_base_url
+        from vibeski_config import get_provider_base_url
 
         providers = []
         for p in PROVIDER_REGISTRY:
@@ -198,7 +198,7 @@ async def list_providers_api_key_status():
 async def set_api_key(body: SetApiKeyRequest):
     """设置厂商 API Key（空则删除）；可单独或同时提交 base_url（needs_base_url 的厂商）。"""
     try:
-        from hackbot_config import save_config_to_sqlite, delete_provider_api_key
+        from vibeski_config import save_config_to_sqlite, delete_provider_api_key
         provider = (body.provider or "").strip().lower()
         if not provider:
             return SetApiKeyResponse(success=False, message="provider 不能为空")
@@ -241,7 +241,7 @@ async def set_provider(body: SetProviderRequest):
     """切换默认推理后端，写入 SQLite，下次请求生效。"""
     try:
         from utils.model_selector import get_provider_config
-        from hackbot_config import save_llm_provider
+        from vibeski_config import save_llm_provider
 
         provider = (body.llm_provider or "").strip().lower()
         if not provider:
@@ -260,7 +260,7 @@ async def set_provider_settings(body: SetProviderSettingsRequest):
     """更新指定厂商的默认模型、Base URL（写入 SQLite），不涉及 API Key。"""
     try:
         from utils.model_selector import get_provider_config
-        from hackbot_config import save_config_to_sqlite
+        from vibeski_config import save_config_to_sqlite
 
         provider = (body.provider or "").strip().lower()
         if not provider:
@@ -353,7 +353,7 @@ async def get_log_level_config():
 @router.post("/log-level", response_model=SetApiKeyResponse, summary="设置日志级别")
 async def set_log_level_config(body: SetLogLevelRequest):
     try:
-        from hackbot_config import save_log_level
+        from vibeski_config import save_log_level
 
         target = (body.level or "").strip().upper()
         if target not in {"DEBUG", "INFO"}:

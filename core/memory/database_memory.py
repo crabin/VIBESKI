@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class DatabaseMemory:
-    """基于 DatabaseManager 的对话记忆，供 HackbotAgent/SuperHackbotAgent 保存对话。"""
+    """基于 DatabaseManager 的对话记忆，供 VibeskiAgent/SuperVibeskiAgent 保存对话。"""
 
     def __init__(
         self,

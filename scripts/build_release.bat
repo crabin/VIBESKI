@@ -9,8 +9,8 @@ pip install pyinstaller -q
 if exist build rmdir /s /q build
 if exist dist rmdir /s /q dist
 
-pyinstaller hackbot.spec
+pyinstaller vibeski.spec
 
-echo 完成. 可执行文件: dist\hackbot.exe
+echo 完成. 可执行文件: dist\vibeski.exe
 dir dist
 pause

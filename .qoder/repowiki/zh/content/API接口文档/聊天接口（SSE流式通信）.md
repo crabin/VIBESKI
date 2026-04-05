@@ -337,7 +337,7 @@ N["terminal-ui/src/sse.ts"] --> FN["fetch/ReadableStream(Node)"]
 ## 故障排除指南
 - 连接超时
   - 现象：15 秒内未收到事件，触发 onError
-  - 排查：确认后端已启动、BASE_URL/SECBOT_API_URL 配置正确、网络可达
+  - 排查：确认后端已启动、BASE_URL/VIBESKI_API_URL 配置正确、网络可达
 - 事件解析异常
   - 现象：JSON 解析失败，回调收到 raw 字段
   - 排查：检查后端事件数据格式是否符合预期

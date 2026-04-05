@@ -81,7 +81,7 @@ class AuditRecord(BaseModel):
     """操作审计留痕记录"""
     id: Optional[int] = None
     session_id: str
-    agent: str  # secbot-cli / superhackbot
+    agent: str  # vibeski / supervibeski
     step_type: str  # thought / action / observation / confirm / reject / result
     content: str
     metadata: Optional[Dict[str, Any]] = None

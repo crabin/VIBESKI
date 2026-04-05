@@ -5,7 +5,7 @@ description: |
   Use this skill when you need to perform network reconnaissance, port scanning,
   or service enumeration during authorized security assessments.
 version: "1.0.0"
-author: "Hackbot Security Team"
+author: "Vibeski Security Team"
 tags: ["reconnaissance", "network", "scanning", "nmap"]
 triggers: ["scan", "port", "network", "nmap", "recon"]
 prerequisites: ["authorized_target", "network_access"]

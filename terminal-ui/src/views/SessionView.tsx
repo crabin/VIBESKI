@@ -32,7 +32,7 @@ import { RestResultDialog } from "../components/RestResultDialog.js";
 import { RootPermissionDialog } from "../components/RootPermissionDialog.js";
 import { LoadingBar } from "../components/LoadingBar.js";
 
-/** 底部状态栏：SECBOT 固定绿色，无定时器，避免全屏下周期性重绘底部区域 */
+/** 底部状态栏：VIBESKI 固定绿色，无定时器，避免全屏下周期性重绘底部区域 */
 function SessionStatusBar({
   mode,
   agent,
@@ -54,7 +54,7 @@ function SessionStatusBar({
     >
       <Text>
         <Text color={theme.success} bold>
-          SECBOT
+          VIBESKI
         </Text>
         <Text color={theme.textMuted}>
           {" "}
@@ -439,9 +439,9 @@ export function SessionView({
               return;
             }
             const restTitles: Record<string, string> = {
-              "/help": "SECBOT 帮助",
+              "/help": "VIBESKI 帮助",
               "/list-agents": "智能体列表",
-              "/tools": "SECBOT 内置工具",
+              "/tools": "VIBESKI 内置工具",
             };
             const title = restTitles[cmd] ?? "API 结果";
             dialog.replace(
@@ -576,7 +576,7 @@ export function SessionView({
         />
       </Box>
 
-      {/* 底部状态栏 — SECBOT（固定绿色）· mode · agent */}
+      {/* 底部状态栏 — VIBESKI（固定绿色）· mode · agent */}
       <SessionStatusBar mode={mode} agent={agent} theme={theme} />
 
       {/* 统计与快捷键 — 置于最底部 */}

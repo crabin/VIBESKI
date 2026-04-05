@@ -9,7 +9,7 @@
 
 ## 配置
 
-- **SECBOT_API_URL** 或 **BASE_URL**：后端 API 根地址，默认 `http://localhost:8000`
+- **VIBESKI_API_URL** 或 **BASE_URL**：后端 API 根地址，默认 `http://localhost:8000`
 - 在真实终端中运行（需 TTY），否则 Ink 会报 raw mode 错误
 
 ## 安装与运行
@@ -49,9 +49,9 @@ node --import tsx scripts/check-connection.mts
    ```bash
    python -m router.main
    # 或
-   uv run secbot-server
+   uv run vibeski-server
    # 或
-   uv run secbot-cli-server
+   uv run vibeski-server
    ```
    默认监听 `http://localhost:8000`。
 
@@ -65,10 +65,10 @@ node --import tsx scripts/check-connection.mts
 
 ```bash
 # Windows PowerShell
-$env:SECBOT_API_URL="http://192.168.1.100:8000"; npm run tui
+$env:VIBESKI_API_URL="http://192.168.1.100:8000"; npm run tui
 
 # Linux / macOS
-SECBOT_API_URL=http://192.168.1.100:8000 npm run tui
+VIBESKI_API_URL=http://192.168.1.100:8000 npm run tui
 ```
 
 ## 功能
@@ -82,7 +82,7 @@ SECBOT_API_URL=http://192.168.1.100:8000 npm run tui
 
 输入 `/` 可触发命令补全，Enter 执行。
 
-- **会话**：`/ask`、`/agent [hackbot|super]`
+- **会话**：`/ask`、`/agent [vibeski|super]`
 - **REST**：`/model`（当前模型/配置）、`/help`（集成安全工具）、`/list-agents`、`/system-info`、`/db-stats`
 
 ## 一键启动（推荐：解决「进不去 CLI」）
@@ -100,4 +100,4 @@ Ink 需要**真实 TTY**，在 IDE 终端或从 Python 子进程启动时往往�
 ## 终端 UI 说明
 
 - 终端界面已统一为 **TypeScript 生态**（本包）：独立 Node 进程，通过 HTTP/SSE 与后端通信，为推荐的终端交互方式。
-- 在项目根执行 `python main.py` 会先启动后端再启动本 TUI；仅要 Python 交互时可运行 `uv run secbot` 或 `uv run hackbot`（无需 Node、无需先起后端）。
+- 在项目根执行 `python main.py` 会先启动后端再启动本 TUI；仅要 Python 交互时可运行 `uv run vibeski` 或 `uv run vibeski`（无需 Node、无需先起后端）。

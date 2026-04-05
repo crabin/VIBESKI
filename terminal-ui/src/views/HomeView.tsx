@@ -16,12 +16,12 @@ const VERSION = '1.0.0';
 /** 标题式 ASCII 艺术字 — 纯绿色粗体 Logo */
 const TITLE_ASCII = (() => {
   try {
-    return figlet.textSync('SECBOT', { font: 'Big', horizontalLayout: 'default' });
+    return figlet.textSync('VIBESKI', { font: 'Big', horizontalLayout: 'default' });
   } catch {
     try {
-      return figlet.textSync('SECBOT', { font: 'Block', horizontalLayout: 'default' });
+      return figlet.textSync('VIBESKI', { font: 'Block', horizontalLayout: 'default' });
     } catch {
-      return figlet.textSync('SECBOT', { font: 'Standard', horizontalLayout: 'default' });
+      return figlet.textSync('VIBESKI', { font: 'Standard', horizontalLayout: 'default' });
     }
   }
 })();

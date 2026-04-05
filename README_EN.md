@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Version](https://img.shields.io/badge/version-1.0.1-brightgreen.svg)](pyproject.toml)
 [![License](https://img.shields.io/badge/license-Custom-orange.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)](https://github.com/iammm0/secbot/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)](https://github.com/iammm0/vibeski/releases)
 [![LangChain](https://img.shields.io/badge/LangChain-0.1%2B-blueviolet.svg)](https://github.com/langchain-ai/langchain)
 
 English | [中文](README.md)
@@ -85,7 +85,7 @@ English | [中文](README.md)
 
 ## 🏗️ Architecture
 
-![Secbot Architecture Overview](assets/secbot_architecture.png)
+![Secbot Architecture Overview](assets/vibeski_architecture.png)
 
 ### Architecture Layers
 
@@ -114,7 +114,7 @@ flowchart LR
   end
 
   subgraph AgentOrchestration["Agent Orchestration"]
-    executor -->|layered parallel calls| coord["CoordinatorAgent (Hackbot)"]
+    executor -->|layered parallel calls| coord["CoordinatorAgent (Vibeski)"]
     subgraph SpecialistAgents["Specialist Agents"]
       net[NetworkReconAgent]
       web[WebPentestAgent]
@@ -183,14 +183,14 @@ flowchart LR
 
 ### Option A: Download Pre-built Binary (no Python required)
 
-Download the archive for your platform from [Releases](https://github.com/iammm0/secbot/releases), extract, and run:
+Download the archive for your platform from [Releases](https://github.com/iammm0/vibeski/releases), extract, and run:
 
 ```bash
 # Windows
-secbot.exe
+vibeski.exe
 
 # Linux / macOS
-./secbot
+./vibeski
 ```
 
 Set up your API key before launching — create a `.env` file:
@@ -208,8 +208,8 @@ See [Release Guide](docs/RELEASE.md) for details.
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/iammm0/secbot.git
-cd secbot
+git clone https://github.com/iammm0/vibeski.git
+cd vibeski
 ```
 
 #### 2. Install uv and sync dependencies
@@ -250,7 +250,7 @@ ollama pull nomic-embed-text
 
 ```bash
 uv run python -m build
-uv pip install dist/secbot-*.whl
+uv pip install dist/vibeski-*.whl
 ```
 
 ---
@@ -262,16 +262,16 @@ uv pip install dist/secbot-*.whl
 ```bash
 # Any of the following
 python main.py
-uv run secbot
-secbot          # after package installation
-hackbot         # legacy entry point
+uv run vibeski
+vibeski          # after package installation
+vibeski         # legacy entry point
 ```
 
 ### Launch TUI Frontend (Recommended)
 
 ```bash
 # Terminal 1: Start backend API
-uv run hackbot-server
+uv run vibeski-server
 # or
 python -m router.main
 
@@ -309,8 +309,8 @@ Type `/` and press Enter in interactive mode to see all commands:
 # Scan target ports (authorization required first)
 Scan open ports and services on 192.168.1.1
 
-# Switch to SuperHackbot mode (high-risk actions require confirmation)
-/mode superhackbot
+# Switch to SuperVibeski mode (high-risk actions require confirmation)
+/mode supervibeski
 Run a full pentest on 192.168.1.7 including port scan, vulnerability scan, and web vulnerability detection
 ```
 
@@ -353,7 +353,7 @@ uv run python -m build
 ### Project Structure
 
 ```
-secbot/
+vibeski/
 ├── core/                   # Core agent framework
 │   ├── agents/             # All agent implementations
 │   ├── attack_chain/       # LangGraph attack chain graph

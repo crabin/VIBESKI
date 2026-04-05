@@ -5,11 +5,11 @@
 - [README.md](file://README.md)
 - [pyproject.toml](file://pyproject.toml)
 - [uv.toml](file://uv.toml)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py)
 - [utils/config_storage.py](file://utils/config_storage.py)
 - [router/main.py](file://router/main.py)
 - [main.py](file://main.py)
-- [secbot_cli/cli.py](file://secbot_cli/cli.py)
+- [vibeski_cli/cli.py](file://vibeski_cli/cli.py)
 - [utils/model_selector.py](file://utils/model_selector.py)
 </cite>
 
@@ -42,16 +42,16 @@ B --> E[环境变量]
 F[主要配置文件] --> G[.env 示例]
 F --> H[pyproject.toml]
 F --> I[uv.toml]
-J[运行时配置] --> K[hackbot_config]
+J[运行时配置] --> K[vibeski_config]
 J --> L[utils/config_storage]
 J --> M[router/main]
 N[前端配置] --> O[main.py]
-N --> P[secbot_cli/cli.py]
+N --> P[vibeski_cli/cli.py]
 end
 ```
 
 **图表来源**
-- [hackbot_config/__init__.py:17-22](file://hackbot_config/__init__.py#L17-L22)
+- [vibeski_config/__init__.py:17-22](file://vibeski_config/__init__.py#L17-L22)
 - [pyproject.toml:166-168](file://pyproject.toml#L166-L168)
 - [router/main.py:79-100](file://router/main.py#L79-L100)
 
@@ -63,7 +63,7 @@ end
 
 ### 配置管理核心
 
-配置管理系统的核心是 `hackbot_config` 包，它提供了统一的配置访问接口：
+配置管理系统的核心是 `vibeski_config` 包，它提供了统一的配置访问接口：
 
 ```mermaid
 classDiagram
@@ -114,7 +114,7 @@ ModelSelector --> Settings : "依赖"
 ```
 
 **图表来源**
-- [hackbot_config/__init__.py:183-271](file://hackbot_config/__init__.py#L183-L271)
+- [vibeski_config/__init__.py:183-271](file://vibeski_config/__init__.py#L183-L271)
 - [utils/config_storage.py:12-61](file://utils/config_storage.py#L12-L61)
 - [utils/model_selector.py:29-289](file://utils/model_selector.py#L29-L289)
 
@@ -143,11 +143,11 @@ L --> M
 ```
 
 **图表来源**
-- [hackbot_config/__init__.py:128-160](file://hackbot_config/__init__.py#L128-L160)
-- [hackbot_config/__init__.py:234-247](file://hackbot_config/__init__.py#L234-L247)
+- [vibeski_config/__init__.py:128-160](file://vibeski_config/__init__.py#L128-L160)
+- [vibeski_config/__init__.py:234-247](file://vibeski_config/__init__.py#L234-L247)
 
 **章节来源**
-- [hackbot_config/__init__.py:128-160](file://hackbot_config/__init__.py#L128-L160)
+- [vibeski_config/__init__.py:128-160](file://vibeski_config/__init__.py#L128-L160)
 - [utils/config_storage.py:12-61](file://utils/config_storage.py#L12-L61)
 
 ## 架构概览
@@ -166,7 +166,7 @@ end
 subgraph "运行时组件"
 K[router/main.py] --> L[服务器配置]
 M[main.py] --> N[TUI 配置]
-O[secbot_cli/cli.py] --> P[CLI 配置]
+O[vibeski_cli/cli.py] --> P[CLI 配置]
 Q[utils/model_selector.py] --> R[模型选择配置]
 end
 subgraph "配置使用场景"
@@ -184,7 +184,7 @@ C --> Y
 **图表来源**
 - [router/main.py:79-100](file://router/main.py#L79-L100)
 - [main.py:8-14](file://main.py#L8-L14)
-- [secbot_cli/cli.py:74-95](file://secbot_cli/cli.py#L74-L95)
+- [vibeski_cli/cli.py:74-95](file://vibeski_cli/cli.py#L74-L95)
 
 ## 详细组件分析
 
@@ -212,7 +212,7 @@ C --> Y
 - `REDIS_URL`: Redis 连接字符串（可选）
 
 **章节来源**
-- [hackbot_config/__init__.py:183-271](file://hackbot_config/__init__.py#L183-L271)
+- [vibeski_config/__init__.py:183-271](file://vibeski_config/__init__.py#L183-L271)
 
 ### 语音配置
 
@@ -229,7 +229,7 @@ C --> Y
 - `TTS_ENGINE`: TTS 引擎类型（默认: gtts）
 
 **章节来源**
-- [hackbot_config/__init__.py:219-232](file://hackbot_config/__init__.py#L219-L232)
+- [vibeski_config/__init__.py:219-232](file://vibeski_config/__init__.py#L219-L232)
 
 ### 外部 API 配置
 
@@ -242,7 +242,7 @@ C --> Y
 - `VIRUSTOTAL_API_KEY`: VirusTotal API 密钥（存储在系统密钥环中）
 
 **章节来源**
-- [hackbot_config/__init__.py:234-247](file://hackbot_config/__init__.py#L234-L247)
+- [vibeski_config/__init__.py:234-247](file://vibeski_config/__init__.py#L234-L247)
 
 ### 日志和调试配置
 
@@ -256,7 +256,7 @@ C --> Y
 - `VERBOSE_INIT`: 详细初始化输出
 
 **章节来源**
-- [hackbot_config/__init__.py:252-259](file://hackbot_config/__init__.py#L252-L259)
+- [vibeski_config/__init__.py:252-259](file://vibeski_config/__init__.py#L252-L259)
 - [main.py:13-14](file://main.py#L13-L14)
 
 ### 服务器配置
@@ -264,10 +264,10 @@ C --> Y
 后端服务器支持多种配置选项：
 
 #### 服务器运行时配置
-- `SECBOT_DESKTOP`: 桌面嵌入模式开关
-- `SECBOT_SERVER_HOST`: 服务器监听地址
-- `SECBOT_SERVER_PORT`: 服务器端口号
-- `SECBOT_SERVER_RELOAD`: 热重载开关
+- `VIBESKI_DESKTOP`: 桌面嵌入模式开关
+- `VIBESKI_SERVER_HOST`: 服务器监听地址
+- `VIBESKI_SERVER_PORT`: 服务器端口号
+- `VIBESKI_SERVER_RELOAD`: 热重载开关
 
 #### 默认值策略
 - 桌面模式: `host=127.0.0.1`, `reload=false`
@@ -291,7 +291,7 @@ C --> Y
 ```mermaid
 graph TB
 subgraph "配置依赖关系"
-A[hackbot_config] --> B[pydantic-settings]
+A[vibeski_config] --> B[pydantic-settings]
 A --> C[python-dotenv]
 A --> D[keyring]
 E[utils/config_storage] --> F[keyring]
@@ -300,7 +300,7 @@ H[router/main] --> I[uvicorn]
 H --> J[socket]
 K[utils/model_selector] --> L[httpx]
 K --> M[rich]
-N[secbot_cli] --> O[rich]
+N[vibeski_cli] --> O[rich]
 N --> P[pathlib]
 end
 subgraph "外部依赖"
@@ -317,12 +317,12 @@ A --> W
 
 **图表来源**
 - [pyproject.toml:29-69](file://pyproject.toml#L29-L69)
-- [hackbot_config/__init__.py:8-15](file://hackbot_config/__init__.py#L8-L15)
+- [vibeski_config/__init__.py:8-15](file://vibeski_config/__init__.py#L8-L15)
 - [utils/config_storage.py:5-6](file://utils/config_storage.py#L5-L6)
 
 **章节来源**
 - [pyproject.toml:29-69](file://pyproject.toml#L29-L69)
-- [hackbot_config/__init__.py:8-15](file://hackbot_config/__init__.py#L8-L15)
+- [vibeski_config/__init__.py:8-15](file://vibeski_config/__init__.py#L8-L15)
 
 ## 性能考虑
 
@@ -355,7 +355,7 @@ A --> W
 3. **连接池**: 检查数据库连接池配置
 
 #### 服务器启动问题
-1. **端口冲突**: 检查 `SECBOT_SERVER_PORT` 是否被占用
+1. **端口冲突**: 检查 `VIBESKI_SERVER_PORT` 是否被占用
 2. **网络配置**: 验证防火墙和网络设置
 3. **权限问题**: 确保有足够的系统权限
 

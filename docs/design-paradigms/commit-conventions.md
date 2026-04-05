@@ -15,7 +15,7 @@
 示例：
 
 - `feat(core): 智能体与安全 ReAct 统一使用 _create_llm`
-- `refactor(hackbot): CLI 与交互流程`
+- `refactor(vibeski): CLI 与交互流程`
 - `fix(agents): qa_agent 小改动`
 - `chore(deps): pyproject.toml 更新`
 
@@ -38,7 +38,7 @@
 按**代码/功能边界**划分，与目录或包名对应，便于从 commit 快速定位改动范围。本项目常见 scope 示例：
 
 - `core`、`agents`、`utils`、`tools`、`tui`/`terminal-ui`（TypeScript 终端 UI）、`router`、`defense`、`controller`、`database`、`prompts`
-- `hackbot`（CLI 入口与交互）
+- `vibeski`（CLI 入口与交互）
 - `config`、`deps`、`deploy`、`ci`
 
 单次提交影响多个模块时，可只写主要模块，或拆成多个 commit；scope 可省略（如 `feat: 主流程集成`）。

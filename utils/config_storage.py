@@ -6,7 +6,7 @@ import keyring
 import getpass
 from typing import Optional
 
-KEYRING_SERVICE = "secbot"
+KEYRING_SERVICE = "vibeski"
 
 
 def get_api_key(provider: str = "deepseek") -> Optional[str]:

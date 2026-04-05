@@ -7,7 +7,7 @@
 ### 启动后端
 
 ```bash
-uv run secbot --backend
+uv run vibeski --backend
 # 或
 python -m router.main
 ```
@@ -26,7 +26,7 @@ curl http://127.0.0.1:8000/health
 
 curl -N -X POST http://127.0.0.1:8000/api/chat \
   -H "Content-Type: application/json" \
-  -d '{"message":"你好","mode":"agent","agent":"secbot-cli"}'
+  -d '{"message":"你好","mode":"agent","agent":"vibeski"}'
 ```
 
 ## 认证与 CORS
@@ -50,14 +50,14 @@ SSE 流式聊天接口，走 `SessionManager` 编排流程。
 |------|------|------|------|
 | `message` | string | 是 | 用户输入 |
 | `mode` | `ask` \| `agent` | 否 | `ask` 为问答模式，`agent` 为智能体执行模式，默认 `agent` |
-| `agent` | string | 否 | 智能体类型，默认 `secbot-cli` |
+| `agent` | string | 否 | 智能体类型，默认 `vibeski` |
 | `prompt` | string | 否 | 自定义系统提示词 |
 | `model` | string | 否 | 模型偏好，后端可选使用 |
 
 当前默认智能体：
 
-- `secbot-cli`
-- `superhackbot`
+- `vibeski`
+- `supervibeski`
 
 SSE 事件：
 
@@ -86,7 +86,7 @@ curl -N -X POST http://127.0.0.1:8000/api/chat \
   -d '{
     "message": "扫描本机系统信息",
     "mode": "agent",
-    "agent": "secbot-cli"
+    "agent": "vibeski"
   }'
 ```
 
@@ -143,13 +143,13 @@ curl -X POST http://127.0.0.1:8000/api/chat/sync \
 {
   "agents": [
     {
-      "type": "secbot-cli",
-      "name": "Hackbot",
+      "type": "vibeski",
+      "name": "Vibeski",
       "description": "自动模式（ReAct，基础扫描，全自动）"
     },
     {
-      "type": "superhackbot",
-      "name": "SuperHackbot",
+      "type": "supervibeski",
+      "name": "SuperVibeski",
       "description": "专家模式（ReAct，全工具，敏感操作需确认）"
     }
   ]
@@ -164,7 +164,7 @@ curl -X POST http://127.0.0.1:8000/api/chat/sync \
 
 ```json
 {
-  "agent": "secbot-cli"
+  "agent": "vibeski"
 }
 ```
 

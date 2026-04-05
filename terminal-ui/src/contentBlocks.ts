@@ -54,7 +54,7 @@ function normalizeErrorMessage(error: string): string {
     return "请求已取消。";
   }
   if (lower.includes("timeout") || lower.includes("timed out")) {
-    return "连接超时，请确认后端已启动且 SECBOT_API_URL 正确。";
+    return "连接超时，请确认后端已启动且 VIBESKI_API_URL 正确。";
   }
   return error;
 }

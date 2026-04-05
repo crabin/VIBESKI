@@ -19,7 +19,7 @@ from database.models import (
     ScanResult,
     AuditRecord,
 )
-from hackbot_config import settings
+from vibeski_config import settings
 from utils.logger import logger
 
 
@@ -33,7 +33,7 @@ class DatabaseManager:
         Args:
             db_path: 数据库文件路径。如果为None，则从配置中读取：
                 - 优先使用 DATABASE_URL 环境变量（格式：sqlite:///path/to/db.db）
-                - 否则使用默认路径：data/secbot-cli.db
+                - 否则使用默认路径：data/vibeski.db
         """
         if db_path:
             self.db_path = Path(db_path)
@@ -49,8 +49,8 @@ class DatabaseManager:
                 else:
                     self.db_path = Path(path_str)
             else:
-                # 默认路径（与 hackbot_config 默认一致）
-                self.db_path = Path(settings.project_root) / "data" / "secbot.db"
+                # 默认路径（与 vibeski_config 默认一致）
+                self.db_path = Path(settings.project_root) / "data" / "vibeski.db"
 
         # 确保目录存在
         self.db_path.parent.mkdir(parents=True, exist_ok=True)

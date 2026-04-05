@@ -7,7 +7,7 @@ import re
 import sys
 from typing import Any
 from loguru import logger as base_logger
-from hackbot_config import settings, get_log_level
+from vibeski_config import settings, get_log_level
 from utils.log_context import get_log_context
 
 

@@ -4,8 +4,8 @@
 
 ## 当前部署建议
 
-- **本地交互**：使用 `python main.py` 或 `uv run secbot`
-- **长期运行后端**：使用 `uv run secbot --backend`、`python -m router.main`，再由移动端、桌面端或自定义客户端调用 API
+- **本地交互**：使用 `python main.py` 或 `uv run vibeski`
+- **长期运行后端**：使用 `uv run vibeski --backend`、`python -m router.main`，再由移动端、桌面端或自定义客户端调用 API
 - **二进制分发**：优先使用 GitHub Release 中的现成 zip 包
 
 当前仓库**没有维护中的 Dockerfile / docker-compose 产物**。如果你需要容器化部署，请先阅读 [DOCKER_SETUP.md](DOCKER_SETUP.md)。
@@ -15,8 +15,8 @@
 ### 1. 安装依赖
 
 ```bash
-git clone https://github.com/iammm0/secbot.git
-cd secbot
+git clone https://github.com/iammm0/vibeski.git
+cd vibeski
 uv sync
 ```
 
@@ -49,7 +49,7 @@ OLLAMA_EMBEDDING_MODEL=nomic-embed-text
 ### 3. 启动后端
 
 ```bash
-uv run secbot --backend
+uv run vibeski --backend
 ```
 
 或：
@@ -61,7 +61,7 @@ python -m router.main
 默认情况下：
 
 - 普通模式监听 `0.0.0.0:8000`
-- 桌面嵌入模式可通过 `SECBOT_DESKTOP=1` 切换到 `127.0.0.1:8000`
+- 桌面嵌入模式可通过 `VIBESKI_DESKTOP=1` 切换到 `127.0.0.1:8000`
 
 ## 二、环境变量说明
 
@@ -76,11 +76,11 @@ python -m router.main
 | `OLLAMA_BASE_URL` | Ollama 地址 | `http://localhost:11434` |
 | `OLLAMA_MODEL` | Ollama 默认模型 | `gemma3:1b` |
 | `OLLAMA_EMBEDDING_MODEL` | Ollama 嵌入模型 | `nomic-embed-text` |
-| `DATABASE_URL` | SQLite 连接串 | `sqlite:///./data/secbot.db` |
+| `DATABASE_URL` | SQLite 连接串 | `sqlite:///./data/vibeski.db` |
 | `LOG_LEVEL` | 日志级别 | `INFO` |
-| `SECBOT_SERVER_HOST` | 覆盖监听地址 | 自动推导 |
-| `SECBOT_SERVER_PORT` | 覆盖监听端口 | `8000` |
-| `SECBOT_SERVER_RELOAD` | 是否启用热重载 | 桌面模式默认关，其它默认开 |
+| `VIBESKI_SERVER_HOST` | 覆盖监听地址 | 自动推导 |
+| `VIBESKI_SERVER_PORT` | 覆盖监听端口 | `8000` |
+| `VIBESKI_SERVER_RELOAD` | 是否启用热重载 | 桌面模式默认关，其它默认开 |
 
 ## 三、数据与日志
 
@@ -89,13 +89,13 @@ python -m router.main
 默认 `DATABASE_URL` 为：
 
 ```text
-sqlite:///./data/secbot.db
+sqlite:///./data/vibeski.db
 ```
 
-需要注意的是，当前实现会把相对路径解析到 `hackbot_config/` 包目录下。因此生产环境更建议显式指定**绝对路径**，例如：
+需要注意的是，当前实现会把相对路径解析到 `vibeski_config/` 包目录下。因此生产环境更建议显式指定**绝对路径**，例如：
 
 ```env
-DATABASE_URL=sqlite:////srv/secbot/data/secbot.db
+DATABASE_URL=sqlite:////srv/vibeski/data/vibeski.db
 ```
 
 ### 日志
@@ -115,7 +115,7 @@ TUI / 启动器在源码模式下还可能写入：
 
 适合把后端作为 Linux 服务长期运行。
 
-示例文件：`/etc/systemd/system/secbot.service`
+示例文件：`/etc/systemd/system/vibeski.service`
 
 ```ini
 [Unit]
@@ -124,10 +124,10 @@ After=network.target
 
 [Service]
 Type=simple
-User=secbot
-WorkingDirectory=/srv/secbot
+User=vibeski
+WorkingDirectory=/srv/vibeski
 Environment=PYTHONDONTWRITEBYTECODE=1
-ExecStart=/usr/bin/env uv run secbot --backend
+ExecStart=/usr/bin/env uv run vibeski --backend
 Restart=always
 RestartSec=5
 
@@ -139,15 +139,15 @@ WantedBy=multi-user.target
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable secbot
-sudo systemctl start secbot
-sudo systemctl status secbot
+sudo systemctl enable vibeski
+sudo systemctl start vibeski
+sudo systemctl status vibeski
 ```
 
 查看日志：
 
 ```bash
-journalctl -u secbot -f
+journalctl -u vibeski -f
 ```
 
 ## 五、部署后验证
@@ -165,17 +165,17 @@ curl http://127.0.0.1:8000/api/system/info
 ## 六、更新流程
 
 ```bash
-cd /srv/secbot
+cd /srv/vibeski
 git pull
 uv sync
-sudo systemctl restart secbot
+sudo systemctl restart vibeski
 ```
 
 若你使用的是安装式部署：
 
 ```bash
 uv pip install -e .
-sudo systemctl restart secbot
+sudo systemctl restart vibeski
 ```
 
 ## 七、排障
@@ -190,7 +190,7 @@ sudo systemctl restart secbot
 
 - 后端是否真的监听在前端使用的地址与端口
 - CORS 是否为默认配置
-- 桌面端是否误用了 `SECBOT_DESKTOP=1` 之外的 host
+- 桌面端是否误用了 `VIBESKI_DESKTOP=1` 之外的 host
 
 ### 3. Ollama 无法列出模型
 

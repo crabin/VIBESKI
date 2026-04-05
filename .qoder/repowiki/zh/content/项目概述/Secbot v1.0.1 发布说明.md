@@ -7,7 +7,7 @@
 - [pyproject.toml](file://pyproject.toml)
 - [main.py](file://main.py)
 - [router/main.py](file://router/main.py)
-- [hackbot/cli.py](file://hackbot/cli.py)
+- [vibeski/cli.py](file://vibeski/cli.py)
 - [utils/llm_http_fallback.py](file://utils/llm_http_fallback.py)
 - [terminal-ui/src/App.tsx](file://terminal-ui/src/App.tsx)
 - [terminal-ui/package.json](file://terminal-ui/package.json)
@@ -346,11 +346,11 @@ Exit --> End([结束])
 ```
 
 **图表来源**
-- [hackbot/cli.py:34-95](file://hackbot/cli.py#L34-L95)
+- [vibeski/cli.py:34-95](file://vibeski/cli.py#L34-L95)
 - [main.py:44-52](file://main.py#L44-L52)
 
 **章节来源**
-- [hackbot/cli.py:1-100](file://hackbot/cli.py#L1-L100)
+- [vibeski/cli.py:1-100](file://vibeski/cli.py#L1-L100)
 - [main.py:1-62](file://main.py#L1-L62)
 
 ### LLM HTTP 回退机制
@@ -488,7 +488,7 @@ v1.0.1 版本在任务执行层面实现了更高效的并行处理：
 
 **解决方案**：
 1. 检查 `.env` 文件中的 API Key 配置
-2. 使用 `hackbot model` 命令重新配置提供商
+2. 使用 `vibeski model` 命令重新配置提供商
 3. 验证网络连接和防火墙设置
 
 #### 端口冲突
@@ -511,7 +511,7 @@ v1.0.1 版本在任务执行层面实现了更高效的并行处理：
 
 **章节来源**
 - [router/main.py:83-97](file://router/main.py#L83-L97)
-- [hackbot/cli.py:14-31](file://hackbot/cli.py#L14-L31)
+- [vibeski/cli.py:14-31](file://vibeski/cli.py#L14-L31)
 
 ### 日志分析
 
@@ -520,7 +520,7 @@ v1.0.1 版本增强了错误处理和日志记录：
 ```mermaid
 flowchart TD
 Error[发生异常] --> LogError[记录错误日志]
-LogError --> WriteFile[写入 hackbot_error.log]
+LogError --> WriteFile[写入 vibeski_error.log]
 WriteFile --> ShowError[显示错误信息]
 ShowError --> PauseCheck{检查打包状态}
 PauseCheck --> |是| PauseConsole[暂停控制台]
@@ -531,7 +531,7 @@ WaitUser --> ExitProcess
 
 **图表来源**
 - [main.py:19-32](file://main.py#L19-L32)
-- [hackbot/cli.py:14-31](file://hackbot/cli.py#L14-L31)
+- [vibeski/cli.py:14-31](file://vibeski/cli.py#L14-L31)
 
 ## 结论
 
@@ -557,8 +557,8 @@ Secbot v1.0.1 是一个功能强大且稳定的 AI 驱动安全测试平台。�
 #### 从源码安装
 
 ```bash
-git clone https://github.com/iammm0/secbot.git
-cd secbot
+git clone https://github.com/iammm0/vibeski.git
+cd vibeski
 git checkout v1.0.1
 uv sync
 ```
@@ -579,7 +579,7 @@ OLLAMA_EMBEDDING_MODEL=nomic-embed-text
 
 ```bash
 # 方法1：使用 uv
-uv run hackbot
+uv run vibeski
 
 # 方法2：直接运行
 python main.py
@@ -589,7 +589,7 @@ python main.py
 
 ```bash
 # 方法1：使用 uv
-uv run hackbot-server
+uv run vibeski-server
 
 # 方法2：直接运行
 python -m router.main

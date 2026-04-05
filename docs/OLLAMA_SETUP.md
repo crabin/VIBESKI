@@ -66,13 +66,13 @@ OLLAMA_EMBEDDING_MODEL=nomic-embed-text
 ```bash
 python main.py
 # 或
-uv run secbot
+uv run vibeski
 ```
 
 ### 仅启动后端 API
 
 ```bash
-uv run secbot --backend
+uv run vibeski --backend
 # 或
 python -m router.main
 ```

@@ -14,7 +14,7 @@
 - [AI 信息提取器](file://crawler/extractor.py)
 - [基础智能体](file://core/agents/base.py)
 - [基础工具类](file://tools/base.py)
-- [配置管理](file://hackbot_config/__init__.py)
+- [配置管理](file://vibeski_config/__init__.py)
 - [README（项目总览）](file://README_CN.md)
 </cite>
 
@@ -55,7 +55,7 @@ I["DuckDuckGo 搜索客户端"]
 J["AIExtractor<br/>AI 信息提取器"]
 end
 subgraph "配置与运行"
-K["hackbot_config.Settings<br/>配置中心"]
+K["vibeski_config.Settings<br/>配置中心"]
 end
 A --> D
 A --> E
@@ -85,7 +85,7 @@ G --> K
 - [WebResearch 桥接工具](file://tools/web_research/web_research_tool.py#L23-L255)
 - [DuckDuckGo 搜索客户端](file://tools/web_search_ddgs.py#L71-L112)
 - [AI 信息提取器](file://crawler/extractor.py#L12-L183)
-- [配置管理](file://hackbot_config/__init__.py#L162-L246)
+- [配置管理](file://vibeski_config/__init__.py#L162-L246)
 
 章节来源
 - [README（项目总览）](file://README_CN.md#L52-L59)
@@ -101,7 +101,7 @@ G --> K
 - API 客户端工具：通用 REST 客户端，内置常用模板（天气、IP、GitHub、汇率等），支持认证与重试。
 - WebResearch 桥接工具：将研究任务委托给 WebResearchAgent，或直接按模式调用对应工具。
 - 搜索与提取引擎：DuckDuckGo 搜索客户端与 AIExtractor，分别承担检索与结构化提取。
-- 配置中心：hackbot_config.Settings 提供多厂商 LLM 后端、模型与温度等统一配置。
+- 配置中心：vibeski_config.Settings 提供多厂商 LLM 后端、模型与温度等统一配置。
 
 章节来源
 - [WebResearchAgent](file://core/agents/web_research_agent.py#L52-L190)
@@ -113,7 +113,7 @@ G --> K
 - [WebResearch 桥接工具](file://tools/web_research/web_research_tool.py#L23-L255)
 - [DuckDuckGo 搜索客户端](file://tools/web_search_ddgs.py#L71-L112)
 - [AI 信息提取器](file://crawler/extractor.py#L12-L183)
-- [配置管理](file://hackbot_config/__init__.py#L162-L246)
+- [配置管理](file://vibeski_config/__init__.py#L162-L246)
 
 ## 架构总览
 WebResearchAgent 在独立 ReAct 循环中，通过 WebResearchTool 桥接主智能体与专用工具。工具层依赖配置中心提供的 LLM 后端与模型参数，搜索与提取环节分别由 DuckDuckGo 客户端与 AIExtractor 支撑。
@@ -352,7 +352,7 @@ ApiClientTool --> ErrorCollector : "使用"
 - SQLite 存储：敏感配置可安全存储于 SQLite 与 keyring。
 
 章节来源
-- [配置管理](file://hackbot_config/__init__.py#L162-L246)
+- [配置管理](file://vibeski_config/__init__.py#L162-L246)
 
 ## 依赖关系分析
 - 组件耦合：WebResearchAgent 依赖 SecurityReAct 模式提供的 LLM 创建与事件发射能力；工具层依赖配置中心与 httpx/bs4 等第三方库。
@@ -371,7 +371,7 @@ Extract --> AI["AIExtractor"]
 Crawl --> AI
 Agent --> Engine["SecurityReAct 模式"]
 Agent --> Base["BaseAgent"]
-Agent --> Config["hackbot_config.Settings"]
+Agent --> Config["vibeski_config.Settings"]
 Search --> Config
 Extract --> Config
 Crawl --> Config
@@ -388,7 +388,7 @@ API --> Config
 - [API 客户端工具](file://tools/web_research/api_client_tool.py#L132-L610)
 - [DuckDuckGo 搜索客户端](file://tools/web_search_ddgs.py#L71-L112)
 - [AI 信息提取器](file://crawler/extractor.py#L12-L183)
-- [配置管理](file://hackbot_config/__init__.py#L162-L246)
+- [配置管理](file://vibeski_config/__init__.py#L162-L246)
 
 章节来源
 - [基础工具类](file://tools/base.py#L9-L36)

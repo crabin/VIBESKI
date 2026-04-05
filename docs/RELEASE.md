@@ -8,14 +8,14 @@ This repository now uses a single release source of truth:
 
 ## User-facing Releases
 
-Download packaged builds from [GitHub Releases](https://github.com/iammm0/secbot/releases).
+Download packaged builds from [GitHub Releases](https://github.com/iammm0/vibeski/releases).
 
-Current release archives are named `secbot-<platform>.zip`. Inside the archive, the executable may still use the legacy `hackbot` binary name because the PyInstaller spec is still `hackbot.spec`.
+Current release archives are named `vibeski-<platform>.zip`. Inside the archive, the executable may still use the legacy `vibeski` binary name because the PyInstaller spec is still `vibeski.spec`.
 
 Typical extracted binaries:
 
-- Windows: `hackbot.exe`
-- Linux / macOS: `hackbot`
+- Windows: `vibeski.exe`
+- Linux / macOS: `vibeski`
 
 Create a `.env` file next to the executable before first launch. Minimal examples:
 
@@ -34,8 +34,8 @@ OLLAMA_EMBEDDING_MODEL=nomic-embed-text
 
 Run the packaged binary:
 
-- Windows: `hackbot.exe`
-- Linux / macOS: `chmod +x hackbot && ./hackbot`
+- Windows: `vibeski.exe`
+- Linux / macOS: `chmod +x vibeski && ./vibeski`
 
 ## Maintainer Flow
 
@@ -49,7 +49,7 @@ Release metadata is sourced from:
 1. Computes whether a release should be created.
 2. Builds platform packages with `uv` and PyInstaller.
 3. Generates `README_RELEASE.md` inside the packaged artifact from `CHANGELOG.md`.
-4. Uploads `secbot-<platform>.zip` files to the GitHub release.
+4. Uploads `vibeski-<platform>.zip` files to the GitHub release.
 
 ## Local Release Tasks
 
@@ -63,7 +63,7 @@ uv pip install pyinstaller
 Build the packaged application:
 
 ```bash
-uv run python -m PyInstaller hackbot.spec
+uv run python -m PyInstaller vibeski.spec
 ```
 
 Generate versioned release docs from the root changelog:
@@ -79,11 +79,11 @@ python -m utils.release_docs package-readme \
   --changelog CHANGELOG.md \
   --version v1.8.0 \
   --platform windows-amd64 \
-  --output dist/hackbot/README_RELEASE.md
+  --output dist/vibeski/README_RELEASE.md
 ```
 
 ## Notes
 
 - There is no root `.env.example` yet, so release docs intentionally embed copyable `.env` snippets.
 - `pip install .` and GitHub Release artifacts do not provide the exact same runtime surface. The packaged release remains the best path for an out-of-the-box terminal experience.
-- The release archive name is now `secbot-*`, while the bundled executable still uses the historical `hackbot` name until the PyInstaller spec is renamed.
+- The release archive name is now `vibeski-*`, while the bundled executable still uses the historical `vibeski` name until the PyInstaller spec is renamed.

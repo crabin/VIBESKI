@@ -34,7 +34,7 @@ export default function MessageBubble({ message }: Props) {
       >
         {!isUser && (
           <Text style={styles.roleLabel}>
-            {isSystem ? 'SYSTEM' : 'HACKBOT'}
+            {isSystem ? 'SYSTEM' : 'VIBESKI'}
           </Text>
         )}
         <Text

@@ -4,9 +4,9 @@
 **本文档引用的文件**
 - [LLM_PROVIDERS.md](file://docs/LLM_PROVIDERS.md)
 - [model_selector.py](file://utils/model_selector.py)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py)
 - [security_react.py](file://core/patterns/security_react.py)
-- [cli.py](file://hackbot/cli.py)
+- [cli.py](file://vibeski/cli.py)
 - [system.py](file://router/system.py)
 - [ModelConfigDialog.tsx](file://terminal-ui/src/components/ModelConfigDialog.tsx)
 - [llm_http_fallback.py](file://utils/llm_http_fallback.py)
@@ -35,7 +35,7 @@ Secbot的LLM提供商支持分布在多个模块中：
 ```mermaid
 graph TB
 subgraph "配置层"
-A[hackbot_config/__init__.py]
+A[vibeski_config/__init__.py]
 B[model_selector.py]
 end
 subgraph "核心引擎"
@@ -59,7 +59,7 @@ H --> A
 ```
 
 **图表来源**
-- [hackbot_config/__init__.py:183-275](file://hackbot_config/__init__.py#L183-L275)
+- [vibeski_config/__init__.py:183-275](file://vibeski_config/__init__.py#L183-L275)
 - [model_selector.py:29-289](file://utils/model_selector.py#L29-L289)
 - [security_react.py:49-142](file://core/patterns/security_react.py#L49-L142)
 
@@ -105,10 +105,10 @@ G --> |模型| J[模型名称]
 ```
 
 **图表来源**
-- [hackbot_config/__init__.py:128-160](file://hackbot_config/__init__.py#L128-L160)
+- [vibeski_config/__init__.py:128-160](file://vibeski_config/__init__.py#L128-L160)
 
 **章节来源**
-- [hackbot_config/__init__.py:128-181](file://hackbot_config/__init__.py#L128-L181)
+- [vibeski_config/__init__.py:128-181](file://vibeski_config/__init__.py#L128-L181)
 
 ## 架构概览
 
@@ -313,7 +313,7 @@ C --> G
 
 ```mermaid
 graph LR
-A[model_selector.py] --> B[hackbot_config/__init__.py]
+A[model_selector.py] --> B[vibeski_config/__init__.py]
 C[security_react.py] --> A
 D[router/system.py] --> B
 E[terminal-ui/src/components/ModelConfigDialog.tsx] --> D
@@ -406,7 +406,7 @@ curl http://localhost:11434/api/tags
 3. 使用提示词方式进行工具调用
 
 **章节来源**
-- [hackbot_config/__init__.py:201-205](file://hackbot_config/__init__.py#L201-L205)
+- [vibeski_config/__init__.py:201-205](file://vibeski_config/__init__.py#L201-L205)
 
 ### 配置验证
 
@@ -424,10 +424,10 @@ G --> H[提示错误信息]
 ```
 
 **图表来源**
-- [hackbot_config/__init__.py:66-94](file://hackbot_config/__init__.py#L66-L94)
+- [vibeski_config/__init__.py:66-94](file://vibeski_config/__init__.py#L66-L94)
 
 **章节来源**
-- [hackbot_config/__init__.py:66-94](file://hackbot_config/__init__.py#L66-L94)
+- [vibeski_config/__init__.py:66-94](file://vibeski_config/__init__.py#L66-L94)
 
 ## 结论
 

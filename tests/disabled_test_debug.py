@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""直接测试HackbotAgent的ReAct循环"""
+"""直接测试VibeskiAgent的ReAct循环"""
 
 import asyncio
 import sys
@@ -8,13 +8,13 @@ import os
 # 设置环境变量
 os.environ["LOG_LEVEL"] = "DEBUG"
 
-from agents.hackbot_agent import HackbotAgent
+from agents.vibeski_agent import VibeskiAgent
 
 
 async def test_react():
     """测试ReAct循环"""
-    print("=== 创建HackbotAgent ===", file=sys.stderr)
-    agent = HackbotAgent()
+    print("=== 创建VibeskiAgent ===", file=sys.stderr)
+    agent = VibeskiAgent()
 
     print(f"=== 工具列表: {list(agent.tools_dict.keys())} ===", file=sys.stderr)
 

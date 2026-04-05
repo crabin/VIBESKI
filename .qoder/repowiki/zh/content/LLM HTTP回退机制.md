@@ -6,7 +6,7 @@
 - [security_react.py](file://core/patterns/security_react.py)
 - [planner_agent.py](file://core/agents/planner_agent.py)
 - [model_selector.py](file://utils/model_selector.py)
-- [__init__.py](file://hackbot_config/__init__.py)
+- [__init__.py](file://vibeski_config/__init__.py)
 - [api_client_tool.py](file://tools/web_research/api_client_tool.py)
 - [client.ts](file://app/src/api/client.ts)
 - [pyproject.toml](file://pyproject.toml)
@@ -52,7 +52,7 @@ D[安全ReAct模式] --> A
 E[规划代理] --> A
 end
 subgraph "配置管理"
-B --> F[hackbot_config]
+B --> F[vibeski_config]
 F --> G[环境变量]
 F --> H[SQLite存储]
 end
@@ -110,7 +110,7 @@ LLM HTTP回退模块是整个机制的核心实现，提供了直接的HTTP调�
 
 **章节来源**
 - [llm_http_fallback.py:11-83](file://utils/llm_http_fallback.py#L11-L83)
-- [__init__.py:128-160](file://hackbot_config/__init__.py#L128-L160)
+- [__init__.py:128-160](file://vibeski_config/__init__.py#L128-L160)
 - [model_selector.py:29-289](file://utils/model_selector.py#L29-L289)
 
 ## 架构概览
@@ -292,7 +292,7 @@ D --> H
 ```
 
 **图表来源**
-- [__init__.py:47-121](file://hackbot_config/__init__.py#L47-L121)
+- [__init__.py:47-121](file://vibeski_config/__init__.py#L47-L121)
 
 #### 配置获取流程
 
@@ -306,7 +306,7 @@ D --> H
 **更新** 新版本的配置系统现在提供了更强大的错误提示功能，能够根据具体的异常类型向用户提供针对性的解决方案。
 
 **章节来源**
-- [__init__.py:128-160](file://hackbot_config/__init__.py#L128-L160)
+- [__init__.py:128-160](file://vibeski_config/__init__.py#L128-L160)
 
 ### HTTP客户端工具
 
@@ -340,7 +340,7 @@ LLM HTTP回退机制涉及多个模块之间的复杂依赖关系：
 ```mermaid
 graph TB
 subgraph "核心依赖"
-A[utils/llm_http_fallback.py] --> B[hackbot_config/__init__.py]
+A[utils/llm_http_fallback.py] --> B[vibeski_config/__init__.py]
 A --> C[utils/model_selector.py]
 D[core/patterns/security_react.py] --> A
 E[core/agents/planner_agent.py] --> A

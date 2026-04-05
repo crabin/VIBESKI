@@ -4,7 +4,7 @@ Secbot 当前通过 `utils/model_selector.py` 维护多厂商推理后端注册�
 
 ## 切换方式
 
-- **CLI**：运行 `secbot model`、`secbot-cli model` 或 `uv run secbot model`
+- **CLI**：运行 `vibeski model`、`vibeski model` 或 `uv run vibeski model`
 - **TUI**：输入 `/model`
 - **API**：调用 `/api/system/config/*`
 - **环境变量**：设置 `LLM_PROVIDER` 与对应厂商变量

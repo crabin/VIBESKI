@@ -20,7 +20,7 @@ async def chat_completions_request(
     返回: 助手回复文本；失败时返回错误描述字符串。
     """
     try:
-        from hackbot_config import (
+        from vibeski_config import (
             settings,
             get_provider_api_key,
             get_provider_base_url,

@@ -21,7 +21,7 @@ export default function ResponseBlock({ content, agent }: Props) {
       {/* 标题栏 */}
       <View style={styles.header}>
         <Text style={styles.icon}>🤖</Text>
-        <Text style={styles.title}>{agent || 'Hackbot'}</Text>
+        <Text style={styles.title}>{agent || 'Vibeski'}</Text>
       </View>
 
       {/* 内容面板 */}

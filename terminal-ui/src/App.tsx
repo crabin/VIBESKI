@@ -118,7 +118,7 @@ export function App({ columns: propsColumns, rows: propsRows }: AppProps) {
           close();
           dialog.replace(
             <RestResultDialog
-              title="SECBOT 帮助"
+              title="VIBESKI 帮助"
               fetchContent={() => Promise.resolve(HELP_TOOLS_TEXT)}
             />
           );
@@ -187,7 +187,7 @@ export function App({ columns: propsColumns, rows: propsRows }: AppProps) {
           close();
           dialog.replace(
             <RestResultDialog
-              title="SECBOT 内置工具"
+              title="VIBESKI 内置工具"
               fetchContent={() =>
                 api.get<{
                   total: number;

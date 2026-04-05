@@ -40,8 +40,8 @@ const CHAT_MODES = [
   { id: 'agent', label: 'Agent' },
 ] as const;
 const AGENT_SUB = [
-  { id: 'secbot-cli', label: '自动' },
-  { id: 'superhackbot', label: '专家' },
+  { id: 'vibeski', label: '自动' },
+  { id: 'supervibeski', label: '专家' },
 ] as const;
 const MODELS = [
   { id: 'default', label: '后端默认' },
@@ -105,7 +105,7 @@ export default function ChatScreen() {
   const [blocks, setBlocks] = useState<RenderBlock[]>([]);
   const [input, setInput] = useState('');
   const [mode, setMode] = useState<'ask' | 'agent'>('agent');
-  const [agentSubType, setAgentSubType] = useState<'secbot-cli' | 'superhackbot'>('secbot-cli');
+  const [agentSubType, setAgentSubType] = useState<'vibeski' | 'supervibeski'>('vibeski');
   const [model, setModel] = useState('default');
   const [blockFilter, setBlockFilter] = useState<(typeof BLOCK_FILTERS)[number]['id']>('all');
   const [debugVisible, setDebugVisible] = useState(false);
@@ -492,7 +492,7 @@ export default function ChatScreen() {
     const body: Record<string, string> = {
       message: trimmed,
       mode,
-      agent: mode === 'agent' ? agentSubType : 'secbot-cli',
+      agent: mode === 'agent' ? agentSubType : 'vibeski',
     };
     if (model !== 'default') body.model = model;
     startStream(

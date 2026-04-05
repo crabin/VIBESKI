@@ -41,5 +41,5 @@ echo -e "${YELLOW}构建产物：${NC}"
 ls -lh dist/
 
 echo -e "${GREEN}安装示例：${NC}"
-echo "  pip install dist/secbot-*.whl"
-echo "  或: uv pip install dist/secbot-*.whl"
+echo "  pip install dist/vibeski-*.whl"
+echo "  或: uv pip install dist/vibeski-*.whl"

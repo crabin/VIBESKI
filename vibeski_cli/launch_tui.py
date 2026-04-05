@@ -1,6 +1,6 @@
 """
 启动后端（若未运行）并启动 TS 终端 TUI。
-供 main.py 与 secbot-cli/cli.py 调用，实现「一条命令进入全屏 TUI」。
+供 main.py 与 vibeski/cli.py 调用，实现「一条命令进入全屏 TUI」。
 pip 安装的 wheel 不包含 Node TUI，无 TUI 时会仅启动后端并提示。
 """
 import os
@@ -182,8 +182,8 @@ def _start_backend(root: Path, port: int = 8000, runtime_log: Path | None = None
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"  # 确保后端加载最新 .py 源码
     # 从 TUI 启动后端时禁用 reload，避免 Windows 下文件句柄过多
-    env.setdefault("SECBOT_DESKTOP", "1")
-    env.setdefault("SECBOT_SERVER_RELOAD", "false")
+    env.setdefault("VIBESKI_DESKTOP", "1")
+    env.setdefault("VIBESKI_SERVER_RELOAD", "false")
     stdout_target = subprocess.DEVNULL
     stderr_target = subprocess.DEVNULL
     log_fp = None
@@ -207,7 +207,7 @@ def _start_backend(root: Path, port: int = 8000, runtime_log: Path | None = None
                 creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if sys.platform == "win32" else 0,
             )
             if log_fp is not None:
-                proc._secbot_log_fp = log_fp  # type: ignore[attr-defined]
+                proc._vibeski_log_fp = log_fp  # type: ignore[attr-defined]
             return proc
         except FileNotFoundError:
             continue
@@ -270,7 +270,7 @@ def _terminate_backend_proc(proc: subprocess.Popen | None, port: int = 8000, wai
     deadline = time.monotonic() + wait_timeout
     while time.monotonic() < deadline and _pids_listening_on_port(port):
         time.sleep(0.2)
-    log_fp = getattr(proc, "_secbot_log_fp", None)
+    log_fp = getattr(proc, "_vibeski_log_fp", None)
     if log_fp:
         try:
             log_fp.close()
@@ -282,10 +282,10 @@ def _run_tui(root: Path, runtime_log: Path | None = None) -> int:
     """运行 TS TUI。Windows 下在新控制台窗口运行；非 Windows 用 npm run tui。"""
     tui_dir = root / "terminal-ui"
     env = os.environ.copy()
-    env.setdefault("SECBOT_API_URL", "http://localhost:8000")
+    env.setdefault("VIBESKI_API_URL", "http://localhost:8000")
     interactive_tty = _has_interactive_tty()
     if runtime_log is not None:
-        env.setdefault("SECBOT_TUI_RUNTIME_LOG", str(runtime_log))
+        env.setdefault("VIBESKI_TUI_RUNTIME_LOG", str(runtime_log))
     try:
         if sys.platform == "win32":
             proc = subprocess.Popen(
@@ -329,7 +329,7 @@ def _start_log_viewer(root: Path, backend_log: Path, tui_log: Path) -> subproces
         cmd_list = [
             sys.executable,
             "-m",
-            "secbot_cli.log_viewer",
+            "vibeski_cli.log_viewer",
             "--file",
             str(backend_log),
             "--file",
@@ -361,7 +361,7 @@ def run_backend_only(port: int = 8000) -> int:
     print("[后端] 正在启动…", flush=True)
     proc = _start_backend(root, port)
     if proc is None:
-        print("启动后端失败。请手动运行: uv run python -m router.main 或 secbot --backend", file=sys.stderr)
+        print("启动后端失败。请手动运行: uv run python -m router.main 或 vibeski --backend", file=sys.stderr)
         return 1
     if not _wait_backend(port):
         if proc.poll() is None:
@@ -394,7 +394,7 @@ def run_tui_only(port: int = 8000) -> int:
             print(f"  - {m}", file=sys.stderr)
         return 1
     if not _backend_running(port):
-        print(f"后端未运行。请先执行: secbot --backend 或 uv run python main.py --backend", file=sys.stderr)
+        print(f"后端未运行。请先执行: vibeski --backend 或 uv run python main.py --backend", file=sys.stderr)
         return 1
     print("[TUI] 正在启动…", flush=True)
     return _run_tui(root)
@@ -415,7 +415,7 @@ def launch_tui(port: int = 8000) -> int:
     print("[1/2] 启动后端…", flush=True)
     backend_proc = _start_backend(backend_cwd, port, runtime_log=backend_log)
     if backend_proc is None:
-        print("启动后端失败。请手动运行: secbot --backend 或 uv run python main.py --backend", file=sys.stderr)
+        print("启动后端失败。请手动运行: vibeski --backend 或 uv run python main.py --backend", file=sys.stderr)
         return 1
     if not _wait_backend(port):
         if backend_proc.poll() is None:

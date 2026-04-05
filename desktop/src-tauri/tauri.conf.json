@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "secbot-desktop",
+  "productName": "vibeski-desktop",
   "version": "0.1.0",
-  "identifier": "com.secbot.desktop",
+  "identifier": "com.vibeski.desktop",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:1420",

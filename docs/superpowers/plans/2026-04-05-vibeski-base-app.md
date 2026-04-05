@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Create a standalone `vibeski` repository by copying secbot and stripping all security/pentest-specific code, leaving a reusable full-stack AI agent base app (FastAPI + Ink TUI + Expo mobile + Tauri desktop).
+**Goal:** Create a standalone `vibeski` repository by copying vibeski and stripping all security/pentest-specific code, leaving a reusable full-stack AI agent base app (FastAPI + Ink TUI + Expo mobile + Tauri desktop).
 
-**Architecture:** Copy-then-strip approach. Start with a full copy of secbot, delete domain-specific directories and files, rewrite three files that have domain-specific imports, then do a global identifier rename from `secbot/hackbot` to `vibeski`.
+**Architecture:** Copy-then-strip approach. Start with a full copy of vibeski, delete domain-specific directories and files, rewrite three files that have domain-specific imports, then do a global identifier rename from `vibeski/vibeski` to `vibeski`.
 
 **Tech Stack:** Python 3.10+, FastAPI, LangChain/LangGraph, SQLite, loguru, TypeScript/Ink (TUI), React Native/Expo (mobile), Vite/Tauri (desktop), uv, Node.js 18+
 
@@ -16,36 +16,36 @@
 
 ### Created (new files)
 - `vibeski/.env.example` — minimum env vars for bootstrap
-- `vibeski/tools/web_search_tool.py` — merged from secbot's `web_search.py` + `web_search_ddgs.py`
+- `vibeski/tools/web_search_tool.py` — merged from vibeski's `web_search.py` + `web_search_ddgs.py`
 - `vibeski/docs/QUICKSTART.md` — developer bootstrap guide
 - `vibeski/tests/test_smoke.py` — smoke tests (import + backend health)
 
 ### Rewritten (must not carry over domain imports)
 - `vibeski/router/dependencies.py` — generic singleton container (DatabaseManager, PromptManager only)
-- `vibeski/core/session.py` — generic SessionManager (no secbot agents)
+- `vibeski/core/session.py` — generic SessionManager (no vibeski agents)
 - `vibeski/database/models.py` — strip CrawlerTask, AttackTask, ScanResult
 - `vibeski/database/manager.py` — strip corresponding DDL + CRUD + stats entries
 
 ### Renamed (directory copy + rename)
-- `hackbot_config/` → `vibeski_config/`
-- `secbot_cli/` → `vibeski_cli/`
+- `vibeski_config/` → `vibeski_config/`
+- `vibeski_cli/` → `vibeski_cli/`
 
 ### Globally renamed (string replace across all files)
-- `hackbot_config` → `vibeski_config`
-- `secbot_cli` → `vibeski_cli`
-- `secbot.db` → `vibeski.db`
-- `SECBOT_` → `VIBESKI_` (env var prefixes)
-- `secbot.tools.basic` → `vibeski.tools.basic`
-- `secbot.tools.advanced` → `vibeski.tools.advanced`
-- `SECBOT_TOOL_MODULES` → `VIBESKI_TOOL_MODULES`
-- `secbot-terminal-ui` → `vibeski-terminal-ui`
-- `SECBOT_API_URL` → `VIBESKI_API_URL`
+- `vibeski_config` → `vibeski_config`
+- `vibeski_cli` → `vibeski_cli`
+- `vibeski.db` → `vibeski.db`
+- `VIBESKI_` → `VIBESKI_` (env var prefixes)
+- `vibeski.tools.basic` → `vibeski.tools.basic`
+- `vibeski.tools.advanced` → `vibeski.tools.advanced`
+- `VIBESKI_TOOL_MODULES` → `VIBESKI_TOOL_MODULES`
+- `vibeski-terminal-ui` → `vibeski-terminal-ui`
+- `VIBESKI_API_URL` → `VIBESKI_API_URL`
 
 ### Deleted (entire directories)
 `tools/pentest/`, `tools/offense/`, `tools/osint/`, `tools/web/`, `tools/cloud/`, `tools/protocol/`, `tools/reporting/`, `tools/defense/`, `tools/utility/`, `scanner/`, `defense/`, `payloads/`, `crawler/`, `controller/`, `system/`, `core/agents/`, `core/attack_chain/`, `core/patterns/`, `core/vuln_db/`
 
 ### Deleted (specific files)
-`router/defense.py`, `router/network.py`, `router/agents.py`, `skills/workflow.py`, `tools/web_search.py`, `tools/web_search_ddgs.py`, `utils/audit.py`, `utils/confirmation.py`, `utils/generate_report.py`, `utils/manual_test_runner.py`, `utils/opencode_layout.py`, `utils/release_docs.py`, `utils/root_policy.py`, `utils/run_tests.py`, `utils/speech.py`, `hackbot.spec`, `assets/secbot_architecture.png`, `assets/secbot-main.png`
+`router/defense.py`, `router/network.py`, `router/agents.py`, `skills/workflow.py`, `tools/web_search.py`, `tools/web_search_ddgs.py`, `utils/audit.py`, `utils/confirmation.py`, `utils/generate_report.py`, `utils/manual_test_runner.py`, `utils/opencode_layout.py`, `utils/release_docs.py`, `utils/root_policy.py`, `utils/run_tests.py`, `utils/speech.py`, `vibeski.spec`, `assets/vibeski_architecture.png`, `assets/vibeski-main.png`
 
 ---
 
@@ -54,10 +54,10 @@
 **Files:**
 - Create: `/Users/lpb/workspace/github/agent/vibeski/` (entire repo)
 
-- [ ] **Step 1.1: Copy secbot to vibeski**
+- [ ] **Step 1.1: Copy vibeski to vibeski**
 
 ```bash
-cp -r /Users/lpb/workspace/github/agent/secbot /Users/lpb/workspace/github/agent/vibeski
+cp -r /Users/lpb/workspace/github/agent/vibeski /Users/lpb/workspace/github/agent/vibeski
 ```
 
 - [ ] **Step 1.2: Remove the copied git history and start fresh**
@@ -67,10 +67,10 @@ cd /Users/lpb/workspace/github/agent/vibeski
 rm -rf .git
 git init
 git add .
-git commit -m "chore: initial copy from secbot — strip begins"
+git commit -m "chore: initial copy from vibeski — strip begins"
 ```
 
-Expected: `[main (root-commit) xxxxxxx] chore: initial copy from secbot — strip begins`
+Expected: `[main (root-commit) xxxxxxx] chore: initial copy from vibeski — strip begins`
 
 - [ ] **Step 1.3: Verify the copy is intact**
 
@@ -158,8 +158,8 @@ rm -f utils/root_policy.py utils/run_tests.py utils/speech.py
 - [ ] **Step 3.6: Delete packaging and asset files**
 
 ```bash
-rm -f hackbot.spec
-rm -f assets/secbot_architecture.png assets/secbot-main.png
+rm -f vibeski.spec
+rm -f assets/vibeski_architecture.png assets/vibeski-main.png
 ```
 
 - [ ] **Step 3.4: Verify router only has the kept files**
@@ -182,15 +182,15 @@ git commit -m "chore: remove security-domain individual files"
 ## Task 4: Rename package directories
 
 **Files:**
-- Rename: `hackbot_config/` → `vibeski_config/`
-- Rename: `secbot_cli/` → `vibeski_cli/`
+- Rename: `vibeski_config/` → `vibeski_config/`
+- Rename: `vibeski_cli/` → `vibeski_cli/`
 
 - [ ] **Step 4.1: Rename the Python package directories**
 
 ```bash
 cd /Users/lpb/workspace/github/agent/vibeski
-mv hackbot_config vibeski_config
-mv secbot_cli vibeski_cli
+mv vibeski_config vibeski_config
+mv vibeski_cli vibeski_cli
 ```
 
 - [ ] **Step 4.2: Verify**
@@ -205,7 +205,7 @@ Expected: `vibeski_cli  vibeski_config`
 
 ```bash
 git add -A
-git commit -m "chore: rename hackbot_config→vibeski_config, secbot_cli→vibeski_cli"
+git commit -m "chore: rename vibeski_config→vibeski_config, vibeski_cli→vibeski_cli"
 ```
 
 ---
@@ -213,7 +213,7 @@ git commit -m "chore: rename hackbot_config→vibeski_config, secbot_cli→vibes
 ## Task 5: Global identifier rename across all files
 
 **Files:**
-- Modify: every `.py`, `.ts`, `.tsx`, `.toml`, `.json` file containing `secbot`, `hackbot`, or `SECBOT_`
+- Modify: every `.py`, `.ts`, `.tsx`, `.toml`, `.json` file containing `vibeski`, `vibeski`, or `VIBESKI_`
 
 - [ ] **Step 5.1: Write the rename script**
 
@@ -224,7 +224,7 @@ mkdir -p /Users/lpb/workspace/github/agent/vibeski/scripts
 Create `/Users/lpb/workspace/github/agent/vibeski/scripts/rename_identifiers.py`:
 
 ```python
-"""One-time script: rename secbot/hackbot identifiers to vibeski."""
+"""One-time script: rename vibeski/vibeski identifiers to vibeski."""
 import os
 from pathlib import Path
 
@@ -232,37 +232,37 @@ ROOT = Path(__file__).parent.parent
 
 REPLACEMENTS = [
     # Python packages (order matters — longer first)
-    ("hackbot_config", "vibeski_config"),
-    ("secbot_cli", "vibeski_cli"),
+    ("vibeski_config", "vibeski_config"),
+    ("vibeski_cli", "vibeski_cli"),
     # Database file
-    ("secbot.db", "vibeski.db"),
+    ("vibeski.db", "vibeski.db"),
     # Entry-point groups
-    ("secbot.tools.basic", "vibeski.tools.basic"),
-    ("secbot.tools.advanced", "vibeski.tools.advanced"),
-    # Env vars (SECBOT_ prefix — do before generic secbot)
-    ("SECBOT_TOOL_MODULES_ADVANCED", "VIBESKI_TOOL_MODULES_ADVANCED"),
-    ("SECBOT_TOOL_MODULES", "VIBESKI_TOOL_MODULES"),
-    ("SECBOT_API_URL", "VIBESKI_API_URL"),
-    ("SECBOT_DESKTOP", "VIBESKI_DESKTOP"),
-    ("SECBOT_SERVER_HOST", "VIBESKI_SERVER_HOST"),
-    ("SECBOT_SERVER_PORT", "VIBESKI_SERVER_PORT"),
-    ("SECBOT_SERVER_RELOAD", "VIBESKI_SERVER_RELOAD"),
+    ("vibeski.tools.basic", "vibeski.tools.basic"),
+    ("vibeski.tools.advanced", "vibeski.tools.advanced"),
+    # Env vars (VIBESKI_ prefix — do before generic vibeski)
+    ("VIBESKI_TOOL_MODULES_ADVANCED", "VIBESKI_TOOL_MODULES_ADVANCED"),
+    ("VIBESKI_TOOL_MODULES", "VIBESKI_TOOL_MODULES"),
+    ("VIBESKI_API_URL", "VIBESKI_API_URL"),
+    ("VIBESKI_DESKTOP", "VIBESKI_DESKTOP"),
+    ("VIBESKI_SERVER_HOST", "VIBESKI_SERVER_HOST"),
+    ("VIBESKI_SERVER_PORT", "VIBESKI_SERVER_PORT"),
+    ("VIBESKI_SERVER_RELOAD", "VIBESKI_SERVER_RELOAD"),
     # Generic names
-    ("secbot-terminal-ui", "vibeski-terminal-ui"),
-    ("secbot-cli-server", "vibeski-server"),
-    ("hackbot-server", "vibeski-server"),
-    ("secbot-server", "vibeski-server"),
-    ("secbot-cli", "vibeski"),
-    ("hackbot", "vibeski"),
-    ("secbot", "vibeski"),
-    ("Hackbot", "Vibeski"),
-    ("HackBot", "VibeSkiBot"),
-    ("HACKBOT", "VIBESKI"),
-    ("SECBOT", "VIBESKI"),
+    ("vibeski-terminal-ui", "vibeski-terminal-ui"),
+    ("vibeski-server", "vibeski-server"),
+    ("vibeski-server", "vibeski-server"),
+    ("vibeski-server", "vibeski-server"),
+    ("vibeski", "vibeski"),
+    ("vibeski", "vibeski"),
+    ("vibeski", "vibeski"),
+    ("Vibeski", "Vibeski"),
+    ("VibeSkiBot", "VibeSkiBot"),
+    ("VIBESKI", "VIBESKI"),
+    ("VIBESKI", "VIBESKI"),
 ]
 
 EXTENSIONS = {".py", ".ts", ".tsx", ".toml", ".json", ".md", ".sh", ".bat", ".ps1", ".txt"}
-SKIP_DIRS = {".git", ".venv", "node_modules", "__pycache__", ".ruff_cache", "dist", "secbot.egg-info"}
+SKIP_DIRS = {".git", ".venv", "node_modules", "__pycache__", ".ruff_cache", "dist", "vibeski.egg-info"}
 
 changed = 0
 for path in ROOT.rglob("*"):
@@ -304,7 +304,7 @@ Expected: output listing updated files, ending with `Done. N files updated.`
 - [ ] **Step 5.3: Verify key renames**
 
 ```bash
-grep -r "hackbot_config\|secbot_cli\|SECBOT_API_URL\|SECBOT_DESKTOP\|SECBOT_SERVER" \
+grep -r "vibeski_config\|vibeski_cli\|VIBESKI_API_URL\|VIBESKI_DESKTOP\|VIBESKI_SERVER" \
   --include="*.py" --include="*.ts" --include="*.toml" --include="*.json" \
   /Users/lpb/workspace/github/agent/vibeski/ | grep -v ".git" | grep -v "__pycache__"
 ```
@@ -324,7 +324,7 @@ Expected: lines containing `from vibeski_cli.launch_tui import ...`
 ```bash
 cd /Users/lpb/workspace/github/agent/vibeski
 git add -A
-git commit -m "chore: rename all secbot/hackbot identifiers to vibeski"
+git commit -m "chore: rename all vibeski/vibeski identifiers to vibeski"
 ```
 
 ---
@@ -911,7 +911,7 @@ git commit -m "feat: add web_search_tool.py (merged from two source files)"
 **Files:**
 - Modify: `vibeski/tools/registry.py`
 
-The global rename in Task 5 handles `secbot.tools.basic` → `vibeski.tools.basic` and the env var renames. Verify it was applied.
+The global rename in Task 5 handles `vibeski.tools.basic` → `vibeski.tools.basic` and the env var renames. Verify it was applied.
 
 - [ ] **Step 11.1: Verify the rename happened**
 
@@ -968,9 +968,9 @@ grep "name\|scripts\|entry-points\|version\|description" /Users/lpb/workspace/gi
 
 Expected: `name = "vibeski"`, CLI entries `vibeski = ...` and `vibeski-server = ...`
 
-- [ ] **Step 12.2: Remove leftover secbot package entries from [tool.setuptools]**
+- [ ] **Step 12.2: Remove leftover vibeski package entries from [tool.setuptools]**
 
-Open `pyproject.toml` and update the `[tool.setuptools] packages` list. Replace `secbot_cli` with `vibeski_cli` and `hackbot_config` (was renamed in Task 5 global rename) with `vibeski_config`. Also:
+Open `pyproject.toml` and update the `[tool.setuptools] packages` list. Replace `vibeski_cli` with `vibeski_cli` and `vibeski_config` (was renamed in Task 5 global rename) with `vibeski_config`. Also:
 - Remove all security-domain package entries: `scanner`, `defense`, `payloads`, `crawler`, `controller`, `core.agents`, `core.attack_chain`, `core.patterns`, `core.vuln_db`, all `tools.pentest.*`, `tools.offense.*`, `tools.osint`, `tools.web`, `tools.cloud`, `tools.protocol`, `tools.reporting`
 
 The kept packages list should be:
@@ -1236,15 +1236,15 @@ git commit -m "chore: add .env.example with minimum required config keys"
 
 **Files:**
 - Modify: `vibeski/terminal-ui/src/api.ts`
-- Modify: `vibeski/terminal-ui/src/config.ts` (if it references SECBOT_API_URL)
+- Modify: `vibeski/terminal-ui/src/config.ts` (if it references VIBESKI_API_URL)
 - Verify: `vibeski/terminal-ui/package.json` name field
 
-The global rename in Task 5 should have handled `SECBOT_API_URL` → `VIBESKI_API_URL`. This task verifies and fixes any misses.
+The global rename in Task 5 should have handled `VIBESKI_API_URL` → `VIBESKI_API_URL`. This task verifies and fixes any misses.
 
 - [ ] **Step 15.1: Verify terminal-ui references**
 
 ```bash
-grep -r "SECBOT\|secbot\|hackbot" /Users/lpb/workspace/github/agent/vibeski/terminal-ui/ 2>/dev/null | grep -v node_modules
+grep -r "VIBESKI\|vibeski\|vibeski" /Users/lpb/workspace/github/agent/vibeski/terminal-ui/ 2>/dev/null | grep -v node_modules
 ```
 
 Expected: **no output**
@@ -1262,7 +1262,7 @@ Expected: `"name": "vibeski-terminal-ui"`
 ```bash
 # If there were misses:
 git add terminal-ui/
-git commit -m "fix: rename remaining SECBOT_ references in terminal-ui" || echo "Nothing to commit"
+git commit -m "fix: rename remaining VIBESKI_ references in terminal-ui" || echo "Nothing to commit"
 ```
 
 ---
@@ -1439,10 +1439,10 @@ rm scripts/rename_identifiers.py
 rmdir scripts 2>/dev/null || true
 ```
 
-- [ ] **Step 18.2: Check for any leftover `secbot`/`hackbot` references in Python files**
+- [ ] **Step 18.2: Check for any leftover `vibeski`/`vibeski` references in Python files**
 
 ```bash
-grep -rn "hackbot\|secbot\|Hackbot\|Secbot" \
+grep -rn "vibeski\|vibeski\|Vibeski\|Secbot" \
   /Users/lpb/workspace/github/agent/vibeski/ \
   --include="*.py" --include="*.toml" \
   | grep -v ".git" | grep -v "__pycache__" | grep -v "test_" | grep -v ".egg-info"

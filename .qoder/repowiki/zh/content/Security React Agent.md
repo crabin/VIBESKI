@@ -17,7 +17,7 @@
 - [HomeView.tsx](file://terminal-ui/src/views/HomeView.tsx)
 - [useChat.ts](file://terminal-ui/src/useChat.ts)
 - [models.py](file://core/models.py)
-- [__init__.py](file://hackbot_config/__init__.py)
+- [__init__.py](file://vibeski_config/__init__.py)
 </cite>
 
 ## 目录
@@ -105,7 +105,7 @@ Session --> Memory
 - **core/**：核心智能体框架和算法实现
 - **router/**：FastAPI路由层，提供REST API接口
 - **utils/**：通用工具函数和基础设施
-- **hackbot_config/**：配置管理系统
+- **vibeski_config/**：配置管理系统
 
 ### 前端模块
 
@@ -150,7 +150,7 @@ class SecurityReActAgent {
 +get_current_model() str
 }
 class CoordinatorAgent {
-+HackbotAgent _default_agent
++VibeskiAgent _default_agent
 +NetworkReconAgent _network_agent
 +WebPentestAgent _web_agent
 +OSINTAgent _osint_agent
@@ -394,7 +394,7 @@ CheckTool --> |Web相关工具| Web
 CheckTool --> |OSINT工具| OSINT
 CheckTool --> |终端工具| Terminal
 CheckTool --> |防御工具| Defense
-CheckTool --> |其他| Default[默认HackbotAgent]
+CheckTool --> |其他| Default[默认VibeskiAgent]
 ```
 
 **图表来源**
@@ -488,7 +488,7 @@ G[router/main.py]
 H[router/chat.py]
 end
 subgraph "配置管理"
-I[hackbot_config/__init__.py]
+I[vibeski_config/__init__.py]
 end
 A --> B
 C --> A
@@ -508,7 +508,7 @@ D --> I
 - [planner_agent.py:15-17](file://core/agents/planner_agent.py#L15-L17)
 - [executor.py:12-14](file://core/executor.py#L12-L14)
 - [chat.py:15-25](file://router/chat.py#L15-L25)
-- [__init__.py:183-275](file://hackbot_config/__init__.py#L183-L275)
+- [__init__.py:183-275](file://vibeski_config/__init__.py#L183-L275)
 
 ### 第三方依赖
 
@@ -582,7 +582,7 @@ D --> I
 **章节来源**
 - [security_react.py:434-461](file://core/patterns/security_react.py#L434-L461)
 - [chat.py:172-188](file://router/chat.py#L172-L188)
-- [__init__.py:128-139](file://hackbot_config/__init__.py#L128-L139)
+- [__init__.py:128-139](file://vibeski_config/__init__.py#L128-L139)
 
 ## 结论
 

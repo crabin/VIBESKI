@@ -9,7 +9,7 @@
 - [cve_adapter.py](file://core/vuln_db/adapters/cve_adapter.py)
 - [vuln_vector_store.py](file://core/vuln_db/vuln_vector_store.py)
 - [cve_lookup_tool.py](file://tools/utility/cve_lookup_tool.py)
-- [hackbot_config.py](file://hackbot_config/__init__.py)
+- [vibeski_config.py](file://vibeski_config/__init__.py)
 </cite>
 
 ## 目录
@@ -336,7 +336,7 @@ SVC --> CVE["CveAdapter"]
 - [nvd_adapter.py](file://core/vuln_db/adapters/nvd_adapter.py#L70-L71)
 - [vuln_db_service.py](file://core/vuln_db/vuln_db_service.py#L62-L64)
 - [nvd_adapter.py](file://core/vuln_db/adapters/nvd_adapter.py#L100-L101)
-- [hackbot_config.py](file://hackbot_config/__init__.py#L127-L137)
+- [vibeski_config.py](file://vibeski_config/__init__.py#L127-L137)
 
 ## 结论
 NVD适配器通过清晰的接口设计与严格的JSON解析流程，实现了对NVD 2.0 REST API的稳定对接。配合统一数据模型与向量检索服务，形成了“精确查询 + 语义检索 + 在线补充”的综合查询能力。在性能方面，采用异步并发与结果限制策略，兼顾吞吐与稳定性。建议在生产环境中启用NVD API Key以提升配额，并结合向量库定期同步关键关键词，以获得更高质量的检索效果。

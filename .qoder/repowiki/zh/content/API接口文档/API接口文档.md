@@ -207,7 +207,7 @@ API-->>FE : 推送"done"结束
 - 失败响应
   - HTTP 400/500：参数错误或内部异常
 - 示例
-  - curl -N -X POST http://127.0.0.1:8000/api/chat -H "Content-Type: application/json" -d '{"message":"扫描192.168.1.1","mode":"agent","agent":"hackbot"}'
+  - curl -N -X POST http://127.0.0.1:8000/api/chat -H "Content-Type: application/json" -d '{"message":"扫描192.168.1.1","mode":"agent","agent":"vibeski"}'
   - curl -i http://127.0.0.1:8000/api/chat/root-response -H "Content-Type: application/json" -d '{"request_id":"...","action":"run_once","password":"..."}'
 
 ```mermaid
@@ -248,7 +248,7 @@ Done --> |是| Final["发送'response'如有并结束"]
   - HTTP 500：内部异常
 - 示例
   - curl http://127.0.0.1:8000/api/agents
-  - curl -X POST http://127.0.0.1:8000/api/agents/clear -H "Content-Type: application/json" -d '{"agent":"hackbot"}'
+  - curl -X POST http://127.0.0.1:8000/api/agents/clear -H "Content-Type: application/json" -d '{"agent":"vibeski"}'
 
 **章节来源**
 - [router/agents.py](file://router/agents.py#L18-L31)
@@ -381,8 +381,8 @@ Done --> |是| Final["发送'response'如有并结束"]
   - HTTP 500：内部异常
 - 示例
   - curl http://127.0.0.1:8000/api/db/stats
-  - curl "http://127.0.0.1:8000/api/db/history?limit=10&agent=hackbot"
-  - curl -X DELETE "http://127.0.0.1:8000/api/db/history?agent=hackbot"
+  - curl "http://127.0.0.1:8000/api/db/history?limit=10&agent=vibeski"
+  - curl -X DELETE "http://127.0.0.1:8000/api/db/history?agent=vibeski"
 
 **章节来源**
 - [router/database.py](file://router/database.py#L20-L35)
@@ -492,7 +492,7 @@ U1["app/src/hooks/useSSE.ts"] --> S1
   - 当前实现未包含鉴权中间件；开发阶段允许全部来源的CORS，生产环境需限制来源。
 - 常用调用示例
   - 健康检查：curl http://127.0.0.1:8000/health
-  - 流式聊天：curl -N -X POST http://127.0.0.1:8000/api/chat -H "Content-Type: application/json" -d '{"message":"扫描192.168.1.1","mode":"agent","agent":"hackbot"}'
+  - 流式聊天：curl -N -X POST http://127.0.0.1:8000/api/chat -H "Content-Type: application/json" -d '{"message":"扫描192.168.1.1","mode":"agent","agent":"vibeski"}'
   - 同步聊天：curl -X POST http://127.0.0.1:8000/api/chat/sync -H "Content-Type: application/json" -d '{"message":"什么是SQL注入","mode":"ask"}'
   - 获取系统信息：curl http://127.0.0.1:8000/api/system/info
   - 内网发现：curl -X POST http://127.0.0.1:8000/api/network/discover -H "Content-Type: application/json" -d '{"network":"192.168.1.0/24"}'

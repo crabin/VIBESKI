@@ -19,7 +19,7 @@ _LOG_CONTEXT_KEYS = (
 )
 
 _CTX_VARS: Dict[str, ContextVar[Any]] = {
-    key: ContextVar(f"secbot_log_{key}", default=None) for key in _LOG_CONTEXT_KEYS
+    key: ContextVar(f"vibeski_log_{key}", default=None) for key in _LOG_CONTEXT_KEYS
 }
 
 

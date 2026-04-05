@@ -1,5 +1,5 @@
 /**
- * 单块内容：委托 BlockRenderer 按类型渲染 secbot 各输出部分
+ * 单块内容：委托 BlockRenderer 按类型渲染 vibeski 各输出部分
  */
 import React from 'react';
 import type { ContentBlock as ContentBlockType } from '../types.js';

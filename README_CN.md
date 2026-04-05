@@ -1,10 +1,10 @@
-# secbot（原 hackbot）: 自动化渗透测试机器人
+# vibeski（原 vibeski）: 自动化渗透测试机器人
 
 <div align="center">
 
 **一个智能化的自动化渗透测试机器人，具备 AI 驱动的安全测试能力**
 
-[English](README_EN.md) | [中文](#secbot原-hackbot-自动化渗透测试机器人)
+[English](README_EN.md) | [中文](#vibeski原-vibeski-自动化渗透测试机器人)
 
 </div>
 
@@ -25,7 +25,7 @@
 - **多种智能体模式**: ReAct、Plan-Execute、多智能体、工具使用、记忆增强
 - **AI Web 研究子智能体**: 独立的 WebResearchAgent，基于 ReAct 自动完成联网搜索、网页提取、多页爬取和 API 调用
 - **本地控制界面**: 提供简单直观的命令行入口与配置工具
-- **持久化终端会话**: 为 hackbot 提供仅由智能体驱动的专用终端，会话内多步命令执行与系统信息收集
+- **持久化终端会话**: 为 vibeski 提供仅由智能体驱动的专用终端，会话内多步命令执行与系统信息收集
 - **语音交互**: 完整的语音转文字和文字转语音功能
 - **AI 网络爬虫**: 实时网络信息捕获和监控
 - **操作系统控制**: 文件操作、进程管理、系统信息
@@ -66,11 +66,11 @@
 
 ## 架构与多智能体协作
 
-为了便于理解 secbot 内部各层组件与多智能体之间的协作关系，这里给出一个**尽量完整且可对照源码的架构说明**。
+为了便于理解 vibeski 内部各层组件与多智能体之间的协作关系，这里给出一个**尽量完整且可对照源码的架构说明**。
 
-> **提示**：下面先给出一张静态架构图（`assets/secbot_architecture.png`），便于在 GitHub / 代码托管平台中直接预览；其详细文字说明与对应源码文件请参考本节后续内容与 mermaid 图。
+> **提示**：下面先给出一张静态架构图（`assets/vibeski_architecture.png`），便于在 GitHub / 代码托管平台中直接预览；其详细文字说明与对应源码文件请参考本节后续内容与 mermaid 图。
 
-![Secbot 架构总览（前端 / 路由 / Planner / 多智能体 / Tools / Summary / EventBus / 存储）](assets/secbot_architecture.png)
+![Secbot 架构总览（前端 / 路由 / Planner / 多智能体 / Tools / Summary / EventBus / 存储）](assets/vibeski_architecture.png)
 
 ### 整体架构一览（按源码模块拆分）
 
@@ -104,7 +104,7 @@ flowchart LR
 
   %% ---------------- 多智能体协调层 ----------------
   subgraph AgentOrchestration["多智能体协调层"]
-    executor -->|按层并行调用| coord["CoordinatorAgent (Hackbot)"]
+    executor -->|按层并行调用| coord["CoordinatorAgent (Vibeski)"]
 
     subgraph SpecialistAgents["Specialist Agents"]
       net[NetworkReconAgent]
@@ -160,7 +160,7 @@ flowchart LR
   - `_event_to_sse()`：把 EventBus 事件映射为前端可消费的 SSE 事件，并将 `data.agent` 一路透传给前端，便于区分不同 Agent 的输出。
 - **SessionManager（会话编排器）**
   - 负责一次完整交互的三阶段流程：
-    1. 路由：判断是否直接走 QA / 闲聊回复，还是进入技术流（Planner + Hackbot）。
+    1. 路由：判断是否直接走 QA / 闲聊回复，还是进入技术流（Planner + Vibeski）。
     2. 规划：调用 `PlannerAgent.plan()` 生成 `PlanResult`，并经 `EventBus` 广播规划摘要与 Todos。
     3. 执行：根据 Todos 是否存在以及 Agent 能力，选择：
        - 分层执行模式：`TaskExecutor + CoordinatorAgent`（推荐路径，支持多 Agent 并行）。
@@ -193,17 +193,17 @@ flowchart LR
   - `by_todo`：以 `todo_id` 为 key 的结果映射（兼容旧逻辑）。
   - `by_resource`：以 `resource` 为 key 的结果列表，挂在 `context["_by_resource_"]` 下，方便后续步骤/子 Agent 按资产维度复用前置信息。
 
-#### 4. CoordinatorAgent（Hackbot 主体）：多子 Agent 协同
+#### 4. CoordinatorAgent（Vibeski 主体）：多子 Agent 协同
 
-- 对外仍暴露为 `"hackbot"`，但内部不再直接调用具体工具，而是：
-  - 在普通 `process()` 模式下，委托给历史的 `HackbotAgent`，保持兼容。
+- 对外仍暴露为 `"vibeski"`，但内部不再直接调用具体工具，而是：
+  - 在普通 `process()` 模式下，委托给历史的 `VibeskiAgent`，保持兼容。
   - 在分层执行模式下，通过 `execute_todo()` 按 Todo 的 `agent_hint / resource / tool_hint` 选择对应的专职子 Agent：
     - `network_recon` → `NetworkReconAgent`
     - `web_pentest` → `WebPentestAgent`
     - `osint` → `OSINTAgent`
     - `terminal_ops` → `TerminalOpsAgent`
     - `defense_monitor` → `DefenseMonitorAgent`
-  - 若无法匹配，则退回默认 `HackbotAgent`。
+  - 若无法匹配，则退回默认 `VibeskiAgent`。
 - 在每次 `execute_todo()` 后，将结果按 Agent 维度聚合到 `_agent_results` 中，最终交给 `SummaryAgent` 做「多 Agent 汇总报告」。
 
 #### 5. 专职子 Agent：窄而深的 ReAct 能力
@@ -251,8 +251,8 @@ flowchart LR
   - 根据 `PlannerAgent.get_execution_order()` 输出的层级执行顺序，逐层执行 Todo：层内可并行，层间严格按依赖拓扑前进。
   - 在传给 Agent 的 `context` 中，既保留按 `todo_id` 的结果映射，又额外按 `resource` 聚合结果（`context["_by_resource_"]`），方便后续步骤或子 Agent 直接基于同一资产历史信息进行推理。
 
-- **CoordinatorAgent（Hackbot 主体）：多子 Agent 协同**
-  - 对外仍以 `"hackbot"` 身份暴露，但内部不再单体执行，而是**根据每个 Todo 的 `agent_hint/resource/tool_hint`** 将执行委派给相应的专职子 Agent：
+- **CoordinatorAgent（Vibeski 主体）：多子 Agent 协同**
+  - 对外仍以 `"vibeski"` 身份暴露，但内部不再单体执行，而是**根据每个 Todo 的 `agent_hint/resource/tool_hint`** 将执行委派给相应的专职子 Agent：
     - `network_recon` → `NetworkReconAgent`
     - `web_pentest` → `WebPentestAgent`
     - `osint` → `OSINTAgent`
@@ -272,7 +272,7 @@ flowchart LR
 
 ### 仓库命名说明
 
-- GitHub 远程仓库现已统一为 **`secbot`**，项目早期名称为 **hackbot**，文档中的命令和包名会逐步迁移为 `secbot`（保留 `hackbot` 作为兼容入口）。
+- GitHub 远程仓库现已统一为 **`vibeski`**，项目早期名称为 **vibeski**，文档中的命令和包名会逐步迁移为 `vibeski`（保留 `vibeski` 作为兼容入口）。
 
 ---
 
@@ -287,9 +287,9 @@ flowchart LR
 
 若不想安装 Python，可直接使用**单文件可执行程序**（Windows / macOS / Linux）：
 
-1. 在 [Releases](https://github.com/iammm0/secbot/releases) 下载对应平台 zip（如 `secbot-linux-amd64.zip`），解压得到 `secbot` 目录。
-2. **配置 DeepSeek API Key**（启动前唯一必须条件）：环境变量 `DEEPSEEK_API_KEY=sk-xxx`，或在 `secbot` 目录内创建 `.env` 写入该变量。
-3. 进入 `secbot` 目录，运行 `./secbot`（Linux/macOS）或 `secbot.exe`（Windows）即可进入交互式界面。
+1. 在 [Releases](https://github.com/iammm0/vibeski/releases) 下载对应平台 zip（如 `vibeski-linux-amd64.zip`），解压得到 `vibeski` 目录。
+2. **配置 DeepSeek API Key**（启动前唯一必须条件）：环境变量 `DEEPSEEK_API_KEY=sk-xxx`，或在 `vibeski` 目录内创建 `.env` 写入该变量。
+3. 进入 `vibeski` 目录，运行 `./vibeski`（Linux/macOS）或 `vibeski.exe`（Windows）即可进入交互式界面。
 
 详见 [发布版使用说明](docs/RELEASE.md)。
 
@@ -300,8 +300,8 @@ flowchart LR
 ### 1. 克隆仓库
 
 ```bash
-git clone https://github.com/iammm0/secbot.git
-cd secbot
+git clone https://github.com/iammm0/vibeski.git
+cd vibeski
 ```
 
 ### 2. 安装依赖
@@ -344,11 +344,11 @@ cp .env.example .env
 # 构建包 (使用 uv)
 uv run python -m build
 
-# 安装包（包名为 secbot，版本见 pyproject.toml）
-uv pip install dist/secbot-*.whl
+# 安装包（包名为 vibeski，版本见 pyproject.toml）
+uv pip install dist/vibeski-*.whl
 
-# 现在可直接使用 hackbot / secbot（无参数即交互模式）
-secbot
+# 现在可直接使用 vibeski / vibeski（无参数即交互模式）
+vibeski
 ```
 
 ## 快速开始
@@ -359,8 +359,8 @@ secbot
 # 无参数运行即进入交互模式（占据整个终端，退出后恢复）
 python main.py
 # 或
-uv run secbot
-# 或（若已安装）hackbot / secbot
+uv run vibeski
+# 或（若已安装）vibeski / vibeski
 ```
 
 所有交互（对话、切换智能体、工具、斜杠命令）均在交互会话内完成。输入 `/` 后回车可列出命令；输入 `exit` 或 `quit` 退出。
@@ -378,12 +378,12 @@ uv run secbot
 
 终端界面采用 **TypeScript 生态**（[Ink](https://github.com/vadimdemedes/ink) + React），通过 HTTP/SSE 连接 Python 后端：
 
-1. 先启动后端：`python -m router.main` 或 `uv run hackbot-server`
+1. 先启动后端：`python -m router.main` 或 `uv run vibeski-server`
 2. 在另一终端进入 `terminal-ui` 并运行：`npm install && npm run tui`
 
-配置后端地址：环境变量 `SECBOT_API_URL` 或 `BASE_URL`（默认 `http://localhost:8000`）。一键启动：Windows 运行 `.\scripts\start-ts-tui.ps1`，Linux/macOS 运行 `./scripts/start-ts-tui.sh`。详见 [terminal-ui/README.md](terminal-ui/README.md)。
+配置后端地址：环境变量 `VIBESKI_API_URL` 或 `BASE_URL`（默认 `http://localhost:8000`）。一键启动：Windows 运行 `.\scripts\start-ts-tui.ps1`，Linux/macOS 运行 `./scripts/start-ts-tui.sh`。详见 [terminal-ui/README.md](terminal-ui/README.md)。
 
-也可使用上述 Python 交互模式（无参数运行 `python main.py` 或 `uv run secbot`），作为无需 Node 的备用方式。
+也可使用上述 Python 交互模式（无参数运行 `python main.py` 或 `uv run vibeski`），作为无需 Node 的备用方式。
 
 ## 开发
 

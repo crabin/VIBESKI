@@ -12,7 +12,7 @@
 - [crawler/base.py](file://crawler/base.py)
 - [crawler/extractor.py](file://crawler/extractor.py)
 - [crawler/realtime.py](file://crawler/realtime.py)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py)
 - [README_CN.md](file://README_CN.md)
 </cite>
 
@@ -57,7 +57,7 @@ AIEX["AIExtractor<br/>AI提取器"]
 RTC["RealtimeCrawler<br/>实时监控"]
 end
 subgraph "配置层"
-CFG["hackbot_config.settings<br/>LLM提供商/模型配置"]
+CFG["vibeski_config.settings<br/>LLM提供商/模型配置"]
 end
 WRA --> SST
 WRA --> PXT
@@ -87,7 +87,7 @@ ACT --> CFG
 - [crawler/base.py](file://crawler/base.py#L45-L137)
 - [crawler/extractor.py](file://crawler/extractor.py#L12-L86)
 - [crawler/realtime.py](file://crawler/realtime.py#L25-L194)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L162-L246)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L162-L246)
 
 **章节来源**
 - [README_CN.md](file://README_CN.md#L52-L59)
@@ -402,7 +402,7 @@ WRA --> PXT["PageExtractTool"]
 WRA --> DCT["DeepCrawlTool"]
 WRA --> ACT["ApiClientTool"]
 SST --> DDGS["DDGS搜索客户端"]
-PXT --> CFG["hackbot_config.settings"]
+PXT --> CFG["vibeski_config.settings"]
 DCT --> CFG
 ACT --> CFG
 SST --> CFG
@@ -418,10 +418,10 @@ AIEX --> CFG
 - [tools/web_research/page_extract_tool.py](file://tools/web_research/page_extract_tool.py#L6-L8)
 - [tools/web_research/api_client_tool.py](file://tools/web_research/api_client_tool.py#L8-L10)
 - [crawler/realtime.py](file://crawler/realtime.py#L8-L11)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L162-L246)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L162-L246)
 
 **章节来源**
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L162-L246)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L162-L246)
 
 ## 性能考量
 - 并发与限流：SmartSearchTool 与 DeepCrawlTool 使用并发抓取与信号量，避免过度请求。

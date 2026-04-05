@@ -7,8 +7,8 @@
 ### 1.1 安装 Python 依赖
 
 ```bash
-git clone https://github.com/iammm0/secbot.git
-cd secbot
+git clone https://github.com/iammm0/vibeski.git
+cd vibeski
 uv sync
 ```
 
@@ -46,7 +46,7 @@ OLLAMA_EMBEDDING_MODEL=nomic-embed-text
 ```bash
 python main.py
 # 或
-uv run secbot
+uv run vibeski
 ```
 
 这两种方式都会：
@@ -60,7 +60,7 @@ uv run secbot
 适合对接移动端、桌面端，或单独调试接口。
 
 ```bash
-uv run secbot --backend
+uv run vibeski --backend
 # 或
 python -m router.main
 ```
@@ -95,7 +95,7 @@ npm run tui
 ### 4.1 Expo / React Native 移动端
 
 ```bash
-uv run secbot --backend
+uv run vibeski --backend
 
 # 新开一个终端
 cd app
@@ -125,24 +125,24 @@ npm install
 npm run tauri dev
 ```
 
-桌面端默认连接本机 `http://127.0.0.1:8000`，并可通过 `SECBOT_DESKTOP=1` 模式拉起内嵌后端。
+桌面端默认连接本机 `http://127.0.0.1:8000`，并可通过 `VIBESKI_DESKTOP=1` 模式拉起内嵌后端。
 
 ## 5. 常见命令
 
 ```bash
 # 显示命令帮助
-uv run secbot --help
+uv run vibeski --help
 
 # 交互式切换推理后端 / 模型
-uv run secbot model
+uv run vibeski model
 
 # 仅启动 TUI（假定后端已运行）
-uv run secbot --tui
+uv run vibeski --tui
 ```
 
 ## 6. 常见问题
 
-### 6.1 运行 `secbot` 但没有进入 TUI
+### 6.1 运行 `vibeski` 但没有进入 TUI
 
 若你是通过 wheel / pip 安装，而不是从源码运行，包内可能不包含 `terminal-ui` 的 Node 前端资源。此时程序会优先确保后端可启动，但不会提供完整全屏 TUI。
 

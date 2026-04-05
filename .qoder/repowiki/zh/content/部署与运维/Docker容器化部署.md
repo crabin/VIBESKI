@@ -7,7 +7,7 @@
 - [pyproject.toml](file://pyproject.toml)
 - [uv.toml](file://uv.toml)
 - [docs/DOCKER_SETUP.md](file://docs/DOCKER_SETUP.md)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py)
 - [.github/workflows/release.yml](file://.github/workflows/release.yml)
 - [.gitignore](file://.gitignore)
 - [tools/cloud/container_info_tool.py](file://tools/cloud/container_info_tool.py)
@@ -40,7 +40,7 @@
 - 运行时与持久化
   - .dockerignore：排除规则，确保data/、logs/与数据库文件不被打包进镜像
   - .gitignore：补充忽略规则（含data/、logs/）
-  - hackbot_config/__init__.py：数据库URL默认值为SQLite，日志路径与环境变量读取
+  - vibeski_config/__init__.py：数据库URL默认值为SQLite，日志路径与环境变量读取
 - 文档与策略
   - docs/DOCKER_SETUP.md：明确“仅使用SQLite”的部署策略与compose历史保留说明
 
@@ -53,7 +53,7 @@ C --> E["容器实例<br/>Secbot服务"]
 F[".dockerignore<br/>排除data/logs/db"] --> B
 G["pyproject.toml<br/>依赖与打包"] --> B
 H["uv.toml<br/>索引与覆盖"] --> B
-I["hackbot_config/__init__.py<br/>SQLite默认URL"] --> E
+I["vibeski_config/__init__.py<br/>SQLite默认URL"] --> E
 ```
 
 图表来源
@@ -61,7 +61,7 @@ I["hackbot_config/__init__.py<br/>SQLite默认URL"] --> E
 - [pyproject.toml](file://pyproject.toml#L1-L165)
 - [uv.toml](file://uv.toml#L1-L7)
 - [.dockerignore](file://.dockerignore#L1-L94)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L226)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L226)
 
 章节来源
 - [Makefile](file://Makefile#L1-L43)
@@ -69,7 +69,7 @@ I["hackbot_config/__init__.py<br/>SQLite默认URL"] --> E
 - [uv.toml](file://uv.toml#L1-L7)
 - [.dockerignore](file://.dockerignore#L1-L94)
 - [.gitignore](file://.gitignore#L58-L60)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L226)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L226)
 - [docs/DOCKER_SETUP.md](file://docs/DOCKER_SETUP.md#L1-L14)
 
 ## 核心组件
@@ -78,7 +78,7 @@ I["hackbot_config/__init__.py<br/>SQLite默认URL"] --> E
 - 生产编排
   - docker-compose.prod.yml负责容器启动、网络、端口映射与卷挂载
 - 运行时配置
-  - hackbot_config/__init__.py从环境变量读取数据库URL、日志路径等，SQLite默认路径位于data/secbot.db
+  - vibeski_config/__init__.py从环境变量读取数据库URL、日志路径等，SQLite默认路径位于data/vibeski.db
 - 持久化与忽略
   - .dockerignore与.gitignore共同确保data/、logs/与数据库文件不被打包进镜像，避免污染镜像层
 
@@ -86,7 +86,7 @@ I["hackbot_config/__init__.py<br/>SQLite默认URL"] --> E
 - [Makefile](file://Makefile#L30-L37)
 - [pyproject.toml](file://pyproject.toml#L29-L69)
 - [uv.toml](file://uv.toml#L1-L7)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L229)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L229)
 - [.dockerignore](file://.dockerignore#L44-L56)
 - [.gitignore](file://.gitignore#L58-L60)
 
@@ -102,7 +102,7 @@ P["端口映射: 8000/tcp"] --> C1
 end
 subgraph "容器: Secbot"
 S["Secbot服务进程"]
-DB["SQLite 数据库<br/>data/secbot.db"]
+DB["SQLite 数据库<br/>data/vibeski.db"]
 LOG["日志文件<br/>logs/agent.log"]
 end
 C1 --> S
@@ -111,14 +111,14 @@ S --> LOG
 ```
 
 图表来源
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L229)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L229)
 - [.dockerignore](file://.dockerignore#L44-L56)
 
 ## 详细组件分析
 
 ### 容器构建流程
 - 构建入口
-  - make docker-build调用docker build -t hackbot:latest .
+  - make docker-build调用docker build -t vibeski:latest .
 - 依赖与打包
   - pyproject.toml声明依赖与打包后端；uv.toml设置索引与覆盖项
 - 镜像层优化
@@ -127,7 +127,7 @@ S --> LOG
 ```mermaid
 flowchart TD
 Start(["开始"]) --> Make["执行 make docker-build"]
-Make --> DockerBuild["docker build -t hackbot:latest ."]
+Make --> DockerBuild["docker build -t vibeski:latest ."]
 DockerBuild --> PullDeps["拉取Python运行时与基础镜像"]
 DockerBuild --> CopyProj["复制项目文件"]
 DockerBuild --> InstallDeps["安装依赖uv/pyproject.toml"]
@@ -150,7 +150,7 @@ ImageReady --> End(["结束"])
 
 ### 环境变量与配置
 - 数据库URL
-  - 默认值为sqlite:///./data/secbot.db，可通过环境变量覆盖
+  - 默认值为sqlite:///./data/vibeski.db，可通过环境变量覆盖
 - 日志配置
   - 日志级别与日志文件路径均可通过环境变量配置
 - 其他外部API密钥
@@ -161,17 +161,17 @@ flowchart TD
 A["启动容器"] --> B["读取环境变量"]
 B --> C{"DATABASE_URL 是否设置?"}
 C --> |是| D["使用自定义数据库URL"]
-C --> |否| E["使用默认 SQLite URL<br/>sqlite:///./data/secbot.db"]
+C --> |否| E["使用默认 SQLite URL<br/>sqlite:///./data/vibeski.db"]
 B --> F{"LOG_LEVEL/LOG_FILE 是否设置?"}
 F --> |是| G["按环境变量配置日志"]
 F --> |否| H["使用默认日志路径与级别"]
 ```
 
 图表来源
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L229)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L229)
 
 章节来源
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L229)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L229)
 
 ### 数据卷挂载与持久化
 - data/目录
@@ -194,12 +194,12 @@ Container --> Log["日志文件"]
 图表来源
 - [.dockerignore](file://.dockerignore#L44-L56)
 - [.gitignore](file://.gitignore#L58-L60)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L229)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L229)
 
 章节来源
 - [.dockerignore](file://.dockerignore#L44-L56)
 - [.gitignore](file://.gitignore#L58-L60)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L229)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L229)
 
 ### 容器启动与编排
 - 启动命令
@@ -263,7 +263,7 @@ Compose-->>Dev : 返回容器状态
   - 数据库文件损坏：通过备份恢复或重建SQLite文件
 
 章节来源
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L228-L229)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L228-L229)
 - [tools/cloud/container_info_tool.py](file://tools/cloud/container_info_tool.py#L184-L221)
 
 ## 依赖关系分析
@@ -279,7 +279,7 @@ DF --> PP["pyproject.toml"]
 DF --> UT["uv.toml"]
 DF --> DI[".dockerignore"]
 DC["docker-compose.prod.yml"] --> C["容器: Secbot"]
-C --> CFG["hackbot_config/__init__.py"]
+C --> CFG["vibeski_config/__init__.py"]
 CFG --> DB["SQLite 数据库"]
 CFG --> LOG["日志文件"]
 ```
@@ -289,14 +289,14 @@ CFG --> LOG["日志文件"]
 - [pyproject.toml](file://pyproject.toml#L1-L165)
 - [uv.toml](file://uv.toml#L1-L7)
 - [.dockerignore](file://.dockerignore#L44-L56)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L229)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L229)
 
 章节来源
 - [Makefile](file://Makefile#L30-L37)
 - [pyproject.toml](file://pyproject.toml#L1-L165)
 - [uv.toml](file://uv.toml#L1-L7)
 - [.dockerignore](file://.dockerignore#L44-L56)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L223-L229)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L223-L229)
 
 ## 性能考虑
 - 镜像大小与构建速度
@@ -310,7 +310,7 @@ CFG --> LOG["日志文件"]
 - 容器无法启动
   - 检查日志卷挂载与权限；确认端口未被占用
 - 数据库异常
-  - 检查data/secbot.db是否存在与可写；必要时重建数据库文件
+  - 检查data/vibeski.db是否存在与可写；必要时重建数据库文件
 - 环境变量未生效
   - 确认.env文件与环境变量名一致；重启容器使变更生效
 - 容器安全风险

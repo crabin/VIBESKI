@@ -13,7 +13,7 @@
 
 ## 1. 项目一句话概括
 
-Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动化安全测试系统，后端负责：
+Secbot / Vibeski 是一个以 **Python FastAPI 后端** 为核心的 AI 自动化安全测试系统，后端负责：
 
 - 请求路由与会话编排
 - 规划任务（Planner）
@@ -33,9 +33,9 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
 
 ## 2. 最重要的事实
 
-### 2.1 当前默认主 Agent 不是单体 Hackbot，而是协调器
+### 2.1 当前默认主 Agent 不是单体 Vibeski，而是协调器
 
-当前对外默认 agent key 是 `secbot-cli`，它在代码里对应的是：
+当前对外默认 agent key 是 `vibeski`，它在代码里对应的是：
 
 - `core/agents/coordinator_agent.py` 中的 `CoordinatorAgent`
 
@@ -46,7 +46,7 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
 - `OSINTAgent`
 - `TerminalOpsAgent`
 - `DefenseMonitorAgent`
-- 以及一个兜底 `HackbotAgent`
+- 以及一个兜底 `VibeskiAgent`
 
 也就是说，当前 `main` 的真实架构已经从“单一 ReAct agent”演进到了“**规划 + 分层执行 + 多专职子 agent 协同**”。
 
@@ -81,10 +81,10 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
 
 当前仓库同时存在这些名字：
 
-- 项目包名：`secbot`
-- UI/文案展示名：`Hackbot` / `SuperHackbot`
-- 默认 agent key：`secbot-cli`
-- CLI 命令：`hackbot` / `secbot` / `secbot-cli`
+- 项目包名：`vibeski`
+- UI/文案展示名：`Vibeski` / `SuperVibeski`
+- 默认 agent key：`vibeski`
+- CLI 命令：`vibeski` / `vibeski` / `vibeski`
 
 不要因为看到一个旧名字就全局替换。这里有明显的历史兼容需求。
 
@@ -104,7 +104,7 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
 8. `core/agents/planner_agent.py`
 9. `tools/pentest/security/__init__.py`
 10. `router/dependencies.py`
-11. `hackbot_config/__init__.py`
+11. `vibeski_config/__init__.py`
 12. `database/manager.py`
 
 如果你要改 UI 或 SSE，再补看：
@@ -148,7 +148,7 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
 - `main.py`
   - 根目录一键入口
   - 默认启动后端 + TypeScript TUI
-- `secbot_cli/cli.py`
+- `vibeski_cli/cli.py`
   - 包安装后的 CLI 入口
   - `--backend` / `--tui` / `model` 子命令都在这里处理
 - `router/main.py`
@@ -180,9 +180,9 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
   - 多专职子 agent 调度入口
 - `core/agents/specialist_agents.py`
   - 各领域专职 agent
-- `core/agents/hackbot_agent.py`
+- `core/agents/vibeski_agent.py`
   - 自动执行的基础模式 agent
-- `core/agents/superhackbot_agent.py`
+- `core/agents/supervibeski_agent.py`
   - 专家模式，敏感工具需确认
 - `core/agents/summary_agent.py`
   - 最终报告与摘要
@@ -210,7 +210,7 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
 
 ### 5.6 配置、数据库、提示词、技能
 
-- `hackbot_config/__init__.py`
+- `vibeski_config/__init__.py`
   - 配置读取与保存
   - SQLite / 环境变量 / keyring 的融合点
 - `database/manager.py`
@@ -291,7 +291,7 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
 1. `Todo.agent_hint`
 2. `Todo.resource` 前缀
 3. `Todo.tool_hint` 关键词兜底
-4. 都匹配不到再回退到内部默认 `HackbotAgent`
+4. 都匹配不到再回退到内部默认 `VibeskiAgent`
 
 如果你新增一个新的专职 agent，通常至少要改这些地方：
 
@@ -437,7 +437,7 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
 
 配置入口在：
 
-- `hackbot_config/__init__.py`
+- `vibeski_config/__init__.py`
 
 ### 9.2 数据库路径
 
@@ -447,11 +447,11 @@ Secbot / Hackbot 是一个以 **Python FastAPI 后端** 为核心的 AI 自动�
 
 默认会落到：
 
-- `data/secbot.db`
+- `data/vibeski.db`
 
 相关逻辑分别在：
 
-- `hackbot_config/__init__.py`
+- `vibeski_config/__init__.py`
 - `database/manager.py`
 
 ### 9.3 SQLite 当前承担的职责
@@ -475,7 +475,7 @@ SQLite 当前主要存：
 - `QAAgent`
 - `SummaryAgent`
 - `CoordinatorAgent`
-- `SuperHackbotAgent`
+- `SuperVibeskiAgent`
 
 同时会给 agent 挂上 `DatabaseMemory`。
 
@@ -561,7 +561,7 @@ React Native / Expo 移动端，聊天流和桌面/TUI 的渲染逻辑大体镜�
 
 先看：
 
-- `hackbot_config/__init__.py`
+- `vibeski_config/__init__.py`
 - `utils/model_selector.py`
 - `/model` 相关前端组件
 
@@ -620,7 +620,7 @@ uv run python -m router.main
 或：
 
 ```bash
-uv run secbot-cli-server
+uv run vibeski-server
 ```
 
 ### 一键启动后端 + TUI
@@ -674,7 +674,7 @@ uv run pytest tests/tools -v
 ## 14. 给未来 coding agent 的几条建议
 
 - 改 SSE 前，先全仓库搜索事件名，不要只改后端。
-- 改 agent 命名、UI 文案或 API 参数时，先搜索 `Hackbot`、`Secbot`、`secbot-cli`、`superhackbot` 四组关键词。
+- 改 agent 命名、UI 文案或 API 参数时，先搜索 `Vibeski`、`Secbot`、`vibeski`、`supervibeski` 四组关键词。
 - 看到 `docs/design-paradigms` 时，把它们当“设计参考”，不是“运行时真相”。
 - 真正影响主链路的代码集中在 `router/chat.py`、`core/session.py`、`core/executor.py`、`core/agents/*`、`core/patterns/security_react.py`。
 - 如果一个需求本质上是“新增能力”，优先扩展 tool 或 specialist agent，而不是继续加大 `SessionManager` 的复杂度。

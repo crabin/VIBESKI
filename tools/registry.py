@@ -1,13 +1,13 @@
 """
 工具扩展注册中心
-支持 entry point 与配置自动发现，新工具无需修改 security/__init__.py 即可被 secbot 发现和调用。
+支持 entry point 与配置自动发现，新工具无需修改 security/__init__.py 即可被 vibeski 发现和调用。
 
 使用方式：
 1. Entry Point（推荐）：在 pyproject.toml 中声明
-   [project.entry-points."secbot.tools.basic"]
+   [project.entry-points."vibeski.tools.basic"]
    my_tools = "mypackage.tools:MY_TOOLS"
 
-2. 环境变量：SECBOT_TOOL_MODULES、SECBOT_TOOL_MODULES_ADVANCED
+2. 环境变量：VIBESKI_TOOL_MODULES、VIBESKI_TOOL_MODULES_ADVANCED
    逗号分隔的模块路径，模块需导出 TOOLS 或 *_TOOLS 属性
 """
 import os
@@ -17,12 +17,12 @@ from tools.base import BaseTool
 from utils.logger import logger
 
 # Entry point 组名
-ENTRY_POINT_BASIC = "secbot.tools.basic"
-ENTRY_POINT_ADVANCED = "secbot.tools.advanced"
+ENTRY_POINT_BASIC = "vibeski.tools.basic"
+ENTRY_POINT_ADVANCED = "vibeski.tools.advanced"
 
 # 环境变量
-ENV_TOOL_MODULES = "SECBOT_TOOL_MODULES"
-ENV_TOOL_MODULES_ADVANCED = "SECBOT_TOOL_MODULES_ADVANCED"
+ENV_TOOL_MODULES = "VIBESKI_TOOL_MODULES"
+ENV_TOOL_MODULES_ADVANCED = "VIBESKI_TOOL_MODULES_ADVANCED"
 
 
 def _load_tools_from_module(module_path: str) -> List[BaseTool]:
@@ -105,8 +105,8 @@ def _load_from_env(env_key: str) -> List[BaseTool]:
 
 def get_basic_tools() -> List[BaseTool]:
     """
-    获取基础工具列表（secbot-cli / superhackbot 均可用）。
-    来源：entry point secbot.tools.basic + 环境变量 SECBOT_TOOL_MODULES
+    获取基础工具列表（vibeski / supervibeski 均可用）。
+    来源：entry point vibeski.tools.basic + 环境变量 VIBESKI_TOOL_MODULES
     """
     tools: List[BaseTool] = []
     tools.extend(_load_from_entry_points(ENTRY_POINT_BASIC))
@@ -116,8 +116,8 @@ def get_basic_tools() -> List[BaseTool]:
 
 def get_advanced_tools() -> List[BaseTool]:
     """
-    获取高级工具列表（仅 superhackbot，需用户确认）。
-    来源：entry point secbot.tools.advanced + 环境变量 SECBOT_TOOL_MODULES_ADVANCED
+    获取高级工具列表（仅 supervibeski，需用户确认）。
+    来源：entry point vibeski.tools.advanced + 环境变量 VIBESKI_TOOL_MODULES_ADVANCED
     """
     tools: List[BaseTool] = []
     tools.extend(_load_from_entry_points(ENTRY_POINT_ADVANCED))

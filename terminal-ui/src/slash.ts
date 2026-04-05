@@ -4,8 +4,8 @@
 import type { ChatMode } from './types.js';
 import { api } from './api.js';
 
-/** SECBOT 集成的安全工具（静态，不调 API）— 供 /help 展示 */
-export const HELP_TOOLS_TEXT = `SECBOT 集成的安全工具
+/** VIBESKI 集成的安全工具（静态，不调 API）— 供 /help 展示 */
+export const HELP_TOOLS_TEXT = `VIBESKI 集成的安全工具
 
 【核心】
   port_scan     — 端口扫描
@@ -25,7 +25,7 @@ export const HELP_TOOLS_TEXT = `SECBOT 集成的安全工具
 【其他】
   OSINT、协议探测、报告、云安全、系统命令等
 
-【高级（仅 SuperHackbot，需确认）】
+【高级（仅 SuperVibeski，需确认）】
   attack_test   — 攻击测试
   exploit       — 漏洞利用
 
@@ -73,7 +73,7 @@ export function parseSlash(
   }
   if (cmd === '/agent') {
     const arg = parts[1]?.toLowerCase();
-    const agent = arg === 'super' || arg === 'superhackbot' ? 'superhackbot' : 'secbot-cli';
+    const agent = arg === 'super' || arg === 'supervibeski' ? 'supervibeski' : 'vibeski';
     return { handled: true };
   }
 
@@ -124,7 +124,7 @@ export function parseSlash(
           categories: Array<{ id: string; name: string; count: number; tools: Array<{ name: string; description: string }> }>;
         }>('/api/tools');
         const lines: string[] = [
-          `SECBOT 内置工具`,
+          `VIBESKI 内置工具`,
           `总计: ${r.total} 个（基础 ${r.basic_count}，高级 ${r.advanced_count}）`,
           '',
         ];
@@ -151,8 +151,8 @@ export function getAgentFromState(
   const cmd = (parts[0] ?? '').toLowerCase();
   if (cmd !== '/agent') return currentAgent;
   const arg = parts[1]?.toLowerCase();
-  if (arg === 'super' || arg === 'superhackbot') return 'superhackbot';
-  if (arg === 'secbot-cli' || arg === 'default') return 'secbot-cli';
+  if (arg === 'super' || arg === 'supervibeski') return 'supervibeski';
+  if (arg === 'vibeski' || arg === 'default') return 'vibeski';
   return currentAgent;
 }
 

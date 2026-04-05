@@ -1,5 +1,5 @@
 """
-Hackbot FastAPI 服务入口 — 组装所有路由、CORS、uvicorn 入口
+Vibeski FastAPI 服务入口 — 组装所有路由、CORS、uvicorn 入口
 """
 
 import time
@@ -27,8 +27,8 @@ def create_app() -> FastAPI:
     """FastAPI 应用工厂"""
 
     application = FastAPI(
-        title="Hackbot API",
-        description="Hackbot AI 安全测试机器人 — REST + SSE 接口",
+        title="Vibeski API",
+        description="Vibeski AI 安全测试机器人 — REST + SSE 接口",
         version="1.0.0",
         docs_url="/docs",
         redoc_url="/redoc",
@@ -87,7 +87,7 @@ def create_app() -> FastAPI:
     application.include_router(tools_router)
 
     # ------------------------------------------------------------------
-    # 启动时初始化数据库（确保 secbot.db 与表在首次请求前就存在）
+    # 启动时初始化数据库（确保 vibeski.db 与表在首次请求前就存在）
     # ------------------------------------------------------------------
     @application.on_event("startup")
     def _init_db_on_startup():
@@ -119,13 +119,13 @@ def _purge_pycache(project_root: Path) -> None:
 
 def run_server():
     """
-    脚本入口 — secbot-cli-server 命令
-    可通过 `secbot-cli-server` 或 `python -m router.main` 启动。
+    脚本入口 — vibeski-server 命令
+    可通过 `vibeski-server` 或 `python -m router.main` 启动。
 
     环境变量（可选）:
-    - SECBOT_DESKTOP=1: 桌面嵌入模式，默认 host=127.0.0.1、reload=False
-    - SECBOT_SERVER_HOST / SECBOT_SERVER_PORT: 覆盖监听地址与端口
-    - SECBOT_SERVER_RELOAD=true|false: 是否启用热重载（未设置则桌面模式关、否则开）
+    - VIBESKI_DESKTOP=1: 桌面嵌入模式，默认 host=127.0.0.1、reload=False
+    - VIBESKI_SERVER_HOST / VIBESKI_SERVER_PORT: 覆盖监听地址与端口
+    - VIBESKI_SERVER_RELOAD=true|false: 是否启用热重载（未设置则桌面模式关、否则开）
     """
     import os
     import socket
@@ -137,11 +137,11 @@ def run_server():
     root = Path(__file__).resolve().parent.parent
     _purge_pycache(root)
 
-    desktop = os.environ.get("SECBOT_DESKTOP", "").lower() in ("1", "true", "yes")
+    desktop = os.environ.get("VIBESKI_DESKTOP", "").lower() in ("1", "true", "yes")
     default_host = "127.0.0.1" if desktop else "0.0.0.0"
-    host = os.environ.get("SECBOT_SERVER_HOST", default_host)
-    port = int(os.environ.get("SECBOT_SERVER_PORT", "8000"))
-    reload_raw = os.environ.get("SECBOT_SERVER_RELOAD", "").lower()
+    host = os.environ.get("VIBESKI_SERVER_HOST", default_host)
+    port = int(os.environ.get("VIBESKI_SERVER_PORT", "8000"))
+    reload_raw = os.environ.get("VIBESKI_SERVER_RELOAD", "").lower()
     if reload_raw in ("1", "true", "yes"):
         reload = True
     elif reload_raw in ("0", "false", "no"):

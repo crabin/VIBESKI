@@ -12,7 +12,7 @@
 - [tools/web_search_ddgs.py](file://tools/web_search_ddgs.py)
 - [core/patterns/security_react.py](file://core/patterns/security_react.py)
 - [core/agents/base.py](file://core/agents/base.py)
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py)
 - [README_CN.md](file://README_CN.md)
 </cite>
 
@@ -495,7 +495,7 @@ Web研究智能体系统具有清晰的依赖层次结构，从底层的工具�
 ```mermaid
 graph TB
 subgraph "配置层"
-HC[hackbot_config.settings]
+HC[vibeski_config.settings]
 end
 subgraph "基础框架层"
 BA[BaseAgent]
@@ -528,7 +528,7 @@ WST --> WSD
 ```
 
 **图表来源**
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L162-L246)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L162-L246)
 - [core/agents/base.py](file://core/agents/base.py#L17-L34)
 - [core/patterns/security_react.py](file://core/patterns/security_react.py#L142-L190)
 - [core/agents/web_research_agent.py](file://core/agents/web_research_agent.py#L52-L83)
@@ -541,7 +541,7 @@ WST --> WSD
 4. **错误隔离**：每个组件都有独立的错误处理机制
 
 **章节来源**
-- [hackbot_config/__init__.py](file://hackbot_config/__init__.py#L162-L246)
+- [vibeski_config/__init__.py](file://vibeski_config/__init__.py#L162-L246)
 - [core/agents/web_research_agent.py](file://core/agents/web_research_agent.py#L63-L76)
 
 ## 性能考虑

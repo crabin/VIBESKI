@@ -1,5 +1,5 @@
 /**
- * 按消息类型判别模块的输出分发到对应块组件，统一承载 secbot 各输出部分
+ * 按消息类型判别模块的输出分发到对应块组件，统一承载 vibeski 各输出部分
  * 每个消息块先经 blockDiscriminators 判别，再交由对应渲染组件
  */
 import React from "react";

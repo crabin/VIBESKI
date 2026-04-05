@@ -34,7 +34,7 @@ echo 构建产物：
 dir dist
 
 echo 安装示例：
-echo   pip install dist\secbot-*.whl
-echo   或: uv pip install dist\secbot-*.whl
+echo   pip install dist\vibeski-*.whl
+echo   或: uv pip install dist\vibeski-*.whl
 
 pause

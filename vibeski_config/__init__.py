@@ -1,5 +1,5 @@
 """
-配置管理模块（包名 hackbot_config 避免与用户目录下的 config 冲突）
+配置管理模块（包名 vibeski_config 避免与用户目录下的 config 冲突）
 
 支持多厂商 LLM 后端：Ollama、DeepSeek、OpenAI、Anthropic、Google、
 智谱、通义千问、月之暗面、百川、零一万物，以及任意 OpenAI API 兼容中转服务。
@@ -28,20 +28,20 @@ def _get_api_key_from_keyring(provider: str) -> Optional[str]:
     """从 keyring 获取 API Key（shodan/virustotal 等）"""
     try:
         import keyring
-        return keyring.get_password("secbot", provider)
+        return keyring.get_password("vibeski", provider)
     except Exception:
         return None
 
 
 def _get_db_path() -> Path:
     """解析 DATABASE_URL 得到 SQLite 文件路径，与 DatabaseManager 使用同一路径（避免写入了读不到）"""
-    db_url = os.getenv("DATABASE_URL", "sqlite:///./data/secbot.db")
+    db_url = os.getenv("DATABASE_URL", "sqlite:///./data/vibeski.db")
     if db_url and db_url.startswith("sqlite:///"):
         path_str = db_url.replace("sqlite:///", "")
         if path_str.startswith("./"):
             return _config_dir / path_str[2:]
         return Path(path_str)
-    return _config_dir / "data" / "secbot.db"
+    return _config_dir / "data" / "vibeski.db"
 
 
 def _get_config_from_sqlite(key: str) -> Optional[str]:
@@ -115,7 +115,7 @@ def delete_provider_api_key(provider: str) -> bool:
     ok = delete_config_from_sqlite(f"{provider}_api_key")
     try:
         import keyring
-        keyring.delete_password("secbot", provider)
+        keyring.delete_password("vibeski", provider)
     except Exception:
         pass
     return ok
@@ -176,7 +176,7 @@ def save_llm_provider(provider: str) -> bool:
         "llm_provider",
         provider.strip().lower(),
         category="user_preference",
-        description="当前推理后端（由 /model 或 hackbot model 设置）",
+        description="当前推理后端（由 /model 或 vibeski model 设置）",
     )
 
 
@@ -285,7 +285,7 @@ class Settings(BaseSettings):
 
     # 数据库配置
     redis_url: Optional[str] = os.getenv("REDIS_URL")
-    database_url: str = os.getenv("DATABASE_URL", "sqlite:///./data/secbot.db")
+    database_url: str = os.getenv("DATABASE_URL", "sqlite:///./data/vibeski.db")
 
     # 日志配置
     @computed_field

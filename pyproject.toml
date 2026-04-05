@@ -3,9 +3,9 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "secbot"
+name = "vibeski"
 version = "1.10.0"
-description = "Hackbot: AI-powered automated penetration testing robot"
+description = "Vibeski: AI-powered automated penetration testing robot"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -88,21 +88,21 @@ exploit-tools = [
 ]
 
 [project.scripts]
-hackbot = "secbot_cli.cli:app"
-hackbot-server = "router.main:run_server"
-secbot = "secbot_cli.cli:app"
-secbot-server = "router.main:run_server"
-secbot-cli = "secbot_cli.cli:app"
-secbot-cli-server = "router.main:run_server"
+vibeski = "vibeski_cli.cli:app"
+vibeski-server = "router.main:run_server"
+vibeski = "vibeski_cli.cli:app"
+vibeski-server = "router.main:run_server"
+vibeski = "vibeski_cli.cli:app"
+vibeski-server = "router.main:run_server"
 
 # 工具扩展 entry point：第三方包在其 pyproject.toml 中声明即可注册
 # 文档见 tools/registry.py 或 docs/TOOL_EXTENSION.md
 
 [project.urls]
-Homepage = "https://github.com/iammm0/hackbot"
-Documentation = "https://github.com/iammm0/hackbot/docs"
-Repository = "https://github.com/iammm0/hackbot"
-Issues = "https://github.com/iammm0/hackbot/issues"
+Homepage = "https://github.com/iammm0/vibeski"
+Documentation = "https://github.com/iammm0/vibeski/docs"
+Repository = "https://github.com/iammm0/vibeski"
+Issues = "https://github.com/iammm0/vibeski/issues"
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
@@ -125,7 +125,7 @@ prerelease_token = "beta"
 
 [tool.setuptools]
 packages = [
-    "secbot_cli",
+    "vibeski_cli",
     "core",
     "core.agents",
     "core.patterns",
@@ -135,7 +135,7 @@ packages = [
     "core.vuln_db",
     "core.vuln_db.adapters",
     "skills",
-    "hackbot_config",
+    "vibeski_config",
     "controller",
     "crawler",
     "database",

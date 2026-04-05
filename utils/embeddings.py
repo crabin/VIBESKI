@@ -4,7 +4,7 @@
 
 import httpx
 from typing import List
-from hackbot_config import settings
+from vibeski_config import settings
 from .logger import logger
 
 

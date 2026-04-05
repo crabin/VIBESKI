@@ -1,5 +1,5 @@
 """
-Agent 运行上下文：当前时间、运行环境等，供 Hackbot 在推理时感知自身所处环境。
+Agent 运行上下文：当前时间、运行环境等，供 Vibeski 在推理时感知自身所处环境。
 """
 import os
 import platform
@@ -82,14 +82,14 @@ def _in_ci() -> bool:
 def get_agent_context_block(include_time: bool = True, include_env: bool = True) -> str:
     """
     生成供注入到 Agent 提示词中的「当前上下文」文本块。
-    Hackbot 据此知晓自身所处的真实时间与运行位置，避免误用模型训练数据中的知识截止时间。
+    Vibeski 据此知晓自身所处的真实时间与运行位置，避免误用模型训练数据中的知识截止时间。
     """
     lines = ["## 当前上下文（你所处的时间与位置）"]
     if include_time:
         lines.append(f"- **当前时间**：{get_current_time_str()}")
         lines.append(f"- **当前日期**：{get_current_date_str()}（运行环境提供的真实日期）")
         lines.append(
-            "- **重要**：以上「当前时间/当前日期」由运行环境实时提供，表示你（secbot）所在的真实世界时间。"
+            "- **重要**：以上「当前时间/当前日期」由运行环境实时提供，表示你（vibeski）所在的真实世界时间。"
             "回答中涉及「现在」「最新」「今天」「当前」等时间概念时，请一律以此为准，"
             "不要使用你训练数据中的知识截止时间（例如若你训练至 2024 年 7 月，仍应以本处给出的日期为准）。"
         )

@@ -245,37 +245,37 @@ async def test_intrusion_detect():
 
 def test_agents_have_tools():
     print("\n=== 4. Agent 工具数量 ===")
-    from core.agents.hackbot_agent import HackbotAgent
-    from core.agents.superhackbot_agent import SuperHackbotAgent
+    from core.agents.vibeski_agent import VibeskiAgent
+    from core.agents.supervibeski_agent import SuperVibeskiAgent
     from database.manager import DatabaseManager
     from utils.audit import AuditTrail
 
     db = DatabaseManager()
     audit = AuditTrail(db, "test")
 
-    h = HackbotAgent(audit_trail=audit)
-    s = SuperHackbotAgent(audit_trail=audit)
+    h = VibeskiAgent(audit_trail=audit)
+    s = SuperVibeskiAgent(audit_trail=audit)
 
     mark(
-        f"Hackbot tools count",
+        f"Vibeski tools count",
         len(h.security_tools) >= 25,
         f"count={len(h.security_tools)}",
     )
     mark(
-        f"SuperHackbot tools count",
+        f"SuperVibeski tools count",
         len(s.security_tools) >= 25,
         f"count={len(s.security_tools)}",
     )
-    mark("SuperHackbot > Hackbot", len(s.security_tools) > len(h.security_tools))
+    mark("SuperVibeski > Vibeski", len(s.security_tools) > len(h.security_tools))
 
     # 验证工具名称唯一
     h_names = [t.name for t in h.security_tools]
     s_names = [t.name for t in s.security_tools]
     h_dups = [n for n in h_names if h_names.count(n) > 1]
     s_dups = [n for n in s_names if s_names.count(n) > 1]
-    mark("Hackbot names unique", not h_dups, f"重复: {set(h_dups)}" if h_dups else "")
+    mark("Vibeski names unique", not h_dups, f"重复: {set(h_dups)}" if h_dups else "")
     mark(
-        "SuperHackbot names unique",
+        "SuperVibeski names unique",
         not s_dups,
         f"重复: {set(s_dups)}" if s_dups else "",
     )

@@ -9,18 +9,18 @@ class TestConfigStorage(unittest.TestCase):
         mock_keyring.get_password.return_value = "secret_key"
         key = get_api_key("provider")
         self.assertEqual(key, "secret_key")
-        mock_keyring.get_password.assert_called_with("secbot", "provider")
+        mock_keyring.get_password.assert_called_with("vibeski", "provider")
 
     @patch("utils.config_storage.keyring")
     def test_set_api_key(self, mock_keyring):
         set_api_key("provider", "new_key")
-        mock_keyring.set_password.assert_called_with("secbot", "provider", "new_key")
+        mock_keyring.set_password.assert_called_with("vibeski", "provider", "new_key")
 
     @patch("utils.config_storage.keyring")
     def test_delete_api_key(self, mock_keyring):
         result = delete_api_key("provider")
         self.assertTrue(result)
-        mock_keyring.delete_password.assert_called_with("secbot", "provider")
+        mock_keyring.delete_password.assert_called_with("vibeski", "provider")
 
     @patch("utils.config_storage.keyring")
     def test_show_config_status(self, mock_keyring):

@@ -7,13 +7,13 @@ import os
 
 os.environ["LOG_LEVEL"] = "DEBUG"
 
-from agents.hackbot_agent import HackbotAgent
+from agents.vibeski_agent import VibeskiAgent
 
 
 async def test_think():
     """测试_think方法"""
-    print("=== 创建HackbotAgent ===", file=sys.stderr)
-    agent = HackbotAgent()
+    print("=== 创建VibeskiAgent ===", file=sys.stderr)
+    agent = VibeskiAgent()
 
     # 直接调用_think方法
     print("=== 调用_think ===", file=sys.stderr)

@@ -92,7 +92,7 @@ class PageExtractTool(BaseTool):
                 timeout=20,
                 follow_redirects=True,
                 verify=False,
-                headers={"User-Agent": "Mozilla/5.0 (compatible; HackBot/2.0)"},
+                headers={"User-Agent": "Mozilla/5.0 (compatible; VibeSkiBot/2.0)"},
             ) as client:
                 resp = await client.get(url)
                 resp.raise_for_status()
@@ -265,7 +265,7 @@ class PageExtractTool(BaseTool):
     async def _call_ai(self, prompt: str) -> str:
         """调用 AI 模型"""
         import httpx
-        from hackbot_config import settings
+        from vibeski_config import settings
 
         provider = (settings.llm_provider or "ollama").strip().lower()
 

@@ -14,7 +14,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from hackbot_config import (
+from vibeski_config import (
     settings,
     get_provider_api_key,
     get_provider_base_url,

@@ -84,7 +84,7 @@ export function connectSSE(
         connectionTimeoutId = setTimeout(() => {
           if (hasReceivedEvent) return;
           controller.abort();
-          callbacks.onError?.(new Error('连接超时，请确认后端已启动且 SECBOT_API_URL 正确'));
+          callbacks.onError?.(new Error('连接超时，请确认后端已启动且 VIBESKI_API_URL 正确'));
         }, CONNECTION_TIMEOUT_MS);
 
         while (true) {

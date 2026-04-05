@@ -46,7 +46,7 @@ app/
 `ChatScreen.tsx` 目前支持：
 
 - `ask` / `agent` 两种模式
-- `secbot-cli` / `superhackbot` 两种智能体选择
+- `vibeski` / `supervibeski` 两种智能体选择
 - 模型偏好切换
 - SSE 流式渲染规划、推理、执行、报告、最终响应
 - 收到 `root_required` 时弹出 `RootPermissionModal`
@@ -90,7 +90,7 @@ app/
 ### 1. 先启动后端
 
 ```bash
-uv run secbot --backend
+uv run vibeski --backend
 ```
 
 ### 2. 启动 Expo

@@ -3,11 +3,11 @@ import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-import secbot_cli.launch_tui as launch_tui
+import vibeski_cli.launch_tui as launch_tui
 
 
 class TestRunTui(unittest.TestCase):
-    @patch("secbot_cli.launch_tui.subprocess.run")
+    @patch("vibeski_cli.launch_tui.subprocess.run")
     def test_run_tui_inherits_stdio_when_interactive(self, mock_run):
         mock_run.return_value = MagicMock(returncode=0)
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -27,9 +27,9 @@ class TestRunTui(unittest.TestCase):
         self.assertIsNone(kwargs["stdout"])
         self.assertIsNone(kwargs["stderr"])
         self.assertEqual(kwargs["cwd"], root / "terminal-ui")
-        self.assertEqual(kwargs["env"]["SECBOT_TUI_RUNTIME_LOG"], str(runtime_log))
+        self.assertEqual(kwargs["env"]["VIBESKI_TUI_RUNTIME_LOG"], str(runtime_log))
 
-    @patch("secbot_cli.launch_tui.subprocess.run")
+    @patch("vibeski_cli.launch_tui.subprocess.run")
     def test_run_tui_redirects_output_without_interactive_tty(self, mock_run):
         mock_run.return_value = MagicMock(returncode=0)
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -43,7 +43,7 @@ class TestRunTui(unittest.TestCase):
         self.assertEqual(code, 0)
         kwargs = mock_run.call_args.kwargs
         self.assertEqual(kwargs["cwd"], root / "terminal-ui")
-        self.assertEqual(kwargs["env"]["SECBOT_TUI_RUNTIME_LOG"], str(runtime_log))
+        self.assertEqual(kwargs["env"]["VIBESKI_TUI_RUNTIME_LOG"], str(runtime_log))
         self.assertIsNotNone(kwargs["stdout"])
         self.assertIs(kwargs["stdout"], kwargs["stderr"])
         self.assertEqual(Path(kwargs["stdout"].name), runtime_log)

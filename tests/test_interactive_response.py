@@ -18,8 +18,8 @@ def test_imports():
     from core.models import RequestType, PlanResult, TodoItem, TodoStatus
     from core.agents.planner_agent import PlannerAgent
     from core.session import SessionManager
-    from core.agents.hackbot_agent import HackbotAgent
-    from core.agents.superhackbot_agent import SuperHackbotAgent
+    from core.agents.vibeski_agent import VibeskiAgent
+    from core.agents.supervibeski_agent import SuperVibeskiAgent
     from utils.audit import AuditTrail
     from database.manager import DatabaseManager
     console = Console(width=80)
@@ -37,16 +37,16 @@ async def test_simple_reply():
     from core.agents.planner_agent import PlannerAgent
     from database.manager import DatabaseManager
     from utils.audit import AuditTrail
-    from core.agents.hackbot_agent import HackbotAgent
-    from core.agents.superhackbot_agent import SuperHackbotAgent
+    from core.agents.vibeski_agent import VibeskiAgent
+    from core.agents.supervibeski_agent import SuperVibeskiAgent
 
     console = Console(width=80)
     event_bus = EventBus()
     db = DatabaseManager()
     audit = AuditTrail(db, "test-session")
     agents = {
-        "secbot-cli": HackbotAgent(name="Hackbot", audit_trail=audit),
-        "superhackbot": SuperHackbotAgent(name="SuperHackbot", audit_trail=audit),
+        "vibeski": VibeskiAgent(name="Vibeski", audit_trail=audit),
+        "supervibeski": SuperVibeskiAgent(name="SuperVibeski", audit_trail=audit),
     }
     planner = PlannerAgent()
     session_mgr = SessionManager(
@@ -56,7 +56,7 @@ async def test_simple_reply():
         planner=planner,
     )
 
-    response = await session_mgr.handle_message("你好", agent_type="secbot-cli")
+    response = await session_mgr.handle_message("你好", agent_type="vibeski")
     assert response is not None
     assert len(response.strip()) > 0
     assert "你好" in response or "哈" in response or "!" in response
@@ -72,8 +72,8 @@ async def test_technical_flow_no_llm():
     from core.agents.planner_agent import PlannerAgent
     from database.manager import DatabaseManager
     from utils.audit import AuditTrail
-    from core.agents.hackbot_agent import HackbotAgent
-    from core.agents.superhackbot_agent import SuperHackbotAgent
+    from core.agents.vibeski_agent import VibeskiAgent
+    from core.agents.supervibeski_agent import SuperVibeskiAgent
     from core.models import PlanResult, RequestType
 
     console = Console(width=80)
@@ -81,8 +81,8 @@ async def test_technical_flow_no_llm():
     db = DatabaseManager()
     audit = AuditTrail(db, "test-session-2")
     agents = {
-        "secbot-cli": HackbotAgent(name="Hackbot", audit_trail=audit),
-        "superhackbot": SuperHackbotAgent(name="SuperHackbot", audit_trail=audit),
+        "vibeski": VibeskiAgent(name="Vibeski", audit_trail=audit),
+        "supervibeski": SuperVibeskiAgent(name="SuperVibeski", audit_trail=audit),
     }
     planner = PlannerAgent()
 
@@ -100,7 +100,7 @@ async def test_technical_flow_no_llm():
     )
     try:
         response = await asyncio.wait_for(
-            session_mgr.handle_message("scan localhost for open ports", agent_type="secbot-cli"),
+            session_mgr.handle_message("scan localhost for open ports", agent_type="vibeski"),
             timeout=60.0,
         )
         assert response is not None
@@ -118,12 +118,12 @@ def test_agent_process_skip_flags():
     from utils.event_bus import EventBus, EventType
     from database.manager import DatabaseManager
     from utils.audit import AuditTrail
-    from core.agents.hackbot_agent import HackbotAgent
+    from core.agents.vibeski_agent import VibeskiAgent
 
     console = Console(width=80)
     db = DatabaseManager()
     audit = AuditTrail(db, "test-skip")
-    agent = HackbotAgent(name="Hackbot", audit_trail=audit)
+    agent = VibeskiAgent(name="Vibeski", audit_trail=audit)
     bus = EventBus()
     planning_emitted = []
     report_emitted = []

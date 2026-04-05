@@ -1,5 +1,5 @@
 """
-Hackbot — 无参数时启动后端 + TS 终端 TUI（全屏）。
+Vibeski — 无参数时启动后端 + TS 终端 TUI（全屏）。
   python main.py           # 先启动后端（若未运行），再启动 TUI
   python main.py --backend # 仅启动后端（便于排查后端问题）
   python main.py --tui     # 仅启动 TUI（需先运行后端，便于排查 UI 问题）
@@ -13,14 +13,14 @@ from pathlib import Path
 # 本次进程及子进程不写入 .pyc，确保每次运行都使用最新 .py 源码
 os.environ.setdefault("PYTHONDONTWRITEBYTECODE", "1")
 
-from secbot_cli.launch_tui import launch_tui, run_backend_only, run_tui_only
+from vibeski_cli.launch_tui import launch_tui, run_backend_only, run_tui_only
 
 
 def _log_error_and_exit(exc: BaseException) -> None:
     """将异常写入日志并退出；打包运行时错误时暂停以便查看。"""
     lines = traceback.format_exception(type(exc), exc, exc.__traceback__)
     msg = "".join(lines)
-    log_name = "hackbot_error.log"
+    log_name = "vibeski_error.log"
     try:
         log_path = Path.cwd() / log_name
         log_path.write_text(msg, encoding="utf-8")

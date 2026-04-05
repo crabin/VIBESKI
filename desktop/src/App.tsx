@@ -25,7 +25,7 @@ const PHASE_LABELS: Record<string, string> = {
 };
 
 type SidebarPane = "overview" | "tools" | "agents" | "system";
-type AgentMode = "secbot-cli" | "superhackbot";
+type AgentMode = "vibeski" | "supervibeski";
 type ClipboardBlockKind = "text" | "code";
 
 interface ClipboardBlock {
@@ -221,7 +221,7 @@ export default function App() {
   const [clipboardBlocks, setClipboardBlocks] = useState<ClipboardBlock[]>([]);
   const [clipboardError, setClipboardError] = useState<string | null>(null);
   const [mode, setMode] = useState<"ask" | "agent">("agent");
-  const [agentSubType, setAgentSubType] = useState<AgentMode>("secbot-cli");
+  const [agentSubType, setAgentSubType] = useState<AgentMode>("vibeski");
   const [sessionNote, setSessionNote] = useState("加载中…");
   const [backendOk, setBackendOk] = useState<boolean | null>(null);
   const [hostInfo, setHostInfo] = useState("");
@@ -631,7 +631,7 @@ export default function App() {
         {
           message: composedMessage,
           mode: nextMode,
-          agent: nextMode === "agent" ? nextAgent : "secbot-cli",
+          agent: nextMode === "agent" ? nextAgent : "vibeski",
         },
         handleSSEEvent,
         () => scrollToEnd(),
@@ -735,21 +735,21 @@ export default function App() {
       {
         id: "agent-auto",
         label: "切换智能体：自动",
-        description: "选择 secbot-cli 作为执行智能体。",
-        keywords: ["agent", "secbot-cli", "自动"],
+        description: "选择 vibeski 作为执行智能体。",
+        keywords: ["agent", "vibeski", "自动"],
         onSelect: () => {
           setMode("agent");
-          setAgentSubType("secbot-cli");
+          setAgentSubType("vibeski");
         },
       },
       {
         id: "agent-expert",
         label: "切换智能体：专家",
-        description: "选择 superhackbot 作为执行智能体。",
-        keywords: ["agent", "superhackbot", "专家"],
+        description: "选择 supervibeski 作为执行智能体。",
+        keywords: ["agent", "supervibeski", "专家"],
         onSelect: () => {
           setMode("agent");
-          setAgentSubType("superhackbot");
+          setAgentSubType("supervibeski");
         },
       },
       {
@@ -969,15 +969,15 @@ export default function App() {
           <div className="segmented secondary">
             <button
               type="button"
-              className={agentSubType === "secbot-cli" ? "active" : ""}
-              onClick={() => setAgentSubType("secbot-cli")}
+              className={agentSubType === "vibeski" ? "active" : ""}
+              onClick={() => setAgentSubType("vibeski")}
             >
               自动
             </button>
             <button
               type="button"
-              className={agentSubType === "superhackbot" ? "active" : ""}
-              onClick={() => setAgentSubType("superhackbot")}
+              className={agentSubType === "supervibeski" ? "active" : ""}
+              onClick={() => setAgentSubType("supervibeski")}
             >
               专家
             </button>

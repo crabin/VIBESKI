@@ -17,7 +17,7 @@ const ANSI_RESET = '\x1b[0m';
 
 const TUI_ERROR_LOG = 'tui-error.log';
 const TUI_LAUNCH_LOG = 'tui-launch.log';
-const TUI_RUNTIME_LOG = process.env.SECBOT_TUI_RUNTIME_LOG;
+const TUI_RUNTIME_LOG = process.env.VIBESKI_TUI_RUNTIME_LOG;
 
 function appendLogLine(target: string | undefined, line: string) {
   if (!target) return;
@@ -67,7 +67,7 @@ function relaunchInNewWindow(): boolean {
   try {
     const cwd = process.cwd();
     const env = { ...process.env };
-    const child = spawn('cmd', ['/c', 'start', 'SECBOT TUI', 'cmd', '/k', 'node --import tsx src/cli.tsx'], {
+    const child = spawn('cmd', ['/c', 'start', 'VIBESKI TUI', 'cmd', '/k', 'node --import tsx src/cli.tsx'], {
       cwd,
       env,
       stdio: 'ignore',

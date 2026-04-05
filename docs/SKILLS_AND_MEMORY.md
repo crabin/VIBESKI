@@ -1,6 +1,6 @@
 # Skills and Memory System
 
-Hackbot provides two powerful systems for knowledge management and context retention:
+Vibeski provides two powerful systems for knowledge management and context retention:
 
 ## Skills System
 
@@ -118,7 +118,7 @@ await memory.distill_from_conversation(
 from skills.loader import SkillLoader
 from core.memory.manager import MemoryManager
 
-class HackbotAgent:
+class VibeskiAgent:
     def __init__(self):
         self.skills = SkillLoader(["./skills"]).load_all()
         self.memory = MemoryManager()

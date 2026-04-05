@@ -14,11 +14,11 @@ def test_release_workflow_uses_release_docs_helper():
     assert "--changelog CHANGELOG.md" in workflow
 
 
-def test_release_workflow_uploads_secbot_archives():
+def test_release_workflow_uploads_vibeski_archives():
     workflow = Path(".github/workflows/release.yml").read_text(encoding="utf-8")
 
-    assert "secbot-${{ matrix.name }}" in workflow
-    assert "dist/secbot-${{ matrix.name }}.zip" in workflow
+    assert "vibeski-${{ matrix.name }}" in workflow
+    assert "dist/vibeski-${{ matrix.name }}.zip" in workflow
 
 
 def test_docs_changelog_redirects_to_root_and_version_docs():

@@ -7,7 +7,7 @@
 ### Features
 
 - **app**: 优化移动端会话界面与桌面端样式
-  ([`f8ae9a3`](https://github.com/iammm0/secbot/commit/f8ae9a36e53cbbf6c3c915e428c8f885cf6704eb))
+  ([`f8ae9a3`](https://github.com/iammm0/vibeski/commit/f8ae9a36e53cbbf6c3c915e428c8f885cf6704eb))
 
 
 ## v1.9.0 (2026-04-03)
@@ -15,12 +15,12 @@
 ### Chores
 
 - **release**: 完善发布文档与发布流程测试
-  ([`c952102`](https://github.com/iammm0/secbot/commit/c952102aaf14b9ce332b9df596dde34a4e5eb713))
+  ([`c952102`](https://github.com/iammm0/vibeski/commit/c952102aaf14b9ce332b9df596dde34a4e5eb713))
 
 ### Features
 
 - **desktop**: 支持将剪切板内容附加为文本/代码块
-  ([`c4fc478`](https://github.com/iammm0/secbot/commit/c4fc47864c0df4f62e78432f17aa780d35749db4))
+  ([`c4fc478`](https://github.com/iammm0/vibeski/commit/c4fc47864c0df4f62e78432f17aa780d35749db4))
 
 
 ## v1.8.0 (2026-04-01)
@@ -53,7 +53,7 @@ _No curated release notes were recorded for this version. Check the commit histo
 
 ### Features
 
-- Improved the session startup flow in `secbot_cli/launch_tui`.
+- Improved the session startup flow in `vibeski_cli/launch_tui`.
 - Updated terminal UI interactions and content rendering.
 
 ## v1.5.0 (2026-03-23)
@@ -75,7 +75,7 @@ _No curated release notes were recorded for this version. Check the commit histo
 
 ### Features
 
-- Renamed the CLI package to `secbot_cli` and improved database persistence flows.
+- Renamed the CLI package to `vibeski_cli` and improved database persistence flows.
 
 ## v1.3.0 (2026-03-22)
 
@@ -91,7 +91,7 @@ _No curated release notes were recorded for this version. Check the commit histo
 ### Features
 
 - Added the Tauri 2 desktop app with core SSE chat support and updated the README.
-- Added `SECBOT_DESKTOP`-style environment toggles for listener behavior and hot reload control.
+- Added `VIBESKI_DESKTOP`-style environment toggles for listener behavior and hot reload control.
 
 ## v1.2.10 (2026-02-17)
 

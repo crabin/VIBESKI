@@ -1,5 +1,5 @@
 // ===================================================================
-// Hackbot — React Native 入口 + Tab 导航
+// Vibeski — React Native 入口 + Tab 导航
 // ===================================================================
 
 import React from 'react';
@@ -93,7 +93,7 @@ export default function App() {
         <Tab.Screen
           name="Chat"
           component={ChatScreen}
-          options={{ title: '聊天', headerTitle: 'Hackbot' }}
+          options={{ title: '聊天', headerTitle: 'Vibeski' }}
         />
         <Tab.Screen
           name="Dashboard"

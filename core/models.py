@@ -127,7 +127,7 @@ class Session:
     id: str
     name: str = ""
     messages: List[SessionMessage] = field(default_factory=list)
-    agent_type: str = "secbot-cli"
+    agent_type: str = "vibeski"
     created_at: datetime = field(default_factory=datetime.now)
     updated_at: datetime = field(default_factory=datetime.now)
 

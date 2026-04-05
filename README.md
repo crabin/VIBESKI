@@ -18,7 +18,7 @@
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-Custom-orange.svg" alt="License">
   </a>
-  <a href="https://github.com/iammm0/secbot/releases">
+  <a href="https://github.com/iammm0/vibeski/releases">
     <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg" alt="Platform">
   </a>
 </p>
@@ -56,12 +56,12 @@
 
 ---
 
-![Secbot 主界面](assets/secbot-main.png)
+![Secbot 主界面](assets/vibeski-main.png)
 
 ## 功能概览
 
 - **统一后端**：基于 FastAPI 暴露 REST + SSE 接口，CLI/TUI、移动端、桌面端共用同一套编排与事件流。
-- **多智能体执行**：支持 `secbot-cli` 自动模式与 `superhackbot` 专家模式，结合规划、执行、总结链路完成安全任务。
+- **多智能体执行**：支持 `vibeski` 自动模式与 `supervibeski` 专家模式，结合规划、执行、总结链路完成安全任务。
 - **安全测试能力**：覆盖内网发现、端口与服务识别、Web 安全、OSINT、系统控制、防御扫描与报告生成。
 - **多推理后端**：内置 Ollama、DeepSeek、OpenAI、Anthropic、Gemini、Groq、OpenRouter 及多家 OpenAI 兼容厂商。
 - **多前端形态**：仓库同时包含 `terminal-ui/`、`app/`（Expo / React Native）与 `desktop/`（Tauri + Vite）工程。
@@ -103,8 +103,8 @@ flowchart LR
 ### 方式一：从源码运行（推荐）
 
 ```bash
-git clone https://github.com/iammm0/secbot.git
-cd secbot
+git clone https://github.com/iammm0/vibeski.git
+cd vibeski
 
 # Python 依赖
 uv sync
@@ -135,17 +135,17 @@ DEEPSEEK_MODEL=deepseek-reasoner
 ```bash
 python main.py
 # 或
-uv run secbot
+uv run vibeski
 ```
 
 说明：
 
-- `python main.py` / `uv run secbot` 会自动拉起本地后端，并进入全屏 `terminal-ui`
-- 如果只想调试后端，用 `uv run secbot --backend`
+- `python main.py` / `uv run vibeski` 会自动拉起本地后端，并进入全屏 `terminal-ui`
+- 如果只想调试后端，用 `uv run vibeski --backend`
 - 如果后端已经在运行，也可以单独启动 `terminal-ui`
 
 ```bash
-uv run secbot --backend
+uv run vibeski --backend
 
 # 新开一个终端
 cd terminal-ui
@@ -154,10 +154,10 @@ npm run tui
 
 ### 方式二：下载 GitHub Release
 
-从 [Releases](https://github.com/iammm0/secbot/releases) 下载对应平台的 zip 包并解压。当前发布产物仍沿用历史命名，解压后可执行文件通常为：
+从 [Releases](https://github.com/iammm0/vibeski/releases) 下载对应平台的 zip 包并解压。当前发布产物仍沿用历史命名，解压后可执行文件通常为：
 
-- Windows：`hackbot.exe`
-- Linux / macOS：`hackbot`
+- Windows：`vibeski.exe`
+- Linux / macOS：`vibeski`
 
 在可执行文件同目录创建 `.env` 后再运行，例如：
 
@@ -181,15 +181,15 @@ pip install .
 可用命令包括：
 
 ```bash
-secbot
-secbot --backend
-secbot --tui
-hackbot
-hackbot-server
-secbot-server
+vibeski
+vibeski --backend
+vibeski --tui
+vibeski
+vibeski-server
+vibeski-server
 ```
 
-注意：通过 wheel / pip 安装时，包内**不一定包含** `terminal-ui` 的 Node 前端资源。此时 `secbot` 会优先保证后端可启动，完整 TUI 请使用源码运行或 GitHub Release。
+注意：通过 wheel / pip 安装时，包内**不一定包含** `terminal-ui` 的 Node 前端资源。此时 `vibeski` 会优先保证后端可启动，完整 TUI 请使用源码运行或 GitHub Release。
 
 ## 快速开始
 
@@ -203,10 +203,10 @@ python main.py
 
 ```bash
 # 仅后端
-uv run secbot --backend
+uv run vibeski --backend
 
 # 仅终端 TUI
-uv run secbot --tui
+uv run vibeski --tui
 
 # 移动端
 cd app && npm install && npm start
@@ -225,7 +225,7 @@ cd desktop && npm install && npm run tauri dev
 | `OLLAMA_BASE_URL` | Ollama 服务地址 | `http://localhost:11434` |
 | `OLLAMA_MODEL` | Ollama 默认模型 | `gemma3:1b` |
 | `OLLAMA_EMBEDDING_MODEL` | Ollama 嵌入模型 | `nomic-embed-text` |
-| `DATABASE_URL` | SQLite 路径 | `sqlite:///./data/secbot.db` |
+| `DATABASE_URL` | SQLite 路径 | `sqlite:///./data/vibeski.db` |
 | `LOG_LEVEL` | 日志级别 | `INFO` |
 
 ### 4. 常见斜杠命令
@@ -233,7 +233,7 @@ cd desktop && npm install && npm run tauri dev
 | 命令 | 说明 |
 |------|------|
 | `/model` | 选择推理后端、模型、API Key、Base URL |
-| `/agent` | 切换 `secbot-cli` / `superhackbot` |
+| `/agent` | 切换 `vibeski` / `supervibeski` |
 | `/list-agents` | 查看当前可用智能体 |
 | `/system-info` | 查看系统信息 |
 | `/db-stats` | 查看 SQLite 统计 |
@@ -242,9 +242,9 @@ cd desktop && npm install && npm run tauri dev
 ## 目录结构
 
 ```text
-secbot/
+vibeski/
 ├── main.py                 # 一键启动入口（后端 + terminal-ui）
-├── secbot_cli/             # 命令行入口与启动编排
+├── vibeski_cli/             # 命令行入口与启动编排
 ├── router/                 # FastAPI 路由层
 ├── core/                   # 智能体、执行器、规划器、记忆等核心逻辑
 ├── tools/                  # 安全工具、Web 研究、协议、报告、云安全等
@@ -252,7 +252,7 @@ secbot/
 ├── terminal-ui/            # Ink 终端前端
 ├── app/                    # Expo / React Native 客户端
 ├── desktop/                # Tauri 桌面端
-├── hackbot_config/         # 配置、环境变量与持久化偏好
+├── vibeski_config/         # 配置、环境变量与持久化偏好
 ├── scripts/                # 启动与构建脚本
 ├── tests/                  # 测试
 └── docs/                   # 项目文档
